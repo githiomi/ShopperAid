@@ -36,10 +36,49 @@ android {
 
 dependencies {
 
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+//    Recycler View
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+//    Butter knife
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+//    Card view dependency
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+//    Grid layout
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+//    Parcel Library
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+
+//    Picasso dependency
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+//    Circle image view
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+//    Spots dialog loading
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+//    JSOUP dependency
+    implementation 'org.jsoup:jsoup:1.13.1'
+
+//    Firebase Implementation Dependencies
+    //    for analytics
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
+    //    firebase database
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+
 }

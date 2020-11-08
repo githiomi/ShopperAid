@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
         <activity android:name=".Ui.LoginActivity"/>
-        <activity android:name=".Ui.MainActivity">
+        <activity android:name=".Ui.MainActivity"
+                  android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">OnlineShoppingAssistant</string>
+    <string name="app_name">ShopperAid</string>
+    <string name="app_moto">We find it for you</string>
+    <string name="app_logo">App Logo</string>
 </resources>
