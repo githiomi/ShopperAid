@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context=".Ui.SignUpActivity">
 
     <LinearLayout
@@ -22,15 +22,14 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:padding="3dp"
-            sc
-            android:src="@drawable/app_logo" />
+            android:src="@drawable/ic_arrow_back" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/java_logo" />
+            android:layout_marginTop="5dp"
+            android:src="@drawable/app_logo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,14 +39,14 @@
             android:padding="5dp"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="35sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="10dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -55,25 +54,26 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:hint="@string/username_placeholder"
-                android:padding="5dp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="@color/white"
+                android:padding="1dp"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="3dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/white"
+                app:endIconTint="@color/colorPrimary"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/white"
+                app:hintTextColor="@color/colorPrimary"
                 app:startIconDrawable="@drawable/ic_profile"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edUsername"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:background="@color/white"
                     android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,16 +83,16 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:hint="@string/email_placeholder"
-                android:padding="5dp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="@color/white"
+                android:padding="1dp"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="3dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/white"
+                app:endIconTint="@color/colorPrimary"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/white"
+                app:hintTextColor="@color/colorPrimary"
                 app:startIconDrawable="@drawable/ic_email"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edEmail"
@@ -100,8 +100,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:background="@color/white"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,25 +112,26 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:hint="@string/phone_number_placeholder"
-                android:padding="5dp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="@color/white"
+                android:padding="1dp"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="3dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/white"
+                app:endIconTint="@color/colorPrimary"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/white"
+                app:hintTextColor="@color/colorPrimary"
                 app:startIconDrawable="@drawable/ic_phone"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:background="@color/white"
                     android:inputType="number"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,26 +141,27 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:hint="@string/password_placeholder"
-                android:padding="5dp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="@color/white"
+                android:padding="1dp"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="3dp"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/white"
+                app:endIconTint="@color/colorPrimary"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/white"
+                app:hintTextColor="@color/colorPrimary"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:background="@color/white"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,26 +171,27 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:hint="@string/confirm_password_placeholder"
-                android:padding="5dp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="@color/white"
+                android:padding="1dp"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="3dp"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/white"
+                app:endIconTint="@color/colorPrimary"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@color/white"
+                app:hintTextColor="@color/colorPrimary"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:background="@color/white"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -198,14 +202,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@color/white"
             android:elevation="50dp"
             android:padding="5dp"
             android:text="@string/sign_up_button_placeholder"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
     </LinearLayout>
