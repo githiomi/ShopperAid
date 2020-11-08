@@ -21,10 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/javaLogo"
         android:fontFamily="sans-serif-condensed-medium"
+        android:textStyle="bold"
         android:text="@string/app_moto"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="30sp" />
 
     <ProgressBar
         android:id="@+id/initialPageProgressBar"

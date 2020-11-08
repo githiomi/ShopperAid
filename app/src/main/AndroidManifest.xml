@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
-        <activity android:name=".Ui.LoginActivity"/>
+        <activity android:name=".Ui.LoginActivity"
+                  android:theme="@style/NoActionBar"/>
         <activity android:name=".Ui.MainActivity"
-                  android:theme="@style/NoActionBar">
+                  android:theme="@style/Welcome_NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
