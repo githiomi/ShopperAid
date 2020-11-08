@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
-        <activity android:name=".Ui.LoginActivity"
-                  android:theme="@style/NoActionBar"/>
-        <activity android:name=".Ui.MainActivity"
-                  android:theme="@style/Welcome_NoActionBar">
+        <activity android:name=".Ui.SignUpActivity"></activity>
+        <activity android:name=".Ui.SearchActivity" />
+        <activity
+            android:name=".Ui.LoginActivity"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".Ui.MainActivity"
+            android:theme="@style/Welcome_NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
