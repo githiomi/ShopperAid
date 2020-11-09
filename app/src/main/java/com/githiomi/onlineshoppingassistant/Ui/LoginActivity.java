@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = LoginActivity.class.getSimpleName();
 
 //    Binding widgets using butter knife
+    @BindView(R.id.tvProceedAsGuest) TextView wProceedAsGuest;
     @BindView(R.id.edEmail) TextInputEditText wUserEmail;
     @BindView(R.id.edPassword) TextInputEditText wUserPassword;
     @BindView(R.id.btnLogin) Button wLoginButton;
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         };
 
         // All listeners
+        wProceedAsGuest.setOnClickListener(this);
         wLoginButton.setOnClickListener(this);
         wForgotPassword.setOnClickListener(this);
         wToSignUp.setOnClickListener(this);
@@ -81,6 +83,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+        if ( v == wProceedAsGuest ){
+
+            hideKeyboard(v);
+            Intent toSearchActivity = new Intent(this, SearchActivity.class);
+            toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(toSearchActivity);
+            finish();
+
+        }
         if (v == wLoginButton) {
             hideKeyboard(v);
             loginUser(v);
@@ -144,9 +155,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (password.length() < 8) {
             wUserPassword.setError("Minimum of 8 characters required");
+            wForgotPassword.setVisibility(View.VISIBLE);
             return false;
         }
 
+        wForgotPassword.setVisibility(View.GONE);
         return true;
 
     }

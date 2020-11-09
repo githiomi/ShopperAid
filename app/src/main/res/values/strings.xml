@@ -12,4 +12,5 @@
     <string name="username_placeholder">Username</string>
     <string name="phone_number_placeholder">Phone Number</string>
     <string name="confirm_password_placeholder">Confirm Password</string>
+    <string name="guest">Proceed as guest</string>
 </resources>
