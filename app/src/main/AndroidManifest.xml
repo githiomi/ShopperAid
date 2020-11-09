@@ -9,12 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
-        <activity android:name=".Ui.SearchActivity" />
-        <activity android:name=".Ui.SignUpActivity"
-                  android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".Ui.SearchActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".Ui.SignUpActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Ui.LoginActivity"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Ui.MainActivity"
             android:theme="@style/Welcome_NoActionBar">
