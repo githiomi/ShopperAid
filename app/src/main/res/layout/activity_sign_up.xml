@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
+    android:fitsSystemWindows="true"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -18,8 +19,8 @@
 
         <ImageView
             android:id="@+id/ivBackToLogin"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="5dp"
             android:padding="3dp"
             android:src="@drawable/ic_arrow_back" />

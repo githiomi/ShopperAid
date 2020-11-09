@@ -11,6 +11,7 @@
         android:theme="@style/Theme.OnlineShoppingAssistant">
         <activity
             android:name=".Ui.SearchActivity"
+            android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Ui.SignUpActivity"

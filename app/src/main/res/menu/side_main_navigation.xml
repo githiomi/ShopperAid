@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/search">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/toSearchNav"
+                    android:icon="@drawable/ic_search"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="@string/search" />
+
+            </group>
+        </menu>
+
+    </item>
+
+
+    <item
+        android:title="User">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/toProfileNav"
+                    android:icon="@drawable/ic_profile"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Profile" />
+
+                <item
+                    android:id="@+id/toLogoutNav"
+                    android:icon="@drawable/ic_back"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Logout" />
+
+            </group>
+        </menu>
+
+    </item>
+
+</menu>
