@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, NavigationView.OnNavigationItemSelectedListener {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     //    TAG
     private static final String TAG = SearchActivity.class.getSimpleName();
@@ -52,8 +52,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         // Binding widgets
         ButterKnife.bind(this);
 
-        // Click listeners
-        wSearchButton.setOnClickListener(this);
         // Navigation listeners
         wSideNavigation.setNavigationItemSelectedListener(this);
 
@@ -65,6 +63,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         actionBarDrawerToggle.syncState();
         // Setting initial selected item
         wSideNavigation.setCheckedItem(R.id.toSearchNav);
+
+        // Click listeners
+        wSearchButton.setOnClickListener(this);
 
     }
 
@@ -90,14 +91,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             performSearch(productSearched);
 
-        }
-    }
-
-    //    Methods to hide the keyboard
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (v == wSearchInput) {
-            hideKeyboard(v);
         }
     }
 

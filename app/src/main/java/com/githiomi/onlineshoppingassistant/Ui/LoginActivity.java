@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.btnLogin) Button wLoginButton;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
+    @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
 
 //    Local variables
     // Date entry
@@ -92,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
 
         }
+
         if (v == wLoginButton) {
             hideKeyboard(v);
             loginUser(v);
@@ -121,14 +124,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (!(isEmailValid) && !(isPasswordValid)) return;
 
+        // Make the progress bar visible
+        wLoginProgressBar.setVisibility(View.VISIBLE);
+
         // Sign in
         mFirebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+
+                // Make the progress bar invisible
+                wLoginProgressBar.setVisibility(View.GONE);
+
+                if ( task.isSuccessful() ) {
+
                     Log.d(TAG, "onComplete: " + mFirebaseAuth.getCurrentUser().getDisplayName() + " logged in");
+
                 } else {
-                    Log.d(TAG, "onComplete: FAILED! Cannot log in");
+
+                    Snackbar.make(v, "Incorrect email or password. Try again", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+
                 }
             }
         });
@@ -170,7 +185,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Context context = v.getContext();
 
         TextInputEditText textInputEditText = new TextInputEditText(context);
-        textInputEditText.setPadding(10, 10, 10, 10);
 
         // Alert Dialog texts
         String title = "Enter your email";

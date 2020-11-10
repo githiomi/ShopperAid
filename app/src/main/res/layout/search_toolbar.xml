@@ -15,17 +15,4 @@
         android:contentDescription="@string/open_navigation_drawer"
         android:src="@drawable/ic_menu" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="5dp"
-        android:text="@string/app_spaced_name"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:typeface="monospace" />
-
 </LinearLayout>

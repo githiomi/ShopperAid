@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:fitsSystemWindows="true"
     android:clickable="true"
+    android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".Ui.SearchActivity"
@@ -36,14 +36,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="@string/search"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:focusable="false"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:cardElevation="30dp">
@@ -71,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
+                    android:elevation="50dp"
                     android:hint="@string/search"
                     android:padding="1dp"
                     android:textColorHint="@color/colorPrimary"
@@ -86,7 +99,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edSearchInput"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@color/white"
                         android:inputType="text"
@@ -108,13 +121,27 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:background="@color/transparent"
-            android:elevation="50dp"
+            android:elevation="100dp"
             android:padding="2dp"
             android:text="@string/search"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recentSearchesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/transparent" />
 
     </LinearLayout>
 

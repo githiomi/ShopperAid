@@ -157,6 +157,18 @@
             android:textColor="@color/white"
             android:textSize="13sp" />
 
+        <ProgressBar
+            android:id="@+id/loginProgressBar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:indeterminate="false"
+            android:indeterminateTint="@color/white"
+            android:progressDrawable="@color/white"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 </ScrollView>

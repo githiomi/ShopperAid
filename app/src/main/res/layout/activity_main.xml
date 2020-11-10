@@ -8,18 +8,20 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/landing_background"
+        android:contentDescription="Launcher Background"
         android:scaleType="centerCrop"
-        android:contentDescription="Launcher Background" />
+        android:src="@drawable/landing_background" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/javaLogo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true"
+        android:layout_margin="20dp"
         android:contentDescription="@string/app_logo"
+        android:padding="20dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/app_logo" />
 
     <TextView
         android:id="@+id/appMoto"
@@ -27,11 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/javaLogo"
         android:fontFamily="sans-serif-condensed-medium"
-        android:textStyle="bold"
         android:text="@string/app_moto"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <ProgressBar
         android:id="@+id/initialPageProgressBar"
