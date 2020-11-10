@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,14 +30,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = SearchActivity.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.search_drawer_layout)
-    DrawerLayout wSearchDrawerLayout;
-    @BindView(R.id.sideNavigation)
-    NavigationView wSideNavigation;
-    @BindView(R.id.edSearchInput)
-    TextInputEditText wSearchInput;
-    @BindView(R.id.btnSearch)
-    Button wSearchButton;
+    @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
+    @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
+    @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
+    @BindView(R.id.btnSearch) Button wSearchButton;
 
     //    Local variables
     String productSearched;
@@ -102,7 +100,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Method to perform the search
     private void performSearch(String searchText) {
 
-        Toast.makeText(this, searchText, Toast.LENGTH_SHORT).show();
+        Intent toResultActivity = new Intent(this, ResultsActivity.class);
+        toResultActivity.putExtra(Constants.SEARCH_INPUT_KEY, searchText);
+        startActivity(toResultActivity);
 
     }
 
@@ -110,25 +110,24 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()) {
+        int selectedId = item.getItemId();
 
-            case R.id.toSearchNav:
-                // Do nothing
-                break;
-
-            case R.id.toProfileNav:
-                Toast.makeText(this, "To Profile", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.toLogoutNav:
-                logout();
-                break;
-
+        if (selectedId == R.id.toSearchNav) {
+            // Do nothing
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
-        wSearchDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        if (selectedId == R.id.toProfileNav) {
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            Toast.makeText(this, "To Profile", Toast.LENGTH_SHORT).show();
+        }
 
+        if (selectedId == R.id.toLogoutNav) {
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            logout();
+        }
+
+        return true;
     }
 
     //    Method that will log out the user
