@@ -14,7 +14,7 @@ import com.githiomi.onlineshoppingassistant.Fragments.WishFragment;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     //    Local variables
-    private String[] siteOptions;
+    private final String[] siteOptions;
 
     public ViewPagerAdapter(@NonNull FragmentManager fm, String[] shoppingSiteOptions) {
         super(fm);

@@ -30,7 +30,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     private Context context;
 
 //    Constructor
-    private ResultItemAdapter( List<Product> products, Context contextPassed ){
+public ResultItemAdapter(List<Product> products, Context contextPassed){
 
         this.productsRetrieved = products;
         this.context = contextPassed;
@@ -59,8 +59,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     public class ResultItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Image constants
-        private static final int MAX_WIDTH = 250;
-        private static final int MAX_HEIGHT = 250;
+        private static final int MAX_WIDTH = 300;
+        private static final int MAX_HEIGHT = 300;
 
         // Widgets
         @BindView(R.id.productImageView) ImageView wProductImage;

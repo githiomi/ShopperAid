@@ -25,4 +25,5 @@
     <string name="product_name_placeholder">Apple iPhone 11 Pro Max 256GB Physical Dual Sim Midnight Green</string>
     <string name="product_price_placeholder">KSh 180,000</string>
     <string name="product_rating_placeholder">Rating: 4.6 out of 5</string>
+    <string name="retrieve_error">Error getting data. Please check internet connection</string>
 </resources>

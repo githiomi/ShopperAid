@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -7,20 +8,24 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 //    TAG
     private static final String TAG = ResultsActivity.class.getSimpleName();
@@ -33,7 +38,7 @@ public class ResultsActivity extends AppCompatActivity {
 
 //    Local variables
     // The shopping options
-    private String[] shoppingSiteOptions = { " Jumia ", " Kilimall ", " Jiji ", " Wish "};
+    private String[] shoppingSiteOptions = { "Jumia", "Kilimall", "Jiji", "Wish"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,45 @@ public class ResultsActivity extends AppCompatActivity {
 
         wViewPager.setAdapter(viewPagerAdapter);
         wViewPager.setCurrentItem(0);
+
+    }
+
+    //    Methods for selection of navigation items
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int selectedId = item.getItemId();
+
+        if (selectedId == R.id.toSearchNav) {
+            // Do nothing
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            Intent backToSearch = new Intent(this, SearchActivity.class);
+            backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(backToSearch);
+            finish();
+        }
+
+        if (selectedId == R.id.toProfileNav) {
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            Toast.makeText(this, "To Profile", Toast.LENGTH_SHORT).show();
+        }
+
+        if (selectedId == R.id.toLogoutNav) {
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            logout();
+        }
+
+        return true;
+    }
+
+    //    Method that will log out the user
+    private void logout() {
+
+        FirebaseAuth.getInstance().signOut();
+        Intent backToLogin = new Intent(this, LoginActivity.class);
+        backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(backToLogin);
+        finish();
 
     }
 

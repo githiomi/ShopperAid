@@ -1,37 +1,68 @@
 package com.githiomi.onlineshoppingassistant.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.githiomi.onlineshoppingassistant.Adapters.ResultItemAdapter;
+import com.githiomi.onlineshoppingassistant.Models.Constants;
+import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link JumiaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class JumiaFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //    TAG
+    private static final String TAG = JumiaFragment.class.getSimpleName();
+
+    //    Local variables
+    // Results adapter
+    private ResultItemAdapter resultItemAdapter;
+    // Context
+    private Context context;
+    // Shared preferences
+    private SharedPreferences sharedPreferences;
+    // The product searched
+    private String productSearched;
+    // Results list
+    private List<Product> jumiaProducts;
+
+    //      Widgets
+    @BindView(R.id.resultsRecyclerView)
+    RecyclerView wJumiaRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage)
+    TextView wErrorMessage;
 
     public JumiaFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static JumiaFragment newInstance() {
-        JumiaFragment fragment = new JumiaFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new JumiaFragment();
     }
 
     @Override
@@ -43,6 +74,167 @@ public class JumiaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jumia, container, false);
+        View view = inflater.inflate(R.layout.fragment_jumia, container, false);
+
+        // binding widgets
+        ButterKnife.bind(this, view);
+
+        // Get the context
+        context = getContext();
+
+        //        Getting the search input
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null);
+
+        // Init the web scrapping
+        JumiaScraper jumiaScraper = new JumiaScraper();
+        jumiaScraper.execute();
+
+        return view;
     }
+
+    public class JumiaScraper extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            Log.d(TAG, "doInBackground: scrape init");
+
+            try {
+
+//      Url to be used in browser
+                String url = Constants.JUMIA_BASE_URL + productSearched;
+
+                Document extractedContent = Jsoup.connect(url).get();
+
+//      Confirming url
+                Log.d(TAG, "doInBackground: extracted content url " + url);
+
+                Elements dataObtained = extractedContent.select("a.core");
+
+                int dataSize = dataObtained.size();
+
+                if (dataSize > 0) {
+
+                    // initializing the list
+                    jumiaProducts = new ArrayList<>();
+
+                    for (int i = 0; i < dataSize; i += 1) {
+
+                        if (productSearched.equals("iphone") || productSearched.equals("Iphone") || productSearched.equals("iPhone")) {
+
+                            String linkToPage = dataObtained
+                                    .attr("href")
+                                    .toString();
+
+                            String nameFromUrl = dataObtained.select("div.main")
+                                    .select("h3.name")
+                                    .eq(i)
+                                    .text();
+
+                            String imageFromUrl = dataObtained.select("div.img-c")
+                                    .select("img.img")
+                                    .eq(i)
+                                    .attr("data-src");
+
+                            String priceFromUrl = dataObtained.select("div.sd")
+                                    .select("div.prc")
+                                    .eq(i)
+                                    .text();
+
+                            String ratingFromUrl = dataObtained.select("div.rev")
+                                    .eq(i)
+                                    .text();
+
+                            jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+
+                        } else {
+
+                            String linkToPage = dataObtained
+                                    .attr("href")
+                                    .toString();
+
+                            String nameFromUrl = dataObtained.select("div.info")
+                                    .select("h3.name")
+                                    .eq(i)
+                                    .text();
+
+                            String imageFromUrl = dataObtained.select("div.img-c")
+                                    .select("img.img")
+                                    .eq(i)
+                                    .attr("data-src");
+
+                            String priceFromUrl = dataObtained.select("div.info")
+                                    .select("div.prc")
+                                    .eq(i)
+                                    .text();
+
+                            String ratingFromUrl = dataObtained.select("div.rev")
+                                    .eq(i)
+                                    .text();
+
+                            jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+
+                        }
+                    }
+
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showUnsuccessful();
+                        }
+                    });
+                }
+
+                Log.d(TAG, "doInBackground: ------------------------------------------ " + jumiaProducts);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                Passing the products to the adapter
+                        passToAdapter(jumiaProducts);
+
+//                       Method to hide progress bar
+                        showResults();
+                    }
+                });
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            return null;
+        }
+    }
+
+    private void showUnsuccessful() {
+
+        wErrorMessage.setVisibility(View.VISIBLE);
+        wProgressBar.setVisibility(View.GONE);
+        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+
+    }
+
+    private void showResults() {
+
+        wJumiaRecyclerView.setVisibility(View.VISIBLE);
+        wProgressBar.setVisibility(View.GONE);
+        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+
+    }
+
+    public void passToAdapter(List<Product> retrievedProducts) {
+
+        Log.d(TAG, "passToAdapter: Passed to adapter");
+
+        resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
+
+        wJumiaRecyclerView.setAdapter(resultItemAdapter);
+        wJumiaRecyclerView.setLayoutManager(gridLayoutManager);
+        wJumiaRecyclerView.setClipToPadding(false);
+
+    }
+
 }

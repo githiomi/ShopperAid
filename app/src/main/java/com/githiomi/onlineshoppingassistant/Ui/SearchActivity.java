@@ -1,7 +1,9 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +39,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     //    Local variables
     String productSearched;
+    // Shared preferences
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -49,6 +54,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Binding widgets
         ButterKnife.bind(this);
+
+        // Init shared preferences
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
 
         // Navigation listeners
         wSideNavigation.setNavigationItemSelectedListener(this);
@@ -102,6 +111,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent toResultActivity = new Intent(this, ResultsActivity.class);
         toResultActivity.putExtra(Constants.SEARCH_INPUT_KEY, searchText);
+
+        // Saving to shared preferences
+        editor.putString(Constants.SEARCH_INPUT_KEY, searchText).apply();
+
         startActivity(toResultActivity);
 
     }
@@ -133,6 +146,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Method that will log out the user
     private void logout() {
 
+        FirebaseAuth.getInstance().signOut();
         Intent backToLogin = new Intent(this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(backToLogin);
