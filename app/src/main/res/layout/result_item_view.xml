@@ -52,10 +52,23 @@
                 android:layout_below="@id/productName" />
 
             <TextView
+                android:id="@+id/tvInKsh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingStart="9dp"
+                android:paddingEnd="0dp"
+                android:layout_margin="1dp"
+                android:text="@string/product_price_placeholder"
+                android:textSize="13sp"
+                android:textColor="@color/darkGrey"
+                android:layout_below="@id/productPrice" />
+
+            <TextView
                 android:id="@+id/productRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/productPrice"
+                android:layout_below="@id/tvInKsh"
                 android:text="@string/product_rating_placeholder"
                 android:padding="5dp"
                 android:layout_margin="3dp" />

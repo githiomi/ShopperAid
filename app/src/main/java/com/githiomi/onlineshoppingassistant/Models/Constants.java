@@ -19,7 +19,7 @@ public class Constants {
 
 //    Repetitive constants
     // Currency converter
-    public static final int DOLLARS_TO_KSH = 104;
+    public static final float DOLLARS_TO_KSH = 100;
     // Search key
     public static final String SEARCH_INPUT_KEY = "User Search Input";
     // To wrap a product

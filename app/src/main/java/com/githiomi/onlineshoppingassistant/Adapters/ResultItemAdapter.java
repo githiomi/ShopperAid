@@ -70,6 +70,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
         @BindView(R.id.productImageView) ImageView wProductImage;
         @BindView(R.id.productName) TextView wProductName;
         @BindView(R.id.productPrice) TextView wProductPrice;
+        @BindView(R.id.tvInKsh) TextView wInKenyaShillings;
         @BindView(R.id.productRating) TextView wProductRating;
 
         public ResultItemViewHolder(@NonNull View itemView) {
@@ -98,7 +99,23 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
             }
 
             wProductName.setText(product.getName());
-            wProductPrice.setText(product.getPrice());
+
+            if ( product.getPrice().contains("$") ){
+
+                wInKenyaShillings.setVisibility(View.VISIBLE);
+
+                String inDollars = product.getPrice().replaceAll("[$,]", "");
+                float dollars = Float.parseFloat(inDollars);
+
+                float ksh = (Constants.DOLLARS_TO_KSH * dollars );
+
+                wProductPrice.setText(product.getPrice());
+                wInKenyaShillings.setText("KSh " + ksh);
+
+            }else {
+                wInKenyaShillings.setVisibility(View.GONE);
+                wProductPrice.setText(product.getPrice());
+            }
 
             if ( !(product.getRating().isEmpty()) ) {
                 wProductRating.setText(product.getRating());
