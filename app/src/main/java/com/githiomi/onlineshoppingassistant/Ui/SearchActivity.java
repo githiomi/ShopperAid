@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,9 +23,11 @@ import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,6 +43,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Local variables
     String productSearched;
     private SharedPreferences.Editor editor;
+    //    To alter the username
+    View navigationView;
+    TextView navigationUsername;
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -61,6 +67,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         // Navigation listeners
         wSideNavigation.setNavigationItemSelectedListener(this);
 
+        // Customize the navigation
+        navigationView = wSideNavigation.getHeaderView(0);
+        navigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+
         // Setting up the navigation drawer
         wSideNavigation.bringToFront();
 
@@ -72,6 +82,22 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Click listeners
         wSearchButton.setOnClickListener(this);
+
+        // Initializing the firebase variables
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser signedInUser = firebaseAuth.getCurrentUser();
+
+                if (signedInUser != null) {
+                    navigationUsername.setText(signedInUser.getDisplayName());
+                } else {
+                    navigationUsername.setText("As Guest");
+                }
+            }
+        };
 
     }
 
@@ -170,6 +196,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onPause();
         if (wSearchDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    //    Firebase overriding listeners
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mFirebaseAuth != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
 }

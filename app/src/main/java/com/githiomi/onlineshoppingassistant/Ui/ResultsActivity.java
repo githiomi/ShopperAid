@@ -18,6 +18,7 @@ import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +38,14 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     // The shopping options
     private final String[] shoppingSiteOptions = { "Jumia", "Kilimall", "Ebay", "Wish" };
 
+    //    Firebase
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    //    To alter the username
+    View navigationView;
+    TextView navigationUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +63,26 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         // Setting up the navigation drawer
         wSideNavigation.bringToFront();
+
+        // Customize the navigation
+        navigationView = wSideNavigation.getHeaderView(0);
+        navigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+
+        // Initializing the firebase variables
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser signedInUser = firebaseAuth.getCurrentUser();
+
+                if (signedInUser != null) {
+                    navigationUsername.setText(signedInUser.getDisplayName());
+                } else {
+                    navigationUsername.setText("Guest");
+                }
+            }
+        };
 
         // Navigation listeners
         wSideNavigation.setNavigationItemSelectedListener(this);
@@ -115,6 +144,21 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         startActivity(backToLogin);
         finish();
 
+    }
+
+    //    Firebase overriding listeners
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mFirebaseAuth != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
     }
 
 }
