@@ -81,7 +81,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
                     android:elevation="50dp"
-                    android:hint="@string/search"
+                    android:hint="@string/im_looking_for"
                     android:padding="1dp"
                     android:textColorHint="@color/colorPrimary"
                     app:boxStrokeColor="@color/colorPrimary"
