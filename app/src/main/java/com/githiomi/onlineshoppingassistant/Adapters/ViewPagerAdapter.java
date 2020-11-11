@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.githiomi.onlineshoppingassistant.Fragments.JijiFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.EbayFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.JumiaFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.KilimallFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.WishFragment;
@@ -39,8 +39,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             fragment = KilimallFragment.newInstance();
         }
 
-        if (siteOption.equals("Jiji")) {
-            fragment = JijiFragment.newInstance();
+        if (siteOption.equals("Ebay")) {
+            fragment = EbayFragment.newInstance();
         }
 
         if (siteOption.equals("Wish")) {

@@ -33,34 +33,34 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class KilimallFragment extends Fragment {
+public class EbayFragment extends Fragment {
 
 //    TAG
-    private static final String TAG = KilimallFragment.class.getSimpleName();
+    private static final String TAG = EbayFragment.class.getSimpleName();
 
 //    Widgets
     @BindView(R.id.progressBar) ProgressBar wProgressBar;
     @BindView(R.id.errorMessage) TextView wErrorMessage;
-    @BindView(R.id.resultsRecyclerView) RecyclerView wKilimallRecyclerView;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wEbayRecyclerView;
 
-//    Local variable
+//    Local variables
     // Adapter
     private ResultItemAdapter resultItemAdapter;
     // Context
     private Context context;
-    // Search input
-    private String productSearched;
     // Shared preferences
     private SharedPreferences sharedPreferences;
-    // Retrieved products
-    private List<Product> kilimallProducts;
+    // For the search inputted
+    private String productSearched;
+    // For retrieved products
+    private List<Product> ebayProducts;
 
-    public KilimallFragment() {
+    public EbayFragment() {
         // Required empty public constructor
     }
 
-    public static KilimallFragment newInstance() {
-        return new KilimallFragment();
+    public static EbayFragment newInstance() {
+        return new EbayFragment();
     }
 
     @Override
@@ -73,44 +73,44 @@ public class KilimallFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View kilimallView = inflater.inflate(R.layout.fragment_kilimall, container, false);
+        View amazonView = inflater.inflate(R.layout.fragment_ebay, container, false);
 
         // Binding widgets
-        ButterKnife.bind(this, kilimallView);
+        ButterKnife.bind(this, amazonView);
 
-        // Setting context
+        // Init the context
         this.context = getContext();
 
-        // Get the product searched
+        // Getting the search input
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null).trim();
 
         Log.d(TAG, "onCreateView: product " + productSearched);
 
         // Init the web scrapping
-        KilimallScrape kilimallScrape = new KilimallScrape();
-        kilimallScrape.execute();
+        AmazonScrape amazonScrape = new AmazonScrape();
+        amazonScrape.execute();
 
-        return kilimallView;
+        return amazonView;
     }
 
-    public class KilimallScrape extends AsyncTask<Void, Void, Void> {
+    public class AmazonScrape extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Log.d(TAG, "doInBackground: kilimall scrape init");
+            Log.d(TAG, "doInBackground: ebay scrape init");
 
             try {
 
                 // Url to be used in browser
-                String url = Constants.KILIMALL_BASE_URL + productSearched.trim();
+                String url = Constants.PRE_EBAY_BASE_URL + productSearched + Constants.POST_EBAY_BASE_URL;
 
                 Document extractedContent = Jsoup.connect(url).get();
-                Log.d(TAG, "doInBackground: Kilimall url " + url );
+                Log.d(TAG, "doInBackground: eBay url " + url );
 
                 // Confirming url
-                Log.d(TAG, "doInBackground: extracted Kilimall content url " + url);
+                Log.d(TAG, "doInBackground: extracted ebay content url " + url);
 
                 // Code that scrapes ebay
                 Elements obtainedData = extractedContent.select("li.s-item");
@@ -119,32 +119,32 @@ public class KilimallFragment extends Fragment {
 
                 if (dataSize > 0) {
 
-                    kilimallProducts = new ArrayList<>();
+                    ebayProducts = new ArrayList<>();
 
-                    for (int k = 0; k < dataSize; k += 1) {
+                    for (int a = 0; a < dataSize; a += 1) {
 
                         String productName = obtainedData
                                 .select("h3.s-item__title")
-                                .eq(k)
+                                .eq(a)
                                 .text();
 
                         String productImage = obtainedData
                                 .select("img.s-item__image-img")
-                                .eq(k)
+                                .eq(a)
                                 .attr("src");
 
                         String productPrice = obtainedData
                                 .select("span.s-item__price")
-                                .eq(k)
+                                .eq(a)
                                 .text();
 
                         String productRating = obtainedData
                                 .select("div.b-starrating")
-                                .eq(k)
+                                .eq(a)
                                 .text();
 
 
-                        kilimallProducts.add(new Product(" ", productName, productPrice, productRating, productImage));
+                        ebayProducts.add(new Product(" ", productName, productPrice, productRating, productImage));
 
                     }
                 } else {
@@ -156,13 +156,13 @@ public class KilimallFragment extends Fragment {
                     });
                 }
 
-                Log.d(TAG, "doInBackground: ------------------------------------------ " + kilimallProducts);
+                Log.d(TAG, "doInBackground: ------------------------------------------ " + ebayProducts);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // Passing the products to the adapter
-                        passToAdapter(kilimallProducts);
+                        passToAdapter(ebayProducts);
 
                         // Method to hide progress bar
                         showResults();
@@ -170,22 +170,12 @@ public class KilimallFragment extends Fragment {
                     }
                 });
             } catch (Exception e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        wErrorMessage.setVisibility(View.VISIBLE);
-                        wErrorMessage.setText("Couldn't retrieve data");
-                        wProgressBar.setVisibility(View.GONE);
-                        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
-                    }
-                });
                 System.out.println(e.getMessage());
             }
-
             return null;
-
         }
     }
+
     private void showUnsuccessful() {
 
         wErrorMessage.setVisibility(View.VISIBLE);
@@ -196,7 +186,7 @@ public class KilimallFragment extends Fragment {
 
     private void showResults() {
 
-        wKilimallRecyclerView.setVisibility(View.VISIBLE);
+        wEbayRecyclerView.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
 
@@ -209,9 +199,9 @@ public class KilimallFragment extends Fragment {
         resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
-        wKilimallRecyclerView.setAdapter(resultItemAdapter);
-        wKilimallRecyclerView.setLayoutManager(gridLayoutManager);
-        wKilimallRecyclerView.setClipToPadding(false);
+        wEbayRecyclerView.setAdapter(resultItemAdapter);
+        wEbayRecyclerView.setLayoutManager(gridLayoutManager);
+        wEbayRecyclerView.setClipToPadding(false);
 
     }
 }

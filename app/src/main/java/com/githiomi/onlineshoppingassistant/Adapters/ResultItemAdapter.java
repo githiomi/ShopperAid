@@ -1,6 +1,7 @@
 package com.githiomi.onlineshoppingassistant.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,7 +34,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     private Context context;
 
 //    Constructor
-public ResultItemAdapter(List<Product> products, Context contextPassed){
+    public ResultItemAdapter(List<Product> products, Context contextPassed){
 
         this.productsRetrieved = products;
         this.context = contextPassed;
@@ -81,15 +85,26 @@ public ResultItemAdapter(List<Product> products, Context contextPassed){
 
         public void bindResultToView(Product product) {
 
-            Picasso.get().load(product.getImageUrl())
-                            .resize(MAX_WIDTH, MAX_HEIGHT)
-                            .centerCrop()
-                            .error(R.drawable.no_image)
-                            .into(wProductImage);
+            if ( !(product.getImageUrl().isEmpty()) ) {
+                Picasso.get().load(product.getImageUrl())
+                        .resize(MAX_WIDTH, MAX_HEIGHT)
+                        .centerCrop()
+                        .into(wProductImage);
+            }else{
+                Picasso.get().load(R.drawable.no_image)
+                        .resize(MAX_WIDTH, MAX_HEIGHT)
+                        .centerCrop()
+                        .into(wProductImage);
+            }
 
             wProductName.setText(product.getName());
             wProductPrice.setText(product.getPrice());
-            wProductRating.setText(product.getRating());
+
+            if ( !(product.getRating().isEmpty()) ) {
+                wProductRating.setText(product.getRating());
+            }else {
+                wProductRating.setText(R.string.no_rating);
+            }
 
         }
 

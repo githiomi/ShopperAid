@@ -39,8 +39,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     //    Local variables
     String productSearched;
-    // Shared preferences
-    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
     //    Firebase
@@ -56,7 +54,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         ButterKnife.bind(this);
 
         // Init shared preferences
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Shared preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
 
         // Navigation listeners

@@ -8,10 +8,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +17,6 @@ import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -38,7 +35,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
 //    Local variables
     // The shopping options
-    private String[] shoppingSiteOptions = { "Jumia", "Kilimall", "Jiji", "Wish"};
+    private final String[] shoppingSiteOptions = { "Jumia", "Kilimall", "Ebay", "Wish" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +51,12 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         if ( !(searchInput.isEmpty()) ){
             wProductSearched.setText(searchInput);
         }
+
+        // Setting up the navigation drawer
+        wSideNavigation.bringToFront();
+
+        // Navigation listeners
+        wSideNavigation.setNavigationItemSelectedListener(this);
 
         initViewPager(shoppingSiteOptions);
 
@@ -75,7 +78,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
     }
 
-    //    Methods for selection of navigation items
+//    Methods for selection of navigation items
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -103,7 +106,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         return true;
     }
 
-    //    Method that will log out the user
+//    Method that will log out the user
     private void logout() {
 
         FirebaseAuth.getInstance().signOut();

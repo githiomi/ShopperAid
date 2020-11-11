@@ -96,5 +96,8 @@ dependencies {
 //    Shimmer dependencies
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
 
+//    OkHttp3
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+    implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
 
 }

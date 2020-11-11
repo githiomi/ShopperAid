@@ -50,12 +50,9 @@ public class JumiaFragment extends Fragment {
     private List<Product> jumiaProducts;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView)
-    RecyclerView wJumiaRecyclerView;
-    @BindView(R.id.progressBar)
-    ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage)
-    TextView wErrorMessage;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage) TextView wErrorMessage;
 
     public JumiaFragment() {
         // Required empty public constructor
@@ -74,23 +71,25 @@ public class JumiaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_jumia, container, false);
+        View jumiaView = inflater.inflate(R.layout.fragment_jumia, container, false);
 
         // binding widgets
-        ButterKnife.bind(this, view);
+        ButterKnife.bind(this, jumiaView);
 
         // Get the context
-        context = getContext();
+        this.context = getContext();
 
-        //        Getting the search input
+        // Getting the search input
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null);
+        productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null).trim();
+
+        Log.d(TAG, "onCreateView: product " + productSearched);
 
         // Init the web scrapping
         JumiaScraper jumiaScraper = new JumiaScraper();
         jumiaScraper.execute();
 
-        return view;
+        return jumiaView;
     }
 
     public class JumiaScraper extends AsyncTask<Void, Void, Void> {
@@ -98,16 +97,16 @@ public class JumiaFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Log.d(TAG, "doInBackground: scrape init");
+            Log.d(TAG, "doInBackground: jumia scrape init");
 
             try {
 
-//      Url to be used in browser
+                // Url to be used in browser
                 String url = Constants.JUMIA_BASE_URL + productSearched;
 
                 Document extractedContent = Jsoup.connect(url).get();
 
-//      Confirming url
+                // Confirming url
                 Log.d(TAG, "doInBackground: extracted content url " + url);
 
                 Elements dataObtained = extractedContent.select("a.core");
@@ -119,7 +118,7 @@ public class JumiaFragment extends Fragment {
                     // initializing the list
                     jumiaProducts = new ArrayList<>();
 
-                    for (int i = 0; i < dataSize; i += 1) {
+                    for (int j = 0; j < dataSize; j += 1) {
 
                         if (productSearched.equals("iphone") || productSearched.equals("Iphone") || productSearched.equals("iPhone")) {
 
@@ -127,23 +126,23 @@ public class JumiaFragment extends Fragment {
                                     .attr("href")
                                     .toString();
 
-                            String nameFromUrl = dataObtained.select("div.main")
+                            String nameFromUrl = dataObtained.select("div.info")
                                     .select("h3.name")
-                                    .eq(i)
+                                    .eq(j)
                                     .text();
 
-                            String imageFromUrl = dataObtained.select("div.img-c")
-                                    .select("img.img")
-                                    .eq(i)
+                            String imageFromUrl = dataObtained.select("div.imgClass")
+                                    .select("img.src")
+                                    .eq(j)
                                     .attr("data-src");
 
                             String priceFromUrl = dataObtained.select("div.sd")
                                     .select("div.prc")
-                                    .eq(i)
+                                    .eq(j)
                                     .text();
 
                             String ratingFromUrl = dataObtained.select("div.rev")
-                                    .eq(i)
+                                    .eq(j)
                                     .text();
 
                             jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
@@ -156,21 +155,21 @@ public class JumiaFragment extends Fragment {
 
                             String nameFromUrl = dataObtained.select("div.info")
                                     .select("h3.name")
-                                    .eq(i)
+                                    .eq(j)
                                     .text();
 
                             String imageFromUrl = dataObtained.select("div.img-c")
                                     .select("img.img")
-                                    .eq(i)
+                                    .eq(j)
                                     .attr("data-src");
 
                             String priceFromUrl = dataObtained.select("div.info")
                                     .select("div.prc")
-                                    .eq(i)
+                                    .eq(j)
                                     .text();
 
                             String ratingFromUrl = dataObtained.select("div.rev")
-                                    .eq(i)
+                                    .eq(j)
                                     .text();
 
                             jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
@@ -192,16 +191,18 @@ public class JumiaFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                Passing the products to the adapter
+
+                        // Passing the products to the adapter
                         passToAdapter(jumiaProducts);
 
-//                       Method to hide progress bar
+                        // Method to hide progress bar
                         showResults();
                     }
                 });
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                showUnsuccessful();
             }
 
             return null;

@@ -38,7 +38,6 @@
 
         </androidx.viewpager.widget.ViewPager>
 
-
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

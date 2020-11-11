@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    tools:context=".Fragments.JumiaFragment">
+    tools:context=".Fragments.EbayFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:text="@string/retrieve_error"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             android:visibility="gone" />
 
