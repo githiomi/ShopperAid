@@ -7,11 +7,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
@@ -19,9 +19,11 @@ import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ResultsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,7 +46,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
     //    To alter the username
     View navigationView;
-    TextView navigationUsername;
+    CircleImageView wNavigationProfilePicture;
+    TextView wNavigationUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         // Customize the navigation
         navigationView = wSideNavigation.getHeaderView(0);
-        navigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+        wNavigationProfilePicture = (CircleImageView) navigationView.findViewById(R.id.navUserProfilePicture);
+        wNavigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
 
         // Initializing the firebase variables
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -77,9 +81,21 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 FirebaseUser signedInUser = firebaseAuth.getCurrentUser();
 
                 if (signedInUser != null) {
-                    navigationUsername.setText(signedInUser.getDisplayName());
+
+                    // Getting user data from firebase
+                    wNavigationUsername.setText(signedInUser.getDisplayName());
+                    Uri uri = signedInUser.getPhotoUrl();
+
+                    if ( uri != null ){
+                        Picasso.get().load(uri)
+                                .into(wNavigationProfilePicture);
+                    }else{
+                        Picasso.get().load(R.drawable.user_profile_picture)
+                                .into(wNavigationProfilePicture);
+                    }
+
                 } else {
-                    navigationUsername.setText("Guest");
+                    wNavigationUsername.setText("Guest");
                 }
             }
         };
@@ -124,7 +140,9 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         if (selectedId == R.id.toProfileNav) {
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
-            Toast.makeText(this, "To Profile", Toast.LENGTH_SHORT).show();
+            Intent toProfile = new Intent(this, ProfileActivity.class);
+            toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(toProfile);
         }
 
         if (selectedId == R.id.toLogoutNav) {

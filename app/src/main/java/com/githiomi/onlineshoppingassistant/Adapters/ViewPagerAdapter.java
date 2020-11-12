@@ -6,10 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.githiomi.onlineshoppingassistant.Fragments.EbayFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.JumiaFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.KilimallFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.WishFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.EbayFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.KilimallFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.WishFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

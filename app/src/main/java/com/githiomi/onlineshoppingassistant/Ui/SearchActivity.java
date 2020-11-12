@@ -2,15 +2,14 @@ package com.githiomi.onlineshoppingassistant.Ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +45,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private SharedPreferences.Editor editor;
     //    To alter the username
     View navigationView;
-    TextView navigationUsername;
+    CircleImageView wNavigationImage;
+    TextView wNavigationUsername;
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -69,7 +70,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Customize the navigation
         navigationView = wSideNavigation.getHeaderView(0);
-        navigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+        wNavigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+        wNavigationImage = (CircleImageView) navigationView.findViewById(R.id.navUserProfilePicture);
 
         // Setting up the navigation drawer
         wSideNavigation.bringToFront();
@@ -92,9 +94,24 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 FirebaseUser signedInUser = firebaseAuth.getCurrentUser();
 
                 if (signedInUser != null) {
-                    navigationUsername.setText(signedInUser.getDisplayName());
+
+                    // Getting user data from firebase
+                    wNavigationUsername.setText(signedInUser.getDisplayName());
+                    Uri userUri = signedInUser.getPhotoUrl();
+
+                    // Setting user data (Navigation Drawer)
+                    if ( userUri != null ) {
+                        Picasso.get()
+                                .load(userUri)
+                                .into(wNavigationImage);
+                    }else {
+                        Picasso.get()
+                                .load(R.drawable.user_profile_picture)
+                                .into(wNavigationImage);
+                    }
+
                 } else {
-                    navigationUsername.setText("As Guest");
+                    wNavigationUsername.setText("As Guest");
                 }
             }
         };
@@ -157,7 +174,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (selectedId == R.id.toProfileNav) {
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
-            Toast.makeText(this, "To Profile", Toast.LENGTH_SHORT).show();
+            Intent toProfile = new Intent(this, ProfileActivity.class);
+            toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(toProfile);
         }
 
         if (selectedId == R.id.toLogoutNav) {

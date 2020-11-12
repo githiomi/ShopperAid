@@ -27,4 +27,10 @@
     <string name="retrieve_error">Error getting data. Please check internet connection</string>
     <string name="no_rating">No rating available</string>
     <string name="im_looking_for">I\'m looking for…</string>
+    <string name="update_username">Update Username</string>
+    <string name="new_username">New Username</string>
+    <string name="update">Update</string>
+    <string name="update_email">Update Email</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="new_email">New Email</string>
 </resources>

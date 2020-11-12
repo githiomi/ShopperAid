@@ -18,6 +18,12 @@ public class Constants {
 
 
 //    Repetitive constants
+    // For the profile
+    public static final String TO_EDIT = "Edit Page Determinant";
+    public static final String TO_EDIT_USERNAME = "Edit Username";
+    public static final String TO_EDIT_EMAIL = "Edit Email";
+    //    Camera intent
+    public static final int REQUEST_IMAGE_CAPTURE = 111;
     // Currency converter
     public static final float DOLLARS_TO_KSH = 100;
     // Search key

@@ -1,4 +1,4 @@
-package com.githiomi.onlineshoppingassistant.Fragments;
+package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
 import android.os.Bundle;
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    tools:context=".Fragments.EbayFragment">
+    tools:context=".Fragments.Ui.EbayFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
