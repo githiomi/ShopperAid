@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -120,6 +122,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     //    The method that will open the drawer layout
     public void clickMenu(View view) {
+        hideKeyboard(view);
         wSearchDrawerLayout.openDrawer(GravityCompat.START);
     }
 
@@ -173,10 +176,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if (selectedId == R.id.toProfileNav) {
+
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
-            Intent toProfile = new Intent(this, ProfileActivity.class);
-            toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(toProfile);
+
+            if ( FirebaseAuth.getInstance().getCurrentUser() != null ){
+                Intent toProfile = new Intent(this, ProfileActivity.class);
+                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(toProfile);
+            }else{
+                String asGuest = "No profile created";
+                wSideNavigation.setCheckedItem(R.id.toSearchNav);
+                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         if (selectedId == R.id.toLogoutNav) {
