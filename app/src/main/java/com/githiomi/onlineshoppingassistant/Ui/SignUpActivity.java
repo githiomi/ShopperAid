@@ -33,7 +33,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.ivBackToLogin) ImageView wBackToLogin;
     @BindView(R.id.edUsername) TextInputEditText wUsername;
     @BindView(R.id.edEmail) TextInputEditText wEmail;
-    @BindView(R.id.edNumber) TextInputEditText wPhoneNumber;
     @BindView(R.id.edPassword) TextInputEditText wPassword;
     @BindView(R.id.edConfirmPassword) TextInputEditText wConfirmPassword;
     @BindView(R.id.btnSignUp) Button wBtnSignUp;
@@ -66,7 +65,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         wBtnSignUp.setOnClickListener(this);
         // Focus change listeners
         wUsername.setOnFocusChangeListener(this);
-        wPhoneNumber.setOnFocusChangeListener(this);
         wEmail.setOnFocusChangeListener(this);
         wPassword.setOnFocusChangeListener(this);
         wConfirmPassword.setOnFocusChangeListener(this);
@@ -96,17 +94,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         username = wUsername.getText().toString().trim();
         String email = wEmail.getText().toString().trim();
-        String phoneNumber = wPhoneNumber.getText().toString().trim();
         String password = wPassword.getText().toString().trim();
         String confirmPassword = wConfirmPassword.getText().toString().trim();
 
         // Validating the input
         boolean isNameValid = isUsernameValid(username);
         boolean isEmailValid = isEmailValid(email);
-        boolean isNumberValid = isPhoneNumberValid(phoneNumber);
         boolean isPasswordsValid = isPasswordsValid(password, confirmPassword);
 
-        if ( !(isNameValid) || !(isEmailValid) || !(isNumberValid) || !(isPasswordsValid) ) return;
+        if ( !(isNameValid) || !(isEmailValid) || !(isPasswordsValid) ) return;
 
         mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -170,15 +166,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    // Validate Phone Number
-    private boolean isPhoneNumberValid ( String phoneNumber ){
-        if ( phoneNumber.isEmpty() ){
-            wUsername.setError("This field cannot be left empty");
-            return false;
-        }
-        return true;
-    }
-
     // Validate Passwords
     private boolean isPasswordsValid( String password, String confirmPassword ){
         if (password.length() < 8 ) {
@@ -209,10 +196,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if (v == wEmail) {
-            hideKeyboard(v);
-        }
-
-        if ( v == wPhoneNumber ){
             hideKeyboard(v);
         }
 

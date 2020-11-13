@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
@@ -138,11 +139,14 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
             finish();
         }
 
-        if (selectedId == R.id.toProfileNav) {
-            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+        if ( FirebaseAuth.getInstance().getCurrentUser() != null ){
             Intent toProfile = new Intent(this, ProfileActivity.class);
             toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(toProfile);
+        }else{
+            String asGuest = "You're not logged in";
+            wSideNavigation.setCheckedItem(R.id.toSearchNav);
+            Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
         }
 
         if (selectedId == R.id.toLogoutNav) {

@@ -184,7 +184,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
             }else{
-                String asGuest = "No profile created";
+                String asGuest = "You're not logged in";
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
                 Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
             }
