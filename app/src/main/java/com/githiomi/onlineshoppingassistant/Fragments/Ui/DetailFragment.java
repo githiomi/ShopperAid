@@ -39,8 +39,6 @@ public class DetailFragment extends Fragment {
 //    Local variables
     // For the product
     private Product productToShowDetails;
-    // For the product url
-    private String itemUrl;
     // For the url
     public String detailUrl;
     // For the warranty and delivery
@@ -95,8 +93,8 @@ public class DetailFragment extends Fragment {
 
         // Setting views
         // Image
-        int MAX_WIDTH = 100;
-        int MAX_HEIGHT = 150;
+        int MAX_WIDTH = 150;
+        int MAX_HEIGHT = 200;
 
         Picasso.get().load(productToShowDetails.getImageUrl())
                 .resize(MAX_WIDTH, MAX_HEIGHT)
@@ -137,7 +135,7 @@ public class DetailFragment extends Fragment {
 
             try {
 //            Assigning the new url
-                detailUrl = Constants.JUMIA_ITEM_URL + itemUrl;
+                detailUrl = Constants.JUMIA_ITEM_URL + productToShowDetails.getLink();
                 Log.d(TAG, "doInBackground: detailUrl: " + detailUrl);
 
 //                Scrapping
