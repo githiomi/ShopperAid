@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
         <activity
+            android:name=".Ui.DetailActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".Ui.EditActivity"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize" />

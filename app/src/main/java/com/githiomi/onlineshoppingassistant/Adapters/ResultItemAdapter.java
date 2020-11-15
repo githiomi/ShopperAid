@@ -1,6 +1,7 @@
 package com.githiomi.onlineshoppingassistant.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
+import com.githiomi.onlineshoppingassistant.Ui.DetailActivity;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -70,7 +75,6 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
         @BindView(R.id.productImageView) ImageView wProductImage;
         @BindView(R.id.productName) TextView wProductName;
         @BindView(R.id.productPrice) TextView wProductPrice;
-        @BindView(R.id.tvInKsh) TextView wInKenyaShillings;
         @BindView(R.id.productRating) TextView wProductRating;
 
         public ResultItemViewHolder(@NonNull View itemView) {
@@ -130,9 +134,18 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
         @Override
         public void onClick(View v) {
 
-            String productName = productsRetrieved.get(getAdapterPosition()).getName().toString();
-            Toast.makeText(context, productName, Toast.LENGTH_SHORT).show();
+            int itemPosition = getLayoutPosition();
 
+            if ( v == itemView ) {
+
+                String productName = productsRetrieved.get(getAdapterPosition()).getName();
+                Toast.makeText(context, productName + " " + itemPosition, Toast.LENGTH_SHORT).show();
+
+                Intent toDetailActivity = new Intent(context, DetailActivity.class);
+                toDetailActivity.putExtra(Constants.WRAP_PRODUCT, Parcels.wrap(productsRetrieved));
+                toDetailActivity.putExtra(Constants.ITEM_POSITION, itemPosition);
+                context.startActivity(toDetailActivity);
+            }
         }
     }
 }
