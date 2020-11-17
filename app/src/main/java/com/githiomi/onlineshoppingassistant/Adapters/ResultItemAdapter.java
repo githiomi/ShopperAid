@@ -138,13 +138,11 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 
             if ( v == itemView ) {
 
-                String productName = productsRetrieved.get(getAdapterPosition()).getName();
-                Toast.makeText(context, productName + " " + itemPosition, Toast.LENGTH_SHORT).show();
-
                 Intent toDetailActivity = new Intent(context, DetailActivity.class);
                 toDetailActivity.putExtra(Constants.WRAP_PRODUCT, Parcels.wrap(productsRetrieved));
                 toDetailActivity.putExtra(Constants.ITEM_POSITION, itemPosition);
                 context.startActivity(toDetailActivity);
+
             }
         }
     }

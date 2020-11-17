@@ -87,6 +87,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         wEditProfilePicture.setOnClickListener(this);
         wUsername.setOnClickListener(this);
         wEmail.setOnClickListener(this);
+        wNavImage.setOnClickListener(this);
+        wNavUsername.setOnClickListener(this);
 
         getUserData();
 
@@ -132,7 +134,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 break;
 
             case R.id.toProfileNav:
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.toLogoutNav:
@@ -195,6 +196,15 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             startActivity(editEmail);
 
         }
+
+        if ( view == wNavImage ){
+            wDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        if ( view == wNavUsername ){
+            wDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+
     }
 
     // Storing the image to display it

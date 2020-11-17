@@ -25,6 +25,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -53,6 +55,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    // Database
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +67,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         ButterKnife.bind(this);
 
         // Init shared preferences
-        // Shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
+
+        // Init firebase
+        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+            String currentUser = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            databaseReference = FirebaseDatabase.getInstance().getReference().child(currentUser);
+        }
 
         // Navigation listeners
         wSideNavigation.setNavigationItemSelectedListener(this);
@@ -86,6 +95,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Click listeners
         wSearchButton.setOnClickListener(this);
+        wNavigationImage.setOnClickListener(this);
+        wNavigationUsername.setOnClickListener(this);
 
         // Initializing the firebase variables
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -117,7 +128,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         };
-
     }
 
     //    The method that will open the drawer layout
@@ -144,6 +154,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             performSearch(productSearched);
 
         }
+
+        if ( v == wNavigationImage ){
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+
+        if ( v == wNavigationUsername ){
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
     }
 
     public void hideKeyboard(View view) {
@@ -159,6 +177,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Saving to shared preferences
         editor.putString(Constants.SEARCH_INPUT_KEY, searchText).apply();
+
+        // Saving text to firebase
+        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+            databaseReference.child(searchText).setValue(searchText);
+        }
 
         startActivity(toResultActivity);
 

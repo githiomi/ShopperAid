@@ -153,8 +153,6 @@ public class DetailFragment extends Fragment {
                         .select("ul")
                         .text();
 
-                Log.d(TAG, "doInBackground: Product description: " + productDescription);
-
 //                assign method
                 final Activity productDetailActivity = getActivity();
 

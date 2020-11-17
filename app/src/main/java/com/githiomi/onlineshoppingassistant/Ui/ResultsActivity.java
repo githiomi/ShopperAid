@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ResultsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ResultsActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
 //    TAG
     private static final String TAG = ResultsActivity.class.getSimpleName();
@@ -72,6 +72,10 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         navigationView = wSideNavigation.getHeaderView(0);
         wNavigationProfilePicture = (CircleImageView) navigationView.findViewById(R.id.navUserProfilePicture);
         wNavigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+
+        // CLick listeners
+        wNavigationProfilePicture.setOnClickListener(this);
+        wNavigationUsername.setOnClickListener(this);
 
         // Initializing the firebase variables
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -168,6 +172,20 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
     }
 
+//    On click methods
+    @Override
+    public void onClick(View v) {
+
+        if ( v == wNavigationProfilePicture ){
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+
+        if ( v == wNavigationUsername ){
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+
+    }
+
     //    Firebase overriding listeners
     @Override
     protected void onStart() {
@@ -182,5 +200,4 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
-
 }

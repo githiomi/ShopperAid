@@ -237,5 +237,4 @@ public class JumiaFragment extends Fragment {
         wJumiaRecyclerView.setClipToPadding(false);
 
     }
-
 }

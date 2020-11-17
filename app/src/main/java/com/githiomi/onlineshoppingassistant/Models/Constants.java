@@ -31,6 +31,6 @@ public class Constants {
     // To wrap a product
     public static final String WRAP_PRODUCT = "Product";
     public static final String ITEM_POSITION = "Item Position";
-
     public static final String ITEM_URL = "Item Url";
+    //
 }
