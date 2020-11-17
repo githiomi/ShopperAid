@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -17,16 +18,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.githiomi.onlineshoppingassistant.Adapters.Firebase.RecentSearchesAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -43,10 +50,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
     @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
     @BindView(R.id.btnSearch) Button wSearchButton;
+    @BindView(R.id.recentSearchesRecyclerView) RecyclerView recentSearchesRecyclerView;
 
     //    Local variables
     String productSearched;
     private SharedPreferences.Editor editor;
+
     //    To alter the username
     View navigationView;
     CircleImageView wNavigationImage;
@@ -57,6 +66,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     // Database
     private DatabaseReference databaseReference;
+    // Adapter
+    private RecentSearchesAdapter recentSearchesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +82,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         editor = sharedPreferences.edit();
 
         // Init firebase
-        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String currentUser = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-            databaseReference = FirebaseDatabase.getInstance().getReference().child(currentUser);
+            databaseReference = FirebaseDatabase.getInstance().getReference("Recent Searches").child(currentUser);
+
+            // Retrieve recent searches
+            retrieveRecentSearches(currentUser);
         }
 
         // Navigation listeners
@@ -113,11 +127,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     Uri userUri = signedInUser.getPhotoUrl();
 
                     // Setting user data (Navigation Drawer)
-                    if ( userUri != null ) {
+                    if (userUri != null) {
                         Picasso.get()
                                 .load(userUri)
                                 .into(wNavigationImage);
-                    }else {
+                    } else {
                         Picasso.get()
                                 .load(R.drawable.user_profile_picture)
                                 .into(wNavigationImage);
@@ -155,11 +169,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         }
 
-        if ( v == wNavigationImage ){
+        if (v == wNavigationImage) {
             startActivity(new Intent(this, ProfileActivity.class));
         }
 
-        if ( v == wNavigationUsername ){
+        if (v == wNavigationUsername) {
             startActivity(new Intent(this, ProfileActivity.class));
         }
     }
@@ -179,11 +193,45 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         editor.putString(Constants.SEARCH_INPUT_KEY, searchText).apply();
 
         // Saving text to firebase
-        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             databaseReference.child(searchText).setValue(searchText);
         }
 
         startActivity(toResultActivity);
+
+    }
+
+    // Method that will get data from firebase
+    private void retrieveRecentSearches(String loggedInUser) {
+
+        FirebaseRecyclerOptions<String> recentSearches = new FirebaseRecyclerOptions.Builder<String>()
+                                                                                    .setQuery(databaseReference, String.class)
+                                                                                    .build();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+
+                    Context context = SearchActivity.this;
+                    recentSearchesRecyclerView.setVisibility(View.VISIBLE);
+
+                    recentSearchesAdapter = new RecentSearchesAdapter(recentSearches, databaseReference, context);
+
+                    recentSearchesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    recentSearchesRecyclerView.setAdapter(recentSearchesAdapter);
+
+                } else {
+                    recentSearchesRecyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                recentSearchesRecyclerView.setVisibility(View.GONE);
+            }
+        });
 
     }
 
@@ -202,11 +250,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
 
-            if ( FirebaseAuth.getInstance().getCurrentUser() != null ){
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
-            }else{
+            } else {
                 String asGuest = "You're not logged in";
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
                 Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();

@@ -134,26 +134,27 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         int selectedId = item.getItemId();
 
-        if (selectedId == R.id.toSearchNav) {
+        if ( selectedId == R.id.toSearchNav ) {
             // Do nothing
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
             Intent backToSearch = new Intent(this, SearchActivity.class);
-            backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            backToSearch.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
             startActivity(backToSearch);
-            finish();
         }
 
-        if ( FirebaseAuth.getInstance().getCurrentUser() != null ){
-            Intent toProfile = new Intent(this, ProfileActivity.class);
-            toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(toProfile);
-        }else{
-            String asGuest = "You're not logged in";
-            wSideNavigation.setCheckedItem(R.id.toSearchNav);
-            Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+        if ( selectedId == R.id.toProfileNav ) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                Intent toProfile = new Intent(this, ProfileActivity.class);
+                toProfile.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+                startActivity(toProfile);
+            } else {
+                String asGuest = "You're not logged in";
+                wSideNavigation.setCheckedItem(R.id.toSearchNav);
+                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+            }
         }
 
-        if (selectedId == R.id.toLogoutNav) {
+        if ( selectedId == R.id.toLogoutNav ) {
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
             logout();
         }

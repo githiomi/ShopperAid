@@ -136,9 +136,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recentSearchesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@color/transparent" />
+            android:layout_height="250dp"
+            android:layout_margin="15dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white" />
 
     </LinearLayout>
 
