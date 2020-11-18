@@ -53,6 +53,7 @@ public class JumiaFragment extends Fragment {
     @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
     @BindView(R.id.progressBar) ProgressBar wProgressBar;
     @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
 
     public JumiaFragment() {
         // Required empty public constructor
@@ -177,28 +178,26 @@ public class JumiaFragment extends Fragment {
                         }
                     }
 
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // Passing the products to the adapter
+                            passToAdapter(jumiaProducts);
+
+                            // Method to hide progress bar
+                            showResults();
+                        }
+                    });
+
                 } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showUnsuccessful();
+                            noResult();
                         }
                     });
                 }
-
-                Log.d(TAG, "doInBackground: ------------------------------------------ " + jumiaProducts);
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        // Passing the products to the adapter
-                        passToAdapter(jumiaProducts);
-
-                        // Method to hide progress bar
-                        showResults();
-                    }
-                });
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -216,6 +215,14 @@ public class JumiaFragment extends Fragment {
 
     private void showUnsuccessful() {
 
+        wNoResult.setVisibility(View.VISIBLE);
+        wProgressBar.setVisibility(View.GONE);
+        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+
+    }
+
+    private void noResult() {
+
         wErrorMessage.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
@@ -231,8 +238,6 @@ public class JumiaFragment extends Fragment {
     }
 
     public void passToAdapter(List<Product> retrievedProducts) {
-
-        Log.d(TAG, "passToAdapter: Passed to adapter");
 
         resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);

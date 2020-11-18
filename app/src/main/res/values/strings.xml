@@ -34,4 +34,5 @@
     <string name="verify_password">Verify Password</string>
     <string name="new_email">New Email</string>
     <string name="specs">Product Specifications</string>
+    <string name="no_result">No result for your search. Check spelling</string>
 </resources>
