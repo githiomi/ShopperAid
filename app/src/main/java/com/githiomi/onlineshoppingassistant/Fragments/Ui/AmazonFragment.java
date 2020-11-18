@@ -120,7 +120,9 @@ public class AmazonFragment extends Fragment {
 
                     for (int a = 0; a < dataSize; a += 1) {
 
-                        String linkToPage = dataObtained.select("a.a-link-normal s-no-outline")
+                        String linkToPage = dataObtained
+                                .select("div.sg-row")
+                                .select("a.a-link-normal a-text-normal")
                                 .eq(a)
                                 .attr("href");
 
@@ -137,7 +139,11 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .text();
 
-                        amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, "No rating", imageFromUrl));
+                        String ratingFromUrl = dataObtained.select("span.a-icon-alt")
+                                .eq(a)
+                                .text();
+
+                        amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
 
                     }
 

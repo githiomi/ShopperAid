@@ -68,8 +68,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     public class ResultItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Image constants
-        private static final int MAX_WIDTH = 250;
-        private static final int MAX_HEIGHT = 250;
+        private static final int MAX_WIDTH = 200;
+        private static final int MAX_HEIGHT = 200;
 
         // Widgets
         @BindView(R.id.productImageView) ImageView wProductImage;
@@ -113,7 +113,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
                 String inDollars = product.getPrice().replaceAll("[$,]", "");
                 float dollars = Float.parseFloat(inDollars);
 
-                int ksh = Integer.parseInt(String.valueOf(Constants.DOLLARS_TO_KSH * dollars));
+                float ksh = (Constants.DOLLARS_TO_KSH * dollars);
 
                 wProductPrice.setText(product.getPrice());
                 wInKenyaShillings.setText("KSh " + ksh);
@@ -128,8 +128,6 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
             }else {
                 wProductRating.setText(R.string.no_rating);
             }
-
-            Log.d(TAG, "bindResultToView: product itemUrl " + product.getLink());
 
         }
 
