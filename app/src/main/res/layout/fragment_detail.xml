@@ -125,7 +125,7 @@
                         android:drawablePadding="15dp"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text="Warranty And Delivery"
+                        android:text="Product Delivery"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"

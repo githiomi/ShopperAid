@@ -119,6 +119,8 @@ public class DetailFragment extends Fragment {
             wProductRating.setText(productToShowDetails.getRating());
         }
 
+        Log.d(TAG, "Item url: itemUrl " + productToShowDetails.getLink() );
+
         // Scrape to get the details
         SecondaryScrape secondaryScrape = new SecondaryScrape();
         secondaryScrape.execute();
@@ -145,7 +147,8 @@ public class DetailFragment extends Fragment {
                 Elements dataObtained = allObtainedData.select("main.-pvs");
 
                 productDeliveryAndWarranty = dataObtained.select("div.row")
-                        .select("p.-ptxs")
+                        .select("div.-ptxs")
+                        .select("span.markup")
                         .text();
 
                 productDescription = dataObtained.select("div.row")

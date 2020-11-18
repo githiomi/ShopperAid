@@ -128,6 +128,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
                 wProductRating.setText(R.string.no_rating);
             }
 
+            Log.d(TAG, "bindResultToView: product itemUrl " + product.getLink());
+
         }
 
         // What happens when a single item is clicked

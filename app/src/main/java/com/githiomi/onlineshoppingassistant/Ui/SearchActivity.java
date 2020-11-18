@@ -215,7 +215,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 if (snapshot.exists()) {
 
                     Context context = SearchActivity.this;
-                    recentSearchesRecyclerView.setVisibility(View.VISIBLE);
 
                     recentSearchesAdapter = new RecentSearchesAdapter(recentSearches, databaseReference, context);
 

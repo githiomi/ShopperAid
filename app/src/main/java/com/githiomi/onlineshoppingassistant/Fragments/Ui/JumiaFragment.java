@@ -111,9 +111,9 @@ public class JumiaFragment extends Fragment {
 
                 Elements dataObtained = extractedContent.select("a.core");
 
-                int dataSize = dataObtained.size();
+                if (dataObtained.size() > 0) {
 
-                if (dataSize > 0) {
+                    int dataSize = dataObtained.size();
 
                     // initializing the list
                     jumiaProducts = new ArrayList<>();
@@ -122,9 +122,9 @@ public class JumiaFragment extends Fragment {
 
                         if (productSearched.equals("iphone") || productSearched.equals("Iphone") || productSearched.equals("iPhone")) {
 
-                            String linkToPage = dataObtained
-                                    .attr("href")
-                                    .toString();
+                            String linkToPage = dataObtained.select("a.core")
+                                    .eq(j)
+                                    .attr("href");
 
                             String nameFromUrl = dataObtained.select("div.info")
                                     .select("h3.name")
@@ -149,9 +149,9 @@ public class JumiaFragment extends Fragment {
 
                         } else {
 
-                            String linkToPage = dataObtained
-                                    .attr("href")
-                                    .toString();
+                            String linkToPage = dataObtained.select("a.core")
+                                    .eq(j)
+                                    .attr("href");
 
                             String nameFromUrl = dataObtained.select("div.info")
                                     .select("h3.name")
@@ -202,7 +202,12 @@ public class JumiaFragment extends Fragment {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                showUnsuccessful();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showUnsuccessful();
+                    }
+                });
             }
 
             return null;
