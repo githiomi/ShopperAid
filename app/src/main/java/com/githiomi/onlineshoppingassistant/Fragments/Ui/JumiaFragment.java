@@ -84,8 +84,6 @@ public class JumiaFragment extends Fragment {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null).trim();
 
-        Log.d(TAG, "onCreateView: product " + productSearched);
-
         // Init the web scrapping
         JumiaScraper jumiaScraper = new JumiaScraper();
         jumiaScraper.execute();
@@ -215,17 +213,17 @@ public class JumiaFragment extends Fragment {
 
     private void showUnsuccessful() {
 
-        wNoResult.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wErrorMessage.setVisibility(View.VISIBLE);
 
     }
 
     private void noResult() {
 
-        wErrorMessage.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wNoResult.setVisibility(View.VISIBLE);
 
     }
 

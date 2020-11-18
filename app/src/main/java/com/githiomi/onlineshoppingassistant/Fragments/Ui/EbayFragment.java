@@ -115,62 +115,69 @@ public class EbayFragment extends Fragment {
                 // Code that scrapes ebay
                 Elements obtainedData = extractedContent.select("li.s-item");
 
-                int dataSize = obtainedData.size();
+                if (obtainedData.size() > 0) {
 
-                if (dataSize > 0) {
+                    int dataSize = obtainedData.size();
 
                     ebayProducts = new ArrayList<>();
 
-                    for (int a = 0; a < dataSize; a += 1) {
+                    for (int e = 0; e < dataSize; e += 1) {
 
                         String productName = obtainedData
                                 .select("h3.s-item__title")
-                                .eq(a)
+                                .eq(e)
                                 .text();
 
                         String productImage = obtainedData
                                 .select("img.s-item__image-img")
-                                .eq(a)
+                                .eq(e)
                                 .attr("src");
 
                         String productPrice = obtainedData
                                 .select("span.s-item__price")
-                                .eq(a)
+                                .eq(e)
                                 .text();
 
                         String productRating = obtainedData
                                 .select("div.b-starrating")
-                                .eq(a)
+                                .eq(e)
                                 .text();
 
-
-                        ebayProducts.add(new Product(" ", productName, productPrice, productRating, productImage));
+                        if ( !(productPrice.toString().contains("to")) ){
+                            ebayProducts.add(new Product(" ", productName, productPrice, productRating, productImage));
+                        }
 
                     }
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Passing the products to the adapter
+                            passToAdapter(ebayProducts);
+
+                            // Method to hide progress bar
+                            showResults();
+
+                        }
+                    });
+
                 } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showUnsuccessful();
+                            noResult();
                         }
                     });
                 }
 
-                Log.d(TAG, "doInBackground: ------------------------------------------ " + ebayProducts);
-
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Passing the products to the adapter
-                        passToAdapter(ebayProducts);
-
-                        // Method to hide progress bar
-                        showResults();
-
+                        showUnsuccessful();
                     }
                 });
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
             return null;
         }
@@ -181,6 +188,14 @@ public class EbayFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+
+    }
+
+    private void noResult() {
+
+        wProgressBar.setVisibility(View.GONE);
+        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wErrorMessage.setVisibility(View.VISIBLE);
 
     }
 

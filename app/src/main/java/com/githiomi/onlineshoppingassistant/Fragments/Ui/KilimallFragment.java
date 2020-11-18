@@ -41,6 +41,7 @@ public class KilimallFragment extends Fragment {
 //    Widgets
     @BindView(R.id.progressBar) ProgressBar wProgressBar;
     @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
     @BindView(R.id.resultsRecyclerView) RecyclerView wKilimallRecyclerView;
 
 //    Local variable
@@ -101,40 +102,48 @@ public class KilimallFragment extends Fragment {
 
             Log.d(TAG, "doInBackground: kilimall scrape init");
 
+            // Url to be used in browser
+            String url = Constants.KILIMALL_BASE_URL + productSearched.trim();
+            Log.d(TAG, "doInBackground: Kilimall url " + url );
+
             try {
 
                 // Url to be used in browser
-                String url = Constants.KILIMALL_BASE_URL + productSearched.trim();
+//                String url = Constants.KILIMALL_BASE_URL + productSearched.trim();
 
                 Document extractedContent = Jsoup.connect(url).get();
                 Log.d(TAG, "doInBackground: Kilimall url " + url );
 
-                // Confirming url
-                Log.d(TAG, "doInBackground: extracted Kilimall content url " + url);
-
                 // Code that scrapes ebay
-                Elements obtainedData = extractedContent.select("li.s-item");
+                Elements obtainedData = extractedContent.select("div.el-row");
 
-                int dataSize = obtainedData.size();
+                if (obtainedData.size() > 0) {
 
-                if (dataSize > 0) {
+                    int dataSize = obtainedData.size();
 
                     kilimallProducts = new ArrayList<>();
 
                     for (int k = 0; k < dataSize; k += 1) {
 
-                        String productName = obtainedData
-                                .select("h3.s-item__title")
+                        String productLink = obtainedData
+                                .select("a.showHand")
                                 .eq(k)
-                                .text();
+                                .attr("href");
+
+                        String productName = obtainedData
+                                .select("div.wordWrap")
+                                .eq(k)
+                                .attr("title");
 
                         String productImage = obtainedData
-                                .select("img.s-item__image-img")
+                                .select("div.imgClass")
+                                .select("img.imgClass")
                                 .eq(k)
                                 .attr("src");
 
                         String productPrice = obtainedData
-                                .select("span.s-item__price")
+                                .select("div.wordwrap-box")
+                                .select("div.wordwrap-price")
                                 .eq(k)
                                 .text();
 
@@ -144,39 +153,38 @@ public class KilimallFragment extends Fragment {
                                 .text();
 
 
-                        kilimallProducts.add(new Product(" ", productName, productPrice, productRating, productImage));
+                        kilimallProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
 
                     }
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Passing the products to the adapter
+                            passToAdapter(kilimallProducts);
+
+                            Log.d(TAG, "doInBackground: ------------------------------------------ " + kilimallProducts);
+
+                            // Method to hide progress bar
+                            showResults();
+
+                        }
+                    });
+
                 } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showUnsuccessful();
+                            noResult();
                         }
                     });
                 }
 
-                Log.d(TAG, "doInBackground: ------------------------------------------ " + kilimallProducts);
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Passing the products to the adapter
-                        passToAdapter(kilimallProducts);
-
-                        // Method to hide progress bar
-                        showResults();
-
-                    }
-                });
             } catch (Exception e) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        wErrorMessage.setVisibility(View.VISIBLE);
-                        wErrorMessage.setText("Couldn't retrieve data");
-                        wProgressBar.setVisibility(View.GONE);
-                        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+                        showUnsuccessful();
                     }
                 });
                 System.out.println(e.getMessage());
@@ -188,9 +196,17 @@ public class KilimallFragment extends Fragment {
     }
     private void showUnsuccessful() {
 
-        wErrorMessage.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wErrorMessage.setVisibility(View.VISIBLE);
+
+    }
+
+    private void noResult() {
+
+        wProgressBar.setVisibility(View.GONE);
+        wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wNoResult.setVisibility(View.VISIBLE);
 
     }
 

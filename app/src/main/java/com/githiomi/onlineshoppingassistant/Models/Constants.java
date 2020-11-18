@@ -12,9 +12,11 @@ public class Constants {
     public static final String POST_EBAY_BASE_URL = "&_sacat=0";
 
     // Amazon
+    public static final String PRE_AMAZON_BASE_URL = "https://www.amazon.com/s?k=";
+    public static final String POST_AMAZON_BASE_URL = "&ref=nb_sb_noss_1";
 
     // Kilimall
-    public static final String KILIMALL_BASE_URL = "https://www.kilimall.co.ke/new/commoditysearch?q=";
+    public static final String KILIMALL_BASE_URL = "https://www.kilimall.co.ke/new/commoditysearch/?q=";
 
 
 //    Repetitive constants

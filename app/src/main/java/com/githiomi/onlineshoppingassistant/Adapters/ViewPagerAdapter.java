@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.EbayFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.KilimallFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.Ui.WishFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.AmazonFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -39,12 +39,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             fragment = KilimallFragment.newInstance();
         }
 
-        if (siteOption.equals("Ebay")) {
-            fragment = EbayFragment.newInstance();
+        if (siteOption.equals("Amazon")) {
+            fragment = AmazonFragment.newInstance();
         }
 
-        if (siteOption.equals("Wish")) {
-            fragment = WishFragment.newInstance();
+        if (siteOption.equals("Ebay")) {
+            fragment = EbayFragment.newInstance();
         }
 
         return fragment;
