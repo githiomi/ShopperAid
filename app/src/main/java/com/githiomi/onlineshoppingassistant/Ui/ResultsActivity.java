@@ -201,4 +201,9 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

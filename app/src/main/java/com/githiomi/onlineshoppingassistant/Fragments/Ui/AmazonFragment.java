@@ -144,6 +144,7 @@ public class AmazonFragment extends Fragment {
                                 .text();
 
                         amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                        Log.d(TAG, "doInBackground: amazonUrl " + linkToPage );
 
                     }
 
@@ -168,10 +169,7 @@ public class AmazonFragment extends Fragment {
                 });
             }
 
-        } catch(
-        Exception e)
-
-        {
+        } catch(Exception e) {
             System.out.println(e.getMessage());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -191,6 +189,7 @@ public class AmazonFragment extends Fragment {
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
         wErrorMessage.setVisibility(View.VISIBLE);
+        wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
@@ -199,14 +198,16 @@ public class AmazonFragment extends Fragment {
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
         wNoResult.setVisibility(View.VISIBLE);
+        wNoResult.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
     private void showResults() {
 
-        wAmazonRecyclerView.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wAmazonRecyclerView.setVisibility(View.VISIBLE);
+        wAmazonRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 

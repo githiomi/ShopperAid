@@ -138,7 +138,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     }
 
                 } else {
-                    wNavigationUsername.setText("As Guest");
+                    wNavigationUsername.setText("Guest");
                 }
             }
         };

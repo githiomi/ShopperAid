@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (loggedInUser != null) {
 
-                    Toast.makeText(LoginActivity.this, loggedInUser.getDisplayName() + " logged in", Toast.LENGTH_SHORT).show();
                     Intent toSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
                     toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(toSearchActivity);

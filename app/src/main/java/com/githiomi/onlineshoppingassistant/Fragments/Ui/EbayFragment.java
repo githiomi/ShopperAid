@@ -41,6 +41,7 @@ public class EbayFragment extends Fragment {
 //    Widgets
     @BindView(R.id.progressBar) ProgressBar wProgressBar;
     @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
     @BindView(R.id.resultsRecyclerView) RecyclerView wEbayRecyclerView;
 
 //    Local variables
@@ -185,9 +186,10 @@ public class EbayFragment extends Fragment {
 
     private void showUnsuccessful() {
 
-        wErrorMessage.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wErrorMessage.setVisibility(View.VISIBLE);
+        wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
@@ -195,15 +197,17 @@ public class EbayFragment extends Fragment {
 
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
-        wErrorMessage.setVisibility(View.VISIBLE);
+        wNoResult.setVisibility(View.VISIBLE);
+        wNoResult.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
     private void showResults() {
 
-        wEbayRecyclerView.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wEbayRecyclerView.setVisibility(View.VISIBLE);
+        wEbayRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 

@@ -125,6 +125,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     }
 
+    //    The method that will open the drawer layout
+    public void clickMenu(View view) {
+        wDrawerLayout.openDrawer(GravityCompat.START);
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

@@ -216,6 +216,7 @@ public class JumiaFragment extends Fragment {
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
         wErrorMessage.setVisibility(View.VISIBLE);
+        wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
@@ -224,14 +225,16 @@ public class JumiaFragment extends Fragment {
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
         wNoResult.setVisibility(View.VISIBLE);
+        wNoResult.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
     private void showResults() {
 
-        wJumiaRecyclerView.setVisibility(View.VISIBLE);
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wJumiaRecyclerView.setVisibility(View.VISIBLE);
+        wJumiaRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
