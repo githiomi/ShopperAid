@@ -143,8 +143,10 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .text();
 
-                        amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
-                        Log.d(TAG, "doInBackground: amazonUrl " + linkToPage );
+                        if ( !(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty()) ) {
+                            amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                            Log.d(TAG, "doInBackground: amazonUrl " + linkToPage);
+                        }
 
                     }
 

@@ -138,11 +138,9 @@ public class DetailFragment extends Fragment {
             try {
 //            Assigning the new url
                 detailUrl = Constants.JUMIA_ITEM_URL + productToShowDetails.getLink();
-                Log.d(TAG, "doInBackground: detailUrl: " + detailUrl);
 
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
-                Log.d(TAG, "doInBackground: allData " + allObtainedData);
 
                 Elements dataObtained = allObtainedData.select("main.-pvs");
 

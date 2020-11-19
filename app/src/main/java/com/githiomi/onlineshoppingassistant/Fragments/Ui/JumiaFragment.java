@@ -171,7 +171,9 @@ public class JumiaFragment extends Fragment {
                                     .eq(j)
                                     .text();
 
-                            jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                            if ( !(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty()) ) {
+                                jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                            }
 
                         }
                     }

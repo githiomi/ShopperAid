@@ -124,6 +124,11 @@ public class EbayFragment extends Fragment {
 
                     for (int e = 0; e < dataSize; e += 1) {
 
+                        String productLink = obtainedData
+                                .select("a.s-item__link")
+                                .eq(e)
+                                .attr("href");
+
                         String productName = obtainedData
                                 .select("h3.s-item__title")
                                 .eq(e)
@@ -140,12 +145,15 @@ public class EbayFragment extends Fragment {
                                 .text();
 
                         String productRating = obtainedData
-                                .select("div.b-starrating")
+                                .select("div.x-star-rating")
+                                .select("span.clipped")
                                 .eq(e)
                                 .text();
 
                         if ( !(productPrice.toString().contains("to")) ){
-                            ebayProducts.add(new Product(" ", productName, productPrice, productRating, productImage));
+                            if ( !(productLink.isEmpty()) || !(productName.isEmpty()) || !(productImage.isEmpty()) || !(productPrice.isEmpty()) || !(productRating.isEmpty()) ) {
+                                ebayProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
+                            }
                         }
 
                     }
