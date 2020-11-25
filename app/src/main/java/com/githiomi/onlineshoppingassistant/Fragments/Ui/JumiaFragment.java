@@ -242,7 +242,7 @@ public class JumiaFragment extends Fragment {
 
     public void passToAdapter(List<Product> retrievedProducts) {
 
-        resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
+        resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Jumia", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
         wJumiaRecyclerView.setAdapter(resultItemAdapter);

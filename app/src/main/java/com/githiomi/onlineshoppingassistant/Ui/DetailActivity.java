@@ -35,6 +35,8 @@ public class DetailActivity extends AppCompatActivity {
     private List<Product> parceledProducts;
     // The item position
     private int itemPosition;
+    // For the fragment
+    private String theFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent fromResultsActivity = getIntent();
         parceledProducts = Parcels.unwrap(fromResultsActivity.getParcelableExtra(Constants.WRAP_PRODUCT));
         itemPosition = fromResultsActivity.getIntExtra( Constants.ITEM_POSITION, 0 );
+        theFragment = fromResultsActivity.getStringExtra(Constants.FRAGMENT_SOURCE);
 
         Log.d(TAG, "onCreate: item position " + itemPosition);
 
@@ -61,8 +64,7 @@ public class DetailActivity extends AppCompatActivity {
     // To initialize the view pager
     public void initDetailViewPager() {
 
-        Log.d(TAG, "initProductAdapter: Product view pager init");
-        detailViewPagerAdapter = new DetailViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, parceledProducts);
+        detailViewPagerAdapter = new DetailViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, parceledProducts, theFragment);
 
         wDetailViewPager.setAdapter(detailViewPagerAdapter);
         wDetailViewPager.setCurrentItem(itemPosition);

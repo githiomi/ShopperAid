@@ -223,7 +223,7 @@ public class EbayFragment extends Fragment {
 
         Log.d(TAG, "passToAdapter: Passed to adapter");
 
-        resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
+        resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Ebay", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
         wEbayRecyclerView.setAdapter(resultItemAdapter);

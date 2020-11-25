@@ -34,5 +34,6 @@ public class Constants {
     public static final String WRAP_PRODUCT = "Product";
     public static final String ITEM_POSITION = "Item Position";
     public static final String ITEM_URL = "Item Url";
-    //
+    // For the products
+    public static final String FRAGMENT_SOURCE = "Fragment Source";
 }

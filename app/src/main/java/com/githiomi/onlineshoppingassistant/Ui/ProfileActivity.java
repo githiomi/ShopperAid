@@ -84,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         wNavigationView.setNavigationItemSelectedListener(this);
 
 //        On click listener
+        wUserProfilePicture.setOnClickListener(this);
         wEditProfilePicture.setOnClickListener(this);
         wUsername.setOnClickListener(this);
         wEmail.setOnClickListener(this);
@@ -177,6 +178,16 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void onClick(View view) {
 
         if (view == wEditProfilePicture) {
+
+            Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            if (openCamera.resolveActivity(this.getPackageManager()) != null) {
+                startActivityForResult(openCamera, Constants.REQUEST_IMAGE_CAPTURE);
+            }
+
+        }
+
+        if ( view == wUserProfilePicture ){
 
             Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 

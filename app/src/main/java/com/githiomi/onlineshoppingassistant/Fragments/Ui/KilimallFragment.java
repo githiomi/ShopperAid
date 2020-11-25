@@ -222,7 +222,7 @@ public class KilimallFragment extends Fragment {
 
         Log.d(TAG, "passToAdapter: Passed to adapter");
 
-        resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
+        resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Kilimall", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
         wKilimallRecyclerView.setAdapter(resultItemAdapter);

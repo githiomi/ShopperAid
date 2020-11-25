@@ -1,15 +1,10 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
@@ -34,10 +32,10 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailFragment extends Fragment {
+public class JumiaDetailFragment extends Fragment {
 
 //    TAG
-    private static final String TAG = DetailFragment.class.getSimpleName();
+    private static final String TAG = JumiaDetailFragment.class.getSimpleName();
 
 //    Local variables
     // For the product
@@ -63,12 +61,12 @@ public class DetailFragment extends Fragment {
     @BindView(R.id.cvProductSpecs) CardView wProductSpecifications;
 
 
-    public DetailFragment() {
+    public JumiaDetailFragment() {
         // Required empty public constructor
     }
 
-    public static DetailFragment newInstance( Product product ) {
-        DetailFragment fragment = new DetailFragment();
+    public static JumiaDetailFragment newInstance(Product product ) {
+        JumiaDetailFragment fragment = new JumiaDetailFragment();
         Bundle args = new Bundle();
 
         args.putParcelable(Constants.WRAP_PRODUCT, Parcels.wrap(product));

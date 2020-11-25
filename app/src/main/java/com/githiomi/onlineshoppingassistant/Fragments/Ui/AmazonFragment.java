@@ -215,7 +215,7 @@ public class AmazonFragment extends Fragment {
 
     public void passToAdapter(List<Product> retrievedProducts) {
 
-        resultItemAdapter = new ResultItemAdapter(retrievedProducts, getContext());
+        resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Amazon", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
         wAmazonRecyclerView.setAdapter(resultItemAdapter);

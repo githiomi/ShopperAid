@@ -36,12 +36,14 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 
 //    Local variables
     private List<Product> productsRetrieved;
+    private String fragmentSource;
     private Context context;
 
 //    Constructor
-    public ResultItemAdapter(List<Product> products, Context contextPassed){
+    public ResultItemAdapter(List<Product> products, String fragmentSource, Context contextPassed){
 
         this.productsRetrieved = products;
+        this.fragmentSource = fragmentSource;
         this.context = contextPassed;
 
     }
@@ -142,6 +144,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
                 Intent toDetailActivity = new Intent(context, DetailActivity.class);
                 toDetailActivity.putExtra(Constants.WRAP_PRODUCT, Parcels.wrap(productsRetrieved));
                 toDetailActivity.putExtra(Constants.ITEM_POSITION, itemPosition);
+                toDetailActivity.putExtra(Constants.FRAGMENT_SOURCE, fragmentSource);
                 context.startActivity(toDetailActivity);
 
             }

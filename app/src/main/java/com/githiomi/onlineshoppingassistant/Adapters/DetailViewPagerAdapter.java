@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.DetailFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaDetailFragment;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 
 import java.util.List;
@@ -15,19 +16,44 @@ public class DetailViewPagerAdapter extends FragmentPagerAdapter {
 //    Local variables
     // The products
     private List<Product> parceledProducts;
+    // Fragment name
+    private String fragmentName;
 
-    public DetailViewPagerAdapter(@NonNull FragmentManager fm, int behaviour, List<Product> products ) {
+    public DetailViewPagerAdapter(@NonNull FragmentManager fm, int behaviour, List<Product> products, String theFragment ) {
         super(fm, behaviour);
 
         this.parceledProducts = products;
+        this.fragmentName = theFragment;
 
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        Product productDetail = parceledProducts.get(position);
-        return DetailFragment.newInstance( productDetail );
+
+        Fragment fragment = new Fragment();
+
+        if ( fragmentName.equals("Jumia") ) {
+            Product productDetail = parceledProducts.get(position);
+            fragment = JumiaDetailFragment.newInstance(productDetail);
+        }
+
+        if ( fragmentName.equals("Kilimall") ) {
+            Product productDetail = parceledProducts.get(position);
+            fragment = DetailFragment.newInstance(productDetail);
+        }
+
+        if ( fragmentName.equals("Amazon") ) {
+            Product productDetail = parceledProducts.get(position);
+            fragment = DetailFragment.newInstance(productDetail);
+        }
+
+        if ( fragmentName.equals("Ebay") ) {
+            Product productDetail = parceledProducts.get(position);
+            fragment = DetailFragment.newInstance(productDetail);
+        }
+
+        return fragment;
     }
 
     @Override
