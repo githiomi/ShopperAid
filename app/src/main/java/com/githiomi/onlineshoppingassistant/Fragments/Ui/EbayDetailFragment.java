@@ -98,7 +98,7 @@ public class EbayDetailFragment extends Fragment {
 
         // Setting views
         // Image
-        int MAX_WIDTH = 150;
+        int MAX_WIDTH = 200;
         int MAX_HEIGHT = 200;
 
         Picasso.get().load(productToShowDetails.getImageUrl())
@@ -140,21 +140,21 @@ public class EbayDetailFragment extends Fragment {
 
             try {
 //            Assigning the new url
-                detailUrl = Constants.JUMIA_ITEM_URL + productToShowDetails.getLink();
+                detailUrl = productToShowDetails.getLink();
+                Log.d(TAG, "doInBackground: ebayLink " + detailUrl);
 
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
 
                 Elements dataObtained = allObtainedData.select("main.-pvs");
 
-                productDeliveryAndWarranty = dataObtained.select("div.row")
-                        .select("div.-ptxs")
-                        .select("span.markup")
+                productDeliveryAndWarranty = dataObtained.select("div.tab-content")
+                        .select("section#content2")
                         .text();
 
-                productDescription = dataObtained.select("div.row")
-                        .select("div.col12")
-                        .select("ul")
+                productDescription = dataObtained.select("div.itemAttr")
+                        .select("div.section")
+                        .select("span.viSNotesCnt")
                         .text();
 
                 // Assign method

@@ -125,6 +125,7 @@ public class EbayFragment extends Fragment {
                     for (int e = 0; e < dataSize; e += 1) {
 
                         String productLink = obtainedData
+                                .select("div.s-item__info clearfix")
                                 .select("a.s-item__link")
                                 .eq(e)
                                 .attr("href");
@@ -155,7 +156,6 @@ public class EbayFragment extends Fragment {
                                 ebayProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
                             }
                         }
-
                     }
 
                     getActivity().runOnUiThread(new Runnable() {

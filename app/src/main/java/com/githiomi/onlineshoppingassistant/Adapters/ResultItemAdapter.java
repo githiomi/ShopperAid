@@ -70,8 +70,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     public class ResultItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Image constants
-        private static final int MAX_WIDTH = 200;
-        private static final int MAX_HEIGHT = 200;
+        private static final int MAX_WIDTH = 250;
+        private static final int MAX_HEIGHT = 250;
 
         // Widgets
         @BindView(R.id.productImageView) ImageView wProductImage;

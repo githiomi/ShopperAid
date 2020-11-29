@@ -125,8 +125,7 @@ public class AmazonFragment extends Fragment {
                     for (int a = 0; a < dataSize; a += 1) {
 
                         String linkToPage = dataObtained
-                                .select("div.sg-col-inner")
-                                .select("a.a-link-normal s-no-outline")
+                                .select("a.a-link-normal")
                                 .eq(a)
                                 .attr("href");
 

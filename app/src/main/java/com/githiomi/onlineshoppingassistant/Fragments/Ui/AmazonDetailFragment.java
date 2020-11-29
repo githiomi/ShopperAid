@@ -145,15 +145,15 @@ public class AmazonDetailFragment extends Fragment {
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
 
-                Elements dataObtained = allObtainedData.select("div.a-container");
+                Elements dataObtained = allObtainedData.select("div.wireless en_US");
 
-                productDeliveryAndWarranty = dataObtained.select("div.a-section")
-                        .select("div.a-section a-spacing-small")
-                        .select("span.a-declarative")
+                productDeliveryAndWarranty = dataObtained.select("div.a-alert-content")
+                        .select("span.a-size-mini sims-fbt-shipping-details-text")
                         .text();
 
-                productDescription = dataObtained.select("ul.a-unordered-list a-vertical a-spacing-mini")
-                        .select("span.a-list-item")
+                productDescription = dataObtained.select("div.a-row feature")
+                        .select("div.a-section a-spacing-small")
+                        .select("p")
                         .text();
 
                 // Assign method
