@@ -17,6 +17,9 @@ import android.widget.Toast;
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,6 +60,14 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         // Binding widgets
         ButterKnife.bind(this);
+        //Adview
+        AdView wAdView = findViewById(R.id.adView);
+
+        MobileAds.initialize(this);
+
+        // Loading adds
+        AdRequest adRequest = new AdRequest.Builder().build();
+        wAdView.loadAd(adRequest);
 
         // Get search string
         String searchInput = getIntent().getStringExtra(Constants.SEARCH_INPUT_KEY);
@@ -165,7 +176,9 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 //    Method that will log out the user
     private void logout() {
 
-        FirebaseAuth.getInstance().signOut();
+        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+            FirebaseAuth.getInstance().signOut();
+        }
         Intent backToLogin = new Intent(this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(backToLogin);
@@ -177,12 +190,28 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        if ( v == wNavigationProfilePicture ){
-            startActivity(new Intent(this, ProfileActivity.class));
+        if (v == wNavigationProfilePicture) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                Intent toProfile = new Intent(this, ProfileActivity.class);
+                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(toProfile);
+            } else {
+                String asGuest = "You're not logged in";
+                wSideNavigation.setCheckedItem(R.id.toSearchNav);
+                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+            }
         }
 
-        if ( v == wNavigationUsername ){
-            startActivity(new Intent(this, ProfileActivity.class));
+        if (v == wNavigationUsername) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                Intent toProfile = new Intent(this, ProfileActivity.class);
+                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(toProfile);
+            } else {
+                String asGuest = "You're not logged in";
+                wSideNavigation.setCheckedItem(R.id.toSearchNav);
+                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

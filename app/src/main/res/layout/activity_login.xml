@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:padding="20dp"
+    android:padding="5dp"
     tools:context=".Ui.LoginActivity">
 
     <LinearLayout
@@ -36,7 +36,8 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@drawable/app_logo" />
+            android:src="@drawable/app_logo"
+            android:contentDescription="@string/app_moto" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -166,6 +167,19 @@
             android:indeterminateTint="@color/white"
             android:progressDrawable="@color/white"
             android:visibility="gone" />
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            ads:adSize="BANNER"
+            android:layout_gravity="bottom|center"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
+
+<!--        ca-app-pub-8763169533349627/9562309458-->
 
     </LinearLayout>
 

@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -51,6 +54,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         // Binding widgets
         ButterKnife.bind(this);
+        //Adview
+        AdView wAdView = findViewById(R.id.adView);
+
+        MobileAds.initialize(this);
+
+        // Loading adds
+        AdRequest adRequest = new AdRequest.Builder().build();
+        wAdView.loadAd(adRequest);
 
         //        Firebase variables authentication
         mFirebaseAuth = FirebaseAuth.getInstance();

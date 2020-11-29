@@ -18,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -58,6 +61,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Binding widgets using butter knife
         ButterKnife.bind(this);
+        //Adview
+        AdView wAdView = findViewById(R.id.adView);
+
+        MobileAds.initialize(this);
+
+        // Loading adds
+        AdRequest adRequest = new AdRequest.Builder().build();
+        wAdView.loadAd(adRequest);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {

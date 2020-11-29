@@ -142,6 +142,8 @@
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
         </com.google.android.gms.ads.AdView>
 
+<!--        ca-app-pub-8763169533349627/8051940751-->
+
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

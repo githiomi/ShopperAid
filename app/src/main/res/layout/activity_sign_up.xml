@@ -185,6 +185,19 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="bottom|center"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
+
+<!--        ca-app-pub-8763169533349627/8846147679-->
+
     </LinearLayout>
 
 </ScrollView>
