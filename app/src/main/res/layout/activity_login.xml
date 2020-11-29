@@ -31,9 +31,9 @@
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_proceed" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:src="@drawable/app_logo" />

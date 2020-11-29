@@ -12,6 +12,7 @@ public class Constants {
     public static final String POST_EBAY_BASE_URL = "&_sacat=0";
 
     // Amazon
+    public static final String AMAZON_DETAIL = "https://www.amazon.com";
     public static final String PRE_AMAZON_BASE_URL = "https://www.amazon.com/s?k=";
     public static final String POST_AMAZON_BASE_URL = "&ref=nb_sb_noss_1";
 

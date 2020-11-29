@@ -64,6 +64,7 @@
 
                 <ProgressBar
                     android:id="@+id/profileProgressBar"
+                    style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"

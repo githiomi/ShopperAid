@@ -84,7 +84,7 @@ dependencies {
     //    recycler adapter
     implementation 'com.firebaseui:firebase-ui-database:3.3.1'
     //    for authentication
-    implementation 'com.google.firebase:firebase-auth:20.0.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
     //    for storage
     implementation 'com.google.firebase:firebase-storage:19.2.0'
     // Import the Firebase BoM
@@ -99,5 +99,8 @@ dependencies {
 //    OkHttp3
     implementation 'com.squareup.okhttp3:okhttp:4.2.1'
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
+
+//    For the ads
+      implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
 }

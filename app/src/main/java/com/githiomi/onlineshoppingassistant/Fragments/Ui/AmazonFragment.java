@@ -50,10 +50,14 @@ public class AmazonFragment extends Fragment {
     private List<Product> amazonProducts;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView) RecyclerView wAmazonRecyclerView;
-    @BindView(R.id.progressBar) ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage) TextView wErrorMessage;
-    @BindView(R.id.noResult) TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView)
+    RecyclerView wAmazonRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage)
+    TextView wErrorMessage;
+    @BindView(R.id.noResult)
+    TextView wNoResult;
 
     public AmazonFragment() {
         // Required empty public constructor
@@ -121,10 +125,12 @@ public class AmazonFragment extends Fragment {
                     for (int a = 0; a < dataSize; a += 1) {
 
                         String linkToPage = dataObtained
-                                .select("div.sg-row")
-                                .select("a.a-link-normal a-text-normal")
+                                .select("div.sg-col-inner")
+                                .select("a.a-link-normal s-no-outline")
                                 .eq(a)
                                 .attr("href");
+
+                        Log.d(TAG, "doInBackground linkToPage: " + linkToPage);
 
                         String nameFromUrl = dataObtained.select("img.s-image")
                                 .eq(a)
@@ -143,48 +149,46 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .text();
 
-                        if ( !(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty()) ) {
+                        if (!(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty())) {
                             amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
-                            Log.d(TAG, "doInBackground: amazonUrl " + linkToPage);
                         }
 
                     }
 
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // Passing the products to the adapter
+                            passToAdapter(amazonProducts);
+
+                            // Method to hide progress bar
+                            showResults();
+                        }
+                    });
+
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            noResult();
+                        }
+                    });
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-                        // Passing the products to the adapter
-                        passToAdapter(amazonProducts);
-
-                        // Method to hide progress bar
-                        showResults();
-                    }
-                });
-
-            } else{
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        noResult();
+                        showUnsuccessful();
                     }
                 });
             }
 
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showUnsuccessful();
-                }
-            });
-        }
-
             return null;
+        }
     }
-
-}
 
     private void showUnsuccessful() {
 

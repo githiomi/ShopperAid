@@ -25,6 +25,11 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.githiomi.onlineshoppingassistant.Adapters.Firebase.RecentSearchesAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +55,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
     @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
     @BindView(R.id.btnSearch) Button wSearchButton;
-    @BindView(R.id.recentSearchesRecyclerView) RecyclerView recentSearchesRecyclerView;
 
     //    Local variables
     String productSearched;
@@ -66,8 +70,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     // Database
     private DatabaseReference databaseReference;
-    // Adapter
-    private RecentSearchesAdapter recentSearchesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Binding widgets
         ButterKnife.bind(this);
+        //Adview
+        AdView wAdView = findViewById(R.id.adView);
+
+        MobileAds.initialize(this);
+
+        // Loading adds
+        AdRequest adRequest = new AdRequest.Builder().build();
+        wAdView.loadAd(adRequest);
 
         // Init shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -85,9 +95,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String currentUser = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
             databaseReference = FirebaseDatabase.getInstance().getReference("Recent Searches").child(currentUser);
-
-            // Retrieve recent searches
-            retrieveRecentSearches(currentUser);
         }
 
         // Navigation listeners
@@ -198,39 +205,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         startActivity(toResultActivity);
-
-    }
-
-    // Method that will get data from firebase
-    private void retrieveRecentSearches(String loggedInUser) {
-
-        FirebaseRecyclerOptions<String> recentSearches = new FirebaseRecyclerOptions.Builder<String>()
-                                                                                    .setQuery(databaseReference, String.class)
-                                                                                    .build();
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.exists()) {
-
-                    Context context = SearchActivity.this;
-
-                    recentSearchesAdapter = new RecentSearchesAdapter(recentSearches, databaseReference, context);
-
-                    recentSearchesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recentSearchesRecyclerView.setAdapter(recentSearchesAdapter);
-
-                } else {
-                    recentSearchesRecyclerView.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                recentSearchesRecyclerView.setVisibility(View.GONE);
-            }
-        });
 
     }
 
