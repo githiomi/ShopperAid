@@ -97,12 +97,12 @@ public class AmazonDetailFragment extends Fragment {
 
         // Setting views
         // Image
-        int MAX_WIDTH = 200;
-        int MAX_HEIGHT = 200;
+        int MAX_WIDTH = 230;
+        int MAX_HEIGHT = 250;
 
         Picasso.get().load(productToShowDetails.getImageUrl())
                 .resize(MAX_WIDTH, MAX_HEIGHT)
-                .centerCrop()
+                .centerInside()
                 .into(wProductImage);
 
         if ( productToShowDetails.getName().isEmpty() ){
@@ -140,7 +140,6 @@ public class AmazonDetailFragment extends Fragment {
             try {
 //            Assigning the new url
                 detailUrl = Constants.AMAZON_DETAIL + productToShowDetails.getLink().trim();
-                Log.d(TAG, "doInBackground: detailUrl: " + detailUrl);
 
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
@@ -151,7 +150,8 @@ public class AmazonDetailFragment extends Fragment {
                         .select("span.a-size-mini sims-fbt-shipping-details-text")
                         .text();
 
-                productDescription = dataObtained.select("div.a-row feature")
+                productDescription = dataObtained.select("div.celwidget")
+                        .select("div.a-row feature")
                         .select("div.a-section a-spacing-small")
                         .select("p")
                         .text();

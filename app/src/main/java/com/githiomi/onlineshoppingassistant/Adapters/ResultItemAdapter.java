@@ -70,8 +70,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     public class ResultItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Image constants
-        private static final int MAX_WIDTH = 250;
-        private static final int MAX_HEIGHT = 250;
+        private static final int MAX_WIDTH = 150;
+        private static final int MAX_HEIGHT = 200;
 
         // Widgets
         @BindView(R.id.productImageView) ImageView wProductImage;
@@ -96,12 +96,12 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
             if ( !(product.getImageUrl().isEmpty()) ) {
                 Picasso.get().load(product.getImageUrl())
                         .resize(MAX_WIDTH, MAX_HEIGHT)
-                        .centerCrop()
+                        .centerInside()
                         .into(wProductImage);
             }else{
                 Picasso.get().load(R.drawable.no_image)
                         .resize(MAX_WIDTH, MAX_HEIGHT)
-                        .centerCrop()
+                        .centerInside()
                         .into(wProductImage);
             }
 
@@ -130,7 +130,6 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
             }else {
                 wProductRating.setText(R.string.no_rating);
             }
-
         }
 
         // What happens when a single item is clicked

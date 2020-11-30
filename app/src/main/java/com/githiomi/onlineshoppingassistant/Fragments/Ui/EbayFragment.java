@@ -108,7 +108,6 @@ public class EbayFragment extends Fragment {
                 String url = Constants.PRE_EBAY_BASE_URL + productSearched + Constants.POST_EBAY_BASE_URL;
 
                 Document extractedContent = Jsoup.connect(url).get();
-                Log.d(TAG, "doInBackground: eBay url " + url );
 
                 // Confirming url
                 Log.d(TAG, "doInBackground: extracted ebay content url " + url);
@@ -220,8 +219,6 @@ public class EbayFragment extends Fragment {
     }
 
     public void passToAdapter(List<Product> retrievedProducts) {
-
-        Log.d(TAG, "passToAdapter: Passed to adapter");
 
         resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Ebay", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);

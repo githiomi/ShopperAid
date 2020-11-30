@@ -98,7 +98,7 @@ public class EbayDetailFragment extends Fragment {
 
         // Setting views
         // Image
-        int MAX_WIDTH = 200;
+        int MAX_WIDTH = 180;
         int MAX_HEIGHT = 200;
 
         Picasso.get().load(productToShowDetails.getImageUrl())

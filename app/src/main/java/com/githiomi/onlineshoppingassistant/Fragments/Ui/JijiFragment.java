@@ -32,10 +32,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AmazonFragment extends Fragment {
+public class JijiFragment extends Fragment {
 
     //    TAG
-    private static final String TAG = AmazonFragment.class.getSimpleName();
+    private static final String TAG = JijiFragment.class.getSimpleName();
 
     //    Local variables
     // Results adapter
@@ -47,11 +47,11 @@ public class AmazonFragment extends Fragment {
     // The product searched
     private String productSearched;
     // Results list
-    private List<Product> amazonProducts;
+    private List<Product> jijiProducts;
 
     //      Widgets
     @BindView(R.id.resultsRecyclerView)
-    RecyclerView wAmazonRecyclerView;
+    RecyclerView wJumiaRecyclerView;
     @BindView(R.id.progressBar)
     ProgressBar wProgressBar;
     @BindView(R.id.errorMessage)
@@ -59,12 +59,12 @@ public class AmazonFragment extends Fragment {
     @BindView(R.id.noResult)
     TextView wNoResult;
 
-    public AmazonFragment() {
+    public JijiFragment() {
         // Required empty public constructor
     }
 
-    public static AmazonFragment newInstance() {
-        return new AmazonFragment();
+    public static JijiFragment newInstance() {
+        return new JijiFragment();
     }
 
     @Override
@@ -76,76 +76,72 @@ public class AmazonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View amazonView = inflater.inflate(R.layout.fragment_amazon, container, false);
+        View jijiView = inflater.inflate(R.layout.fragment_jiji, container, false);
 
-        // Binding widgets
-        ButterKnife.bind(this, amazonView);
+        // binding widgets
+        ButterKnife.bind(this, jijiView);
 
-        // Context
+        // Get the context
         this.context = getContext();
 
         // Getting the search input
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null).trim();
 
-        // Init the scrapper
-        AmazonScraper amazonScraper = new AmazonScraper();
-        amazonScraper.execute();
+        // Init the web scrapping
+        JijiScraper jijiScraper = new JijiScraper();
+        jijiScraper.execute();
 
-        return amazonView;
-
+        return jijiView;
     }
 
-    public class AmazonScraper extends AsyncTask<Void, Void, Void> {
+    public class JijiScraper extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Log.d(TAG, "doInBackground: amazon scrape init");
+            Log.d(TAG, "doInBackground: jiji scrape init");
 
             try {
 
                 // Url to be used in browser
-                String url = Constants.PRE_AMAZON_BASE_URL + productSearched.trim() + Constants.POST_AMAZON_BASE_URL;
-
+                String url = Constants.JIJI_BASE_URL + productSearched;
                 Document extractedContent = Jsoup.connect(url).get();
 
-                Elements dataObtained = extractedContent.select("div.sg-col-inner");
+                // Confirming url
+                Log.d(TAG, "doInBackground: extracted content url " + url);
+
+                Elements dataObtained = extractedContent.select("div.b-list-advert__wrapper qa-advert-list-item");
 
                 if (dataObtained.size() > 0) {
 
                     int dataSize = dataObtained.size();
 
                     // initializing the list
-                    amazonProducts = new ArrayList<>();
+                    jijiProducts = new ArrayList<>();
 
-                    for (int a = 0; a < dataSize; a += 1) {
+                    for (int j = 0; j < dataSize; j += 1) {
 
                         String linkToPage = dataObtained
-                                .select("div.a-section a-spacing-none")
-                                .select("a.a-link-normal a-text-normal")
-                                .eq(a)
+                                .select("a")
+                                .eq(j)
                                 .attr("href");
 
-                        String nameFromUrl = dataObtained.select("img.s-image")
-                                .eq(a)
-                                .attr("alt");
+                        String nameFromUrl = dataObtained.select("div.b-advert-title-inner qa-advert-title b-advert-title-inner--h3")
+                                .eq(j)
+                                .text();
 
-                        String imageFromUrl = dataObtained.select("img.s-image")
-                                .eq(a)
+                        String imageFromUrl = dataObtained.select("span.b-list-advert__img")
+                                .select("img")
+                                .eq(j)
                                 .attr("src");
 
-                        String priceFromUrl = dataObtained.select("div.a-row")
-                                .select("span.a-offscreen")
-                                .eq(a)
+                        String priceFromUrl = dataObtained.select("div.b-list-advert__price qa-advert-price")
+                                .eq(j)
                                 .text();
 
-                        String ratingFromUrl = dataObtained.select("span.a-icon-alt")
-                                .eq(a)
-                                .text();
-
-                        if (!(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty())) {
-                            amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                        if (!(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) ) {
+                            jijiProducts.add(new Product(linkToPage.trim(), nameFromUrl.trim(), priceFromUrl.trim(), "No rating", imageFromUrl.trim()));
                         }
 
                     }
@@ -155,7 +151,7 @@ public class AmazonFragment extends Fragment {
                         public void run() {
 
                             // Passing the products to the adapter
-                            passToAdapter(amazonProducts);
+                            passToAdapter(jijiProducts);
 
                             // Method to hide progress bar
                             showResults();
@@ -207,19 +203,19 @@ public class AmazonFragment extends Fragment {
 
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
-        wAmazonRecyclerView.setVisibility(View.VISIBLE);
-        wAmazonRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+        wJumiaRecyclerView.setVisibility(View.VISIBLE);
+        wJumiaRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
     public void passToAdapter(List<Product> retrievedProducts) {
 
-        resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Amazon", getContext());
+        resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Jiji", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
-        wAmazonRecyclerView.setAdapter(resultItemAdapter);
-        wAmazonRecyclerView.setLayoutManager(gridLayoutManager);
-        wAmazonRecyclerView.setClipToPadding(false);
+        wJumiaRecyclerView.setAdapter(resultItemAdapter);
+        wJumiaRecyclerView.setLayoutManager(gridLayoutManager);
+        wJumiaRecyclerView.setClipToPadding(false);
 
     }
 }

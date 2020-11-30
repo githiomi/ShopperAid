@@ -52,10 +52,6 @@ public class DetailActivity extends AppCompatActivity {
         itemPosition = fromResultsActivity.getIntExtra( Constants.ITEM_POSITION, 0 );
         theFragment = fromResultsActivity.getStringExtra(Constants.FRAGMENT_SOURCE);
 
-        if ( parceledProducts.size() > 0 && itemPosition > 0 ){
-            Log.d(TAG, "onCreate: products parceled -------- " + parceledProducts );
-        }
-
         initDetailViewPager();
     }
 
