@@ -97,12 +97,12 @@ public class JumiaDetailFragment extends Fragment {
 
         // Setting views
         // Image
-        int MAX_WIDTH = 180;
-        int MAX_HEIGHT = 200;
+        int MAX_WIDTH = 230;
+        int MAX_HEIGHT = 250;
 
         Picasso.get().load(productToShowDetails.getImageUrl())
                 .resize(MAX_WIDTH, MAX_HEIGHT)
-                .centerCrop()
+                .centerInside()
                 .into(wProductImage);
 
         if ( productToShowDetails.getName().isEmpty() ){
@@ -172,13 +172,13 @@ public class JumiaDetailFragment extends Fragment {
                         wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
 
                         if ( productDeliveryAndWarranty.isEmpty() ) {
-                            wProductWarranty.setText("NO WARRANTY OR DELIVERY DETAILS FOR THIS PRODUCT");
+                            wProductWarranty.setText(R.string.no_details);
                         } else {
                             wProductWarranty.setText(productDeliveryAndWarranty);
                         }
 
                         if ( productDescription.isEmpty() ) {
-                            wProductSpecs.setText("NO PRODUCT SPECS FOR THIS PRODUCT");
+                            wProductSpecs.setText(R.string.no_specs);
                         } else {
                             wProductSpecs.setText(productDescription);
                         }
@@ -189,7 +189,6 @@ public class JumiaDetailFragment extends Fragment {
                                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
                                         Uri.parse(detailUrl));
                                 startActivity(webIntent);
-                                Toast.makeText(getContext(), "Link: " + detailUrl, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

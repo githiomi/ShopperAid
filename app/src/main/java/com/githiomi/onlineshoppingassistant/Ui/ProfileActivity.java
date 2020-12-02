@@ -137,6 +137,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
             case R.id.toSearchNav:
                 startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
+                finish();
                 break;
 
             case R.id.toProfileNav:
@@ -171,6 +172,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             wDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            finish();
         }
     }
 

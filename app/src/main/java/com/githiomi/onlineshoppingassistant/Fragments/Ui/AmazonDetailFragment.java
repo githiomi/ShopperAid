@@ -172,13 +172,13 @@ public class AmazonDetailFragment extends Fragment {
                         wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
 
                         if ( productDeliveryAndWarranty.isEmpty() ) {
-                            wProductWarranty.setText("NO WARRANTY OR DELIVERY DETAILS FOR THIS PRODUCT");
+                            wProductWarranty.setText(R.string.no_details);
                         } else {
                             wProductWarranty.setText(productDeliveryAndWarranty);
                         }
 
                         if ( productDescription.isEmpty() ) {
-                            wProductSpecs.setText("NO PRODUCT SPECS FOR THIS PRODUCT");
+                            wProductSpecs.setText(R.string.no_specs);
                         } else {
                             wProductSpecs.setText(productDescription);
                         }

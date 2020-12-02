@@ -179,7 +179,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (v == wNavigationImage) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
             } else {
                 String asGuest = "You're not logged in";
@@ -191,7 +190,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (v == wNavigationUsername) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
             } else {
                 String asGuest = "You're not logged in";
@@ -241,7 +239,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
             } else {
                 String asGuest = "You're not logged in";
@@ -290,6 +287,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (wSearchDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        // Setting initial selected item
+        wSideNavigation.setCheckedItem(R.id.toSearchNav);
     }
 
     //    Firebase overriding listeners

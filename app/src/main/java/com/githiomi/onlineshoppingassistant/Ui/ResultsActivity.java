@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +55,9 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     View navigationView;
     CircleImageView wNavigationProfilePicture;
     TextView wNavigationUsername;
+    
+    //    Interstitial ad
+    private InterstitialAd wInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +68,19 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         //Adview
         AdView wAdView = findViewById(R.id.adView);
-
         MobileAds.initialize(this);
 
         // Loading adds
-        AdRequest adRequest = new AdRequest.Builder().build();
-        wAdView.loadAd(adRequest);
+        AdRequest bannerAdRequest = new AdRequest.Builder().build();
+        wAdView.loadAd(bannerAdRequest);
+
+        // Loading the interstitial add
+        wInterstitialAd = new InterstitialAd(this);
+        wInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        AdRequest interstitialAdRequest = new AdRequest.Builder()
+                                                       .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                                                       .build();
+        wInterstitialAd.loadAd(interstitialAdRequest);
 
         // Get search string
         String searchInput = getIntent().getStringExtra(Constants.SEARCH_INPUT_KEY);
@@ -233,6 +246,24 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+
+        if ( wInterstitialAd.isLoaded() ){
+            wInterstitialAd.show();
+
+            wInterstitialAd.setAdListener(new AdListener(){
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    ResultsActivity.super.onBackPressed();
+                }
+
+                @Override
+                public void onAdFailedToLoad(LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    ResultsActivity.super.onBackPressed();
+                }
+            });
+        }
     }
 }
