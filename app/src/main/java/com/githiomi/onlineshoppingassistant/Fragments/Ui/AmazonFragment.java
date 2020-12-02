@@ -107,8 +107,10 @@ public class AmazonFragment extends Fragment {
 
                 // Url to be used in browser
                 String url = Constants.PRE_AMAZON_BASE_URL + productSearched.trim() + Constants.POST_AMAZON_BASE_URL;
-
                 Document extractedContent = Jsoup.connect(url).get();
+
+                // Confirming url
+                Log.d(TAG, "doInBackground: extracted amazon content url " + url);
 
                 Elements dataObtained = extractedContent.select("div.sg-col-inner");
 
@@ -122,10 +124,11 @@ public class AmazonFragment extends Fragment {
                     for (int a = 0; a < dataSize; a += 1) {
 
                         String linkToPage = dataObtained
-                                .select("div.a-section a-spacing-none")
                                 .select("a.a-link-normal a-text-normal")
                                 .eq(a)
                                 .attr("href");
+
+                        Log.d(TAG, "doInBackground: amazonProductLink " + linkToPage);
 
                         String nameFromUrl = dataObtained.select("img.s-image")
                                 .eq(a)

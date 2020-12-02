@@ -109,7 +109,7 @@ public class JijiFragment extends Fragment {
                 Document extractedContent = Jsoup.connect(url).get();
 
                 // Confirming url
-                Log.d(TAG, "doInBackground: extracted content url " + url);
+                Log.d(TAG, "doInBackground: extracted jiji content url " + url);
 
                 Elements dataObtained = extractedContent.select("div.b-list-advert__wrapper qa-advert-list-item");
 

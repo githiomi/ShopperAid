@@ -106,7 +106,6 @@ public class EbayFragment extends Fragment {
 
                 // Url to be used in browser
                 String url = Constants.PRE_EBAY_BASE_URL + productSearched + Constants.POST_EBAY_BASE_URL;
-
                 Document extractedContent = Jsoup.connect(url).get();
 
                 // Confirming url
@@ -124,10 +123,11 @@ public class EbayFragment extends Fragment {
                     for (int e = 0; e < dataSize; e += 1) {
 
                         String productLink = obtainedData
-                                .select("div.s-item__info clearfix")
                                 .select("a.s-item__link")
                                 .eq(e)
                                 .attr("href");
+
+                        Log.d(TAG, "doInBackground: ebayProductLink " + productLink);
 
                         String productName = obtainedData
                                 .select("h3.s-item__title")
@@ -150,7 +150,7 @@ public class EbayFragment extends Fragment {
                                 .eq(e)
                                 .text();
 
-                        if ( !(productPrice.toString().contains("to")) ){
+                        if ( !(productPrice.contains("to")) ){
                             if ( !(productLink.isEmpty()) || !(productName.isEmpty()) || !(productImage.isEmpty()) || !(productPrice.isEmpty()) || !(productRating.isEmpty()) ) {
                                 ebayProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
                             }

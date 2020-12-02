@@ -98,12 +98,12 @@ public class EbayDetailFragment extends Fragment {
 
         // Setting views
         // Image
-        int MAX_WIDTH = 180;
-        int MAX_HEIGHT = 200;
+        int MAX_WIDTH = 250;
+        int MAX_HEIGHT = 280;
 
         Picasso.get().load(productToShowDetails.getImageUrl())
                 .resize(MAX_WIDTH, MAX_HEIGHT)
-                .centerCrop()
+                .centerInside()
                 .into(wProductImage);
 
         if ( productToShowDetails.getName().isEmpty() ){
@@ -141,7 +141,7 @@ public class EbayDetailFragment extends Fragment {
             try {
 //            Assigning the new url
                 detailUrl = productToShowDetails.getLink();
-                Log.d(TAG, "doInBackground: ebayLink " + detailUrl);
+                Log.d(TAG, "doInBackground: ebayLink " + detailUrl + " -- ");
 
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();

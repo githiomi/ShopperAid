@@ -102,7 +102,6 @@ public class JumiaFragment extends Fragment {
 
                 // Url to be used in browser
                 String url = Constants.JUMIA_BASE_URL + productSearched;
-
                 Document extractedContent = Jsoup.connect(url).get();
 
                 // Confirming url
@@ -124,6 +123,9 @@ public class JumiaFragment extends Fragment {
                             String linkToPage = dataObtained.select("a.core")
                                     .eq(j)
                                     .attr("href");
+
+                            Log.d(TAG, "doInBackground: jumiaProductLink " + linkToPage);
+
 
                             String nameFromUrl = dataObtained.select("div.info")
                                     .select("h3.name")
