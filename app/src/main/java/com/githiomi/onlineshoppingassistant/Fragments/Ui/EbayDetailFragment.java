@@ -1,6 +1,7 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -146,14 +147,13 @@ public class EbayDetailFragment extends Fragment {
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
 
-                Elements dataObtained = allObtainedData.select("main.-pvs");
+                Elements dataObtained = allObtainedData.select("div.itemAttr");
 
-                productDeliveryAndWarranty = dataObtained.select("div.tab-content")
-                        .select("section#content2")
+                productDeliveryAndWarranty = dataObtained
+                        .select("span.vi-acc-del-range")
                         .text();
 
-                productDescription = dataObtained.select("div.itemAttr")
-                        .select("div.section")
+                productDescription = dataObtained
                         .select("span.viSNotesCnt")
                         .text();
 
@@ -164,18 +164,20 @@ public class EbayDetailFragment extends Fragment {
                     @Override
                     public void run() {
 
+                        Context context = getContext();
+
                         // Data obtained so hide bar and show details
                         wSpecsProgressBar.setVisibility(View.GONE);
-                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
                         wProductSpecifications.setVisibility(View.VISIBLE);
-                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
-                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
                         if ( productDeliveryAndWarranty.isEmpty() ) {
                             wProductWarranty.setText(R.string.no_details);
                         } else {
-                            wProductWarranty.setText(productDeliveryAndWarranty);
+                            wProductWarranty.setText("Between " + productDeliveryAndWarranty);
                         }
 
                         if ( productDescription.isEmpty() ) {
