@@ -124,26 +124,30 @@ public class AmazonFragment extends Fragment {
                     for (int a = 0; a < dataSize; a += 1) {
 
                         String linkToPage = dataObtained
-                                .select("a.a-link-normal a-text-normal")
+                                .select("a.a-link-normal")
                                 .eq(a)
                                 .attr("href");
 
                         Log.d(TAG, "doInBackground: amazonProductLink " + linkToPage);
 
-                        String nameFromUrl = dataObtained.select("img.s-image")
+                        String nameFromUrl = dataObtained
+                                .select("img.s-image")
                                 .eq(a)
                                 .attr("alt");
 
-                        String imageFromUrl = dataObtained.select("img.s-image")
+                        String imageFromUrl = dataObtained
+                                .select("img.s-image")
                                 .eq(a)
                                 .attr("src");
 
-                        String priceFromUrl = dataObtained.select("div.a-row")
+                        String priceFromUrl = dataObtained
+                                .select("div.a-row")
                                 .select("span.a-offscreen")
                                 .eq(a)
                                 .text();
 
-                        String ratingFromUrl = dataObtained.select("span.a-icon-alt")
+                        String ratingFromUrl = dataObtained
+                                .select("span.a-icon-alt")
                                 .eq(a)
                                 .text();
 

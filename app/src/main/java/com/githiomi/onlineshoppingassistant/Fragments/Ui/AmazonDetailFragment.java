@@ -1,6 +1,7 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -146,8 +147,8 @@ public class AmazonDetailFragment extends Fragment {
 
                 Elements dataObtained = allObtainedData.select("div.wireless en_US");
 
-                productDeliveryAndWarranty = dataObtained.select("div.a-alert-content")
-                        .select("span.a-size-mini sims-fbt-shipping-details-text")
+                productDeliveryAndWarranty = dataObtained
+                        .select("div.a-section")
                         .text();
 
                 productDescription = dataObtained.select("div.celwidget")
@@ -163,13 +164,15 @@ public class AmazonDetailFragment extends Fragment {
                     @Override
                     public void run() {
 
+                        Context context = getContext();
+
                         // Data obtained so hide bar and show details
                         wSpecsProgressBar.setVisibility(View.GONE);
-                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
                         wProductSpecifications.setVisibility(View.VISIBLE);
-                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
-                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
                         if ( productDeliveryAndWarranty.isEmpty() ) {
                             wProductWarranty.setText(R.string.no_details);

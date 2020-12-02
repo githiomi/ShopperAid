@@ -37,4 +37,5 @@
     <string name="no_result">No result for your search</string>
     <string name="no_details">COULDN\'T LOCATE THE DETAILS FOR THIS PRODUCT</string>
     <string name="no_specs">COULDN\'T LOCATE THE SPECS FOR THIS PRODUCT</string>
+    <string name="seller_no_specs">SELLER DID NOT PROVIDE SPECS FOR THIS PRODUCT</string>
 </resources>

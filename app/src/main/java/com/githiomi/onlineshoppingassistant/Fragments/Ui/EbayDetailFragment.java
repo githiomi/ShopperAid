@@ -147,10 +147,10 @@ public class EbayDetailFragment extends Fragment {
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
 
-                Elements dataObtained = allObtainedData.select("div.itemAttr");
+                Elements dataObtained = allObtainedData.select("div.tabbable");
 
                 productDeliveryAndWarranty = dataObtained
-                        .select("span.vi-acc-del-range")
+                        .select("div.sh-del-frst")
                         .text();
 
                 productDescription = dataObtained
@@ -167,8 +167,8 @@ public class EbayDetailFragment extends Fragment {
                         Context context = getContext();
 
                         // Data obtained so hide bar and show details
-                        wSpecsProgressBar.setVisibility(View.GONE);
                         wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+                        wSpecsProgressBar.setVisibility(View.GONE);
                         wProductSpecifications.setVisibility(View.VISIBLE);
                         wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
@@ -177,11 +177,11 @@ public class EbayDetailFragment extends Fragment {
                         if ( productDeliveryAndWarranty.isEmpty() ) {
                             wProductWarranty.setText(R.string.no_details);
                         } else {
-                            wProductWarranty.setText("Between " + productDeliveryAndWarranty);
+                            wProductWarranty.setText(productDeliveryAndWarranty);
                         }
 
                         if ( productDescription.isEmpty() ) {
-                            wProductSpecs.setText(R.string.no_specs);
+                            wProductSpecs.setText(R.string.seller_no_specs);
                         } else {
                             wProductSpecs.setText(productDescription);
                         }
