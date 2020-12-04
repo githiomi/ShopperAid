@@ -21,7 +21,7 @@
             <ImageView
                 android:id="@+id/productImageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:src="@drawable/app_logo"
                 android:layout_margin="5dp"
                 android:padding="5dp"

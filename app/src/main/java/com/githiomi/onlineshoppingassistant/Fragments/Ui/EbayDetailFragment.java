@@ -142,7 +142,6 @@ public class EbayDetailFragment extends Fragment {
             try {
 //            Assigning the new url
                 detailUrl = productToShowDetails.getLink();
-                Log.d(TAG, "doInBackground: ebayLink " + detailUrl + " -- ");
 
 //                Scrapping
                 Document allObtainedData = Jsoup.connect(detailUrl).get();
@@ -192,7 +191,6 @@ public class EbayDetailFragment extends Fragment {
                                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
                                         Uri.parse(detailUrl));
                                 startActivity(webIntent);
-                                Toast.makeText(getContext(), "Link: " + detailUrl, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

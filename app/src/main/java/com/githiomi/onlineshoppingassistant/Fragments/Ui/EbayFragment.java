@@ -127,8 +127,6 @@ public class EbayFragment extends Fragment {
                                 .eq(e)
                                 .attr("href");
 
-                        Log.d(TAG, "doInBackground: ebayProductLink " + productLink);
-
                         String productName = obtainedData
                                 .select("h3.s-item__title")
                                 .eq(e)

@@ -42,13 +42,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     //    Widgets
-    @BindView(R.id.userProfilePicture) CircleImageView wUserProfilePicture;
-    @BindView(R.id.tvProfileUsername) TextView wUsername;
-    @BindView(R.id.tvProfileEmail) TextView wEmail;
-    @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
-    @BindView(R.id.drawerLayout) DrawerLayout wDrawerLayout;
-    @BindView(R.id.userNavigation) NavigationView wNavigationView;
-    @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
+    @BindView(R.id.userProfilePicture)
+    CircleImageView wUserProfilePicture;
+    @BindView(R.id.tvProfileUsername)
+    TextView wUsername;
+    @BindView(R.id.tvProfileEmail)
+    TextView wEmail;
+    @BindView(R.id.editProfilePicture)
+    ImageButton wEditProfilePicture;
+    @BindView(R.id.drawerLayout)
+    DrawerLayout wDrawerLayout;
+    @BindView(R.id.userNavigation)
+    NavigationView wNavigationView;
+    @BindView(R.id.profileProgressBar)
+    ProgressBar wProfileProgressBar;
 
     // Navigation view
     View navigationView;
@@ -136,7 +143,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         switch (item.getItemId()) {
 
             case R.id.toSearchNav:
-                startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
+                Intent backToSearch = new Intent(this, SearchActivity.class);
+                backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(backToSearch);
                 finish();
                 break;
 
@@ -158,7 +167,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         FirebaseAuth.getInstance().signOut();
         Intent backToLogin = new Intent(ProfileActivity.this, LoginActivity.class);
-        backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(backToLogin);
         finish();
 
@@ -189,7 +198,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         }
 
-        if ( view == wUserProfilePicture ){
+        if (view == wUserProfilePicture) {
 
             Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -215,11 +224,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         }
 
-        if ( view == wNavImage ){
+        if (view == wNavImage) {
             wDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
-        if ( view == wNavUsername ){
+        if (view == wNavUsername) {
             wDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
@@ -283,7 +292,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
                             wProfileProgressBar.setVisibility(View.GONE);
                             wUserProfilePicture.setVisibility(View.VISIBLE);
-                            Picasso.get().load( R.drawable.user_profile_picture )
+                            Picasso.get().load(R.drawable.user_profile_picture)
                                     .resize(100, 100)
                                     .centerCrop()
                                     .into(wUserProfilePicture);
@@ -324,10 +333,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
                             wProfileProgressBar.setVisibility(View.GONE);
                             wUserProfilePicture.setVisibility(View.VISIBLE);
-                            Picasso.get().load( R.drawable.user_profile_picture )
-                                         .resize(100, 100)
-                                         .centerCrop()
-                                         .into(wUserProfilePicture);
+                            Picasso.get().load(R.drawable.user_profile_picture)
+                                    .resize(100, 100)
+                                    .centerCrop()
+                                    .into(wUserProfilePicture);
                             String error = "Could not update the profile picture";
                             Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
 

@@ -101,19 +101,26 @@ public class AmazonDetailFragment extends Fragment {
         int MAX_WIDTH = 230;
         int MAX_HEIGHT = 250;
 
-        Picasso.get().load(productToShowDetails.getImageUrl())
+        if ( !(productToShowDetails.getImageUrl().equals("")) ) {
+            Picasso.get().load(productToShowDetails.getImageUrl())
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerInside()
+                    .into(wProductImage);
+        }else{
+        Picasso.get().load(R.drawable.no_image)
                 .resize(MAX_WIDTH, MAX_HEIGHT)
                 .centerInside()
                 .into(wProductImage);
+    }
 
         if ( productToShowDetails.getName().isEmpty() ){
-            wProductName.setText("No product to display");
+            wProductName.setText("No product name to display");
         } else {
             wProductName.setText(productToShowDetails.getName());
         }
 
         if ( productToShowDetails.getPrice().isEmpty() ) {
-            wProductPrice.setText("No image available");
+            wProductPrice.setText("No price available");
         } else {
             wProductPrice.setText(productToShowDetails.getPrice());
         }

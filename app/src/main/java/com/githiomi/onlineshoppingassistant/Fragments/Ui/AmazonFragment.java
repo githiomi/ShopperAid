@@ -50,14 +50,10 @@ public class AmazonFragment extends Fragment {
     private List<Product> amazonProducts;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView)
-    RecyclerView wAmazonRecyclerView;
-    @BindView(R.id.progressBar)
-    ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage)
-    TextView wErrorMessage;
-    @BindView(R.id.noResult)
-    TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wAmazonRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
 
     public AmazonFragment() {
         // Required empty public constructor
@@ -111,7 +107,6 @@ public class AmazonFragment extends Fragment {
 
                 // Confirming url
                 Log.d(TAG, "doInBackground: extracted amazon content url " + url);
-
                 Elements dataObtained = extractedContent.select("div.sg-col-inner");
 
                 if (dataObtained.size() > 0) {
@@ -121,7 +116,7 @@ public class AmazonFragment extends Fragment {
                     // initializing the list
                     amazonProducts = new ArrayList<>();
 
-                    for (int a = 0; a < dataSize; a += 1) {
+                    for (int a = 1; a < dataSize; a += 1) {
 
                         String linkToPage = dataObtained
                                 .select("a.a-link-normal")
@@ -151,7 +146,7 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .text();
 
-                        if (!(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty())) {
+                        if (!(linkToPage.equals("")) || !(nameFromUrl.equals("")) || !(imageFromUrl.equals("")) || !(priceFromUrl.equals("")) || !(ratingFromUrl.equals(""))) {
                             amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
                         }
 

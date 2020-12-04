@@ -50,14 +50,10 @@ public class JijiFragment extends Fragment {
     private List<Product> jijiProducts;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView)
-    RecyclerView wJumiaRecyclerView;
-    @BindView(R.id.progressBar)
-    ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage)
-    TextView wErrorMessage;
-    @BindView(R.id.noResult)
-    TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
 
     public JijiFragment() {
         // Required empty public constructor
@@ -111,7 +107,7 @@ public class JijiFragment extends Fragment {
                 // Confirming url
                 Log.d(TAG, "doInBackground: extracted jiji content url " + url);
 
-                Elements dataObtained = extractedContent.select("div.b-list-advert__wrapper qa-advert-list-item");
+                Elements dataObtained = extractedContent.select("div.b-list-advert__item-wrapper");
 
                 if (dataObtained.size() > 0) {
 
@@ -127,16 +123,19 @@ public class JijiFragment extends Fragment {
                                 .eq(j)
                                 .attr("href");
 
-                        String nameFromUrl = dataObtained.select("div.b-advert-title-inner qa-advert-title b-advert-title-inner--h3")
+                        String nameFromUrl = dataObtained
+                                .select("div.b-advert-title-inner qa-advert-title b-advert-title-inner--h3")
                                 .eq(j)
                                 .text();
 
-                        String imageFromUrl = dataObtained.select("span.b-list-advert__img")
-                                .select("img")
+                        String imageFromUrl = dataObtained
+                                .select("span.b-list-advert__img")
+                                .select("source")
                                 .eq(j)
-                                .attr("src");
+                                .attr("srcset");
 
-                        String priceFromUrl = dataObtained.select("div.b-list-advert__price qa-advert-price")
+                        String priceFromUrl = dataObtained
+                                .select("div.b-list-advert__price qa-advert-price")
                                 .eq(j)
                                 .text();
 
@@ -176,7 +175,6 @@ public class JijiFragment extends Fragment {
                     }
                 });
             }
-
             return null;
         }
     }

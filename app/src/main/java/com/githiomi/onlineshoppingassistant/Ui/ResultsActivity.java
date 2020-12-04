@@ -45,7 +45,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
 //    Local variables
     // The shopping options
-    private final String[] shoppingSiteOptions = { "Jumia", "Jiji", "Amazon", "Ebay" };
+    private final String[] shoppingSiteOptions = { "Jumia", "Amazon", "Ebay" };
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -77,8 +77,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         // Loading the interstitial add
         wInterstitialAd = new InterstitialAd(this);
         wInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        //ca-app-pub-8763169533349627/1133294713
         AdRequest interstitialAdRequest = new AdRequest.Builder()
-                                                       .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                                                        .build();
         wInterstitialAd.loadAd(interstitialAdRequest);
 
@@ -169,7 +169,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if ( selectedId == R.id.toProfileNav ) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                toProfile.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
                 startActivity(toProfile);
             } else {
                 String asGuest = "You're not logged in";
@@ -206,7 +205,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if (v == wNavigationProfilePicture) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
             } else {
                 String asGuest = "You're not logged in";
@@ -218,7 +216,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if (v == wNavigationUsername) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                toProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toProfile);
             } else {
                 String asGuest = "You're not logged in";

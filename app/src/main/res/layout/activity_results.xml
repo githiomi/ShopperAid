@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".Ui.SearchActivity" >
+    tools:context=".Ui.SearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,9 +31,9 @@
             <androidx.viewpager.widget.PagerTabStrip
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
                 android:layout_margin="1dp"
-                android:background="@color/transparent" />
+                android:background="@color/transparent"
+                android:padding="3dp" />
 
         </androidx.viewpager.widget.ViewPager>
 
@@ -50,12 +50,13 @@
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ads:adSize="BANNER"
             android:layout_gravity="bottom|center"
+            android:background="@color/white"
+            ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
         </com.google.android.gms.ads.AdView>
 
-<!--        ads:adUnitId="ca-app-pub-8763169533349627/4328318168-->
+        <!--        ads:adUnitId="ca-app-pub-8763169533349627/4328318168-->
 
     </LinearLayout>
 
