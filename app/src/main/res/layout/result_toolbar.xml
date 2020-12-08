@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="clickMenu"
-        android:contentDescription="@string/open_navigation_drawer"
+        android:contentDescription="@string/app_moto"
         android:src="@drawable/ic_result_menu" />
 
     <TextView
@@ -27,5 +27,13 @@
         android:textColor="@color/black"
         android:textSize="17sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="optSearch"
+        android:contentDescription="@string/app_moto"
+        android:src="@drawable/ic_search_black" />
 
 </LinearLayout>

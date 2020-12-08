@@ -48,6 +48,7 @@ public class AmazonFragment extends Fragment {
     private String productSearched;
     // Results list
     private List<Product> amazonProducts;
+    private List<String> amazonLinks;
 
     //      Widgets
     @BindView(R.id.resultsRecyclerView) RecyclerView wAmazonRecyclerView;
@@ -116,14 +117,19 @@ public class AmazonFragment extends Fragment {
                     // initializing the list
                     amazonProducts = new ArrayList<>();
 
-                    for (int a = 1; a < dataSize; a += 1) {
+                    for (int a = 0; a < ( dataSize - 3 ); a += 1) {
+
+                        amazonLinks = new ArrayList<>();
 
                         String linkToPage = dataObtained
                                 .select("a.a-link-normal")
                                 .eq(a)
                                 .attr("href");
 
-                        Log.d(TAG, "doInBackground: amazonProductLink " + linkToPage);
+                        if ( !(linkToPage.contains("s?k")) ) {
+                            amazonLinks.add(linkToPage);
+                        }
+                        Log.d(TAG, "doInBackground: amazonLinks " + amazonLinks);
 
                         String nameFromUrl = dataObtained
                                 .select("img.s-image")
@@ -146,10 +152,19 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .text();
 
-                        if (!(linkToPage.equals("")) || !(nameFromUrl.equals("")) || !(imageFromUrl.equals("")) || !(priceFromUrl.equals("")) || !(ratingFromUrl.equals(""))) {
-                            amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
-                        }
+                        if ( !(nameFromUrl.equals("")) || !(imageFromUrl.equals("")) || !(priceFromUrl.equals("")) || !(ratingFromUrl.equals(""))) {
 
+                            if ( amazonLinks.size() > 0 ) {
+                                for (int link = 0; link < ( amazonLinks.size() - 3 ); link += 1) {
+                                    String toProduct = amazonLinks.get(link);
+                                    amazonProducts.add(new Product(toProduct, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                                }
+                            }
+                            else{
+                                noResult();
+                            }
+
+                        }
                     }
 
                     getActivity().runOnUiThread(new Runnable() {

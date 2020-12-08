@@ -136,6 +136,13 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+//    Method to allow user to search another item
+    public void optSearch(View view){
+
+        onBackPressed();
+
+    }
+
 //    The method that will open the drawer layout
     public void clickMenu(View view) {
         wSearchDrawerLayout.openDrawer(GravityCompat.START);
@@ -163,7 +170,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
             Intent backToSearch = new Intent(this, SearchActivity.class);
             backToSearch.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
-            startActivity(backToSearch);
+            onBackPressed();
         }
 
         if ( selectedId == R.id.toProfileNav ) {
@@ -223,7 +230,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     //    Firebase overriding listeners

@@ -24,7 +24,7 @@
         android:layout_below="@id/appLogo"
         android:layout_margin="15dp"
         android:gravity="center"
-        android:text="Your shopping made easier"
+        android:text="@string/app_moto"
         android:textAlignment="center"
         android:textColor="#7A8090"
         android:textSize="14sp"
