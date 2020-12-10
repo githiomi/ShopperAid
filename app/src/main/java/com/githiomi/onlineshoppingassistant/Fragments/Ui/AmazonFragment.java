@@ -125,12 +125,10 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .attr("href");
 
-                        Log.d(TAG, "doInBackground: amazonAsin: " + linkToPage);
-
                         String nameFromUrl = dataObtained
-                                .select("span.a-size-base-plus.a-color-base.a-text-normal")
+                                .select("img.s-image")
                                 .eq(a)
-                                .text();
+                                .attr("alt");
 
                         String imageFromUrl = dataObtained
                                 .select("img.s-image")

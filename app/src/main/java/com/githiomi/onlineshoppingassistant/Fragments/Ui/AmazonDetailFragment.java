@@ -49,27 +49,18 @@ public class AmazonDetailFragment extends Fragment {
     private String productDescription;
 
     //    Widgets
-    @BindView(R.id.productItemImage)
-    ImageView wProductImage;
-    @BindView(R.id.productItemName)
-    TextView wProductName;
-    @BindView(R.id.productItemPrice)
-    TextView wProductPrice;
-    @BindView(R.id.productItemRating)
-    TextView wProductRating;
-    @BindView(R.id.productWarranty)
-    TextView wProductWarranty;
-    @BindView(R.id.productSpecs)
-    TextView wProductSpecs;
-    @BindView(R.id.btnGoToSite)
-    Button wToSite;
-    @BindView(R.id.specsProgressBar)
-    ProgressBar wSpecsProgressBar;
+    @BindView(R.id.productItemImage) ImageView wProductImage;
+    @BindView(R.id.productItemName) TextView wProductName;
+    @BindView(R.id.productItemPrice) TextView wProductPrice;
+    @BindView(R.id.productItemRating) TextView wProductRating;
+    @BindView(R.id.productWarranty) TextView wProductWarranty;
+    @BindView(R.id.productSpecs) TextView wProductSpecs;
+    @BindView(R.id.btnGoToSite) Button wToSite;
+    @BindView(R.id.specsProgressBar) ProgressBar wSpecsProgressBar;
+    @BindView(R.id.noResult) TextView wErrorMessage;
     // Card views
-    @BindView(R.id.cvProductDetailsTitle)
-    CardView wProductSpecsTitle;
-    @BindView(R.id.cvProductSpecs)
-    CardView wProductSpecifications;
+    @BindView(R.id.cvProductDetailsTitle) CardView wProductSpecsTitle;
+    @BindView(R.id.cvProductSpecs) CardView wProductSpecifications;
 
 
     public AmazonDetailFragment() {
@@ -144,9 +135,14 @@ public class AmazonDetailFragment extends Fragment {
         wToSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(detailUrl));
-                startActivity(webIntent);
+                if (detailUrl.isEmpty() || detailUrl.equals("")) {
+                    String error = "Product does not exist";
+                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(detailUrl));
+                    startActivity(webIntent);
+                }
             }
         });
 
@@ -220,8 +216,27 @@ public class AmazonDetailFragment extends Fragment {
 
                 System.out.println(exception.getMessage());
 
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showUnsuccessful();
+                    }
+                });
+
             }
             return null;
         }
+    }
+
+    // In case connection is lost
+    private void showUnsuccessful() {
+
+        Context context = getContext();
+
+        wSpecsProgressBar.setVisibility(View.GONE);
+        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wErrorMessage.setVisibility(View.VISIBLE);
+        wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+
     }
 }

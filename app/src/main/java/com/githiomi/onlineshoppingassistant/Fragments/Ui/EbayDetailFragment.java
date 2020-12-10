@@ -36,10 +36,10 @@ import butterknife.ButterKnife;
 
 public class EbayDetailFragment extends Fragment {
 
-//    TAG
+    //    TAG
     private static final String TAG = EbayDetailFragment.class.getSimpleName();
 
-//    Local variables
+    //    Local variables
     // For the product
     private Product productToShowDetails;
     // For the url
@@ -49,7 +49,7 @@ public class EbayDetailFragment extends Fragment {
     // For the description
     private String productDescription;
 
-//    Widgets
+    //    Widgets
     @BindView(R.id.productItemImage) ImageView wProductImage;
     @BindView(R.id.productItemName) TextView wProductName;
     @BindView(R.id.productItemPrice) TextView wProductPrice;
@@ -58,6 +58,7 @@ public class EbayDetailFragment extends Fragment {
     @BindView(R.id.productSpecs) TextView wProductSpecs;
     @BindView(R.id.btnGoToSite) Button wToSite;
     @BindView(R.id.specsProgressBar) ProgressBar wSpecsProgressBar;
+    @BindView(R.id.noResult) TextView wErrorMessage;
     // Card views
     @BindView(R.id.cvProductDetailsTitle) CardView wProductSpecsTitle;
     @BindView(R.id.cvProductSpecs) CardView wProductSpecifications;
@@ -67,7 +68,7 @@ public class EbayDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static EbayDetailFragment newInstance(Product product ) {
+    public static EbayDetailFragment newInstance(Product product) {
         EbayDetailFragment fragment = new EbayDetailFragment();
         Bundle args = new Bundle();
 
@@ -83,7 +84,7 @@ public class EbayDetailFragment extends Fragment {
         if (getArguments() != null) {
 
             // To get the data
-            productToShowDetails = Parcels.unwrap( getArguments().getParcelable(Constants.WRAP_PRODUCT) );
+            productToShowDetails = Parcels.unwrap(getArguments().getParcelable(Constants.WRAP_PRODUCT));
 
         }
     }
@@ -107,19 +108,19 @@ public class EbayDetailFragment extends Fragment {
                 .centerInside()
                 .into(wProductImage);
 
-        if ( productToShowDetails.getName().isEmpty() ){
+        if (productToShowDetails.getName().isEmpty()) {
             wProductName.setText("No product to display");
         } else {
             wProductName.setText(productToShowDetails.getName());
         }
 
-        if ( productToShowDetails.getPrice().isEmpty() ) {
+        if (productToShowDetails.getPrice().isEmpty()) {
             wProductPrice.setText("No image available");
         } else {
             wProductPrice.setText(productToShowDetails.getPrice());
         }
 
-        if ( productToShowDetails.getRating().isEmpty() ) {
+        if (productToShowDetails.getRating().isEmpty()) {
             wProductRating.setText("No rating available");
         } else {
             wProductRating.setText(productToShowDetails.getRating());
@@ -128,9 +129,14 @@ public class EbayDetailFragment extends Fragment {
         wToSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(detailUrl));
-                startActivity(webIntent);
+                if (detailUrl.isEmpty() || detailUrl.equals("")) {
+                    String error = "Product does not exist";
+                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(detailUrl));
+                    startActivity(webIntent);
+                }
             }
         });
 
@@ -182,13 +188,13 @@ public class EbayDetailFragment extends Fragment {
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
                         wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-                        if ( productDeliveryAndWarranty.isEmpty() ) {
+                        if (productDeliveryAndWarranty.isEmpty()) {
                             wProductWarranty.setText(R.string.seller_no_details);
                         } else {
                             wProductWarranty.setText(productDeliveryAndWarranty);
                         }
 
-                        if ( productDescription.isEmpty() ) {
+                        if (productDescription.isEmpty()) {
                             wProductSpecs.setText(R.string.seller_no_specs);
                         } else {
                             wProductSpecs.setText(productDescription);
@@ -201,8 +207,27 @@ public class EbayDetailFragment extends Fragment {
 
                 System.out.println(exception.getMessage());
 
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showUnsuccessful();
+                    }
+                });
+
             }
             return null;
         }
+    }
+
+    // In case connection is lost
+    private void showUnsuccessful() {
+
+        Context context = getContext();
+
+        wSpecsProgressBar.setVisibility(View.GONE);
+        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        wErrorMessage.setVisibility(View.VISIBLE);
+        wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+
     }
 }
