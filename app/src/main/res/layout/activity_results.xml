@@ -12,60 +12,65 @@
     android:focusableInTouchMode="true"
     tools:context=".Ui.SearchActivity">
 
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshResult"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/customToolbar"
-            layout="@layout/result_toolbar" />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/resultViewPager"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:gravity="top"
+            android:orientation="vertical">
 
-            <androidx.viewpager.widget.PagerTabStrip
+            <include
+                android:id="@+id/customToolbar"
+                layout="@layout/result_toolbar" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/resultViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:background="@color/transparent"
-                android:padding="3dp" />
+                android:layout_margin="5dp">
 
-        </androidx.viewpager.widget.ViewPager>
+                <androidx.viewpager.widget.PagerTabStrip
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:background="@color/transparent"
+                    android:padding="3dp" />
 
-    </LinearLayout>
+            </androidx.viewpager.widget.ViewPager>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        </LinearLayout>
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:background="@color/white"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        </com.google.android.gms.ads.AdView>
+            android:gravity="bottom"
+            android:orientation="vertical">
 
-        <!--        ads:adUnitId="ca-app-pub-8763169533349627/4328318168-->
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:background="@color/white"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+                <!--        ads:adUnitId="ca-app-pub-8763169533349627/4328318168-->
+            </com.google.android.gms.ads.AdView>
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/sideNavigation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/side_main_navigation" />
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/sideNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/navigation_header"
+            app:menu="@menu/side_main_navigation" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

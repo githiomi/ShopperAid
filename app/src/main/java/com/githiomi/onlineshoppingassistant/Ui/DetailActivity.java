@@ -2,6 +2,7 @@ package com.githiomi.onlineshoppingassistant.Ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
 
 //    Widget
     @BindView(R.id.detailViewPager) ViewPager wDetailViewPager;
+    @BindView(R.id.detailsRefresh) SwipeRefreshLayout wDetailsRefresh;
 
 //    Local variables
     // The view pager adapter
@@ -51,6 +53,17 @@ public class DetailActivity extends AppCompatActivity {
         parceledProducts = Parcels.unwrap(fromResultsActivity.getParcelableExtra(Constants.WRAP_PRODUCT));
         itemPosition = fromResultsActivity.getIntExtra( Constants.ITEM_POSITION, 0 );
         theFragment = fromResultsActivity.getStringExtra(Constants.FRAGMENT_SOURCE);
+
+        wDetailsRefresh.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                initDetailViewPager();
+
+                wDetailsRefresh.setRefreshing(false);
+
+            }
+        } );
 
         initDetailViewPager();
     }

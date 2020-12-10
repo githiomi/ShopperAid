@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
     @BindView(R.id.tvProductSearched) TextView wProductSearched;
     @BindView(R.id.resultViewPager) ViewPager wViewPager;
+    @BindView(R.id.refreshResult) SwipeRefreshLayout wRefreshResults;
 
 //    Local variables
     // The shopping options
@@ -88,6 +90,16 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if ( !(searchInput.isEmpty()) ){
             wProductSearched.setText(searchInput);
         }
+
+        // To refresh the results
+        wRefreshResults.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initViewPager(shoppingSiteOptions);
+
+                wRefreshResults.setRefreshing(false);
+            }
+        });
 
         // Setting up the navigation drawer
         wSideNavigation.bringToFront();
