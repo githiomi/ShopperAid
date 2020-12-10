@@ -89,13 +89,13 @@ public class EbayFragment extends Fragment {
         Log.d(TAG, "onCreateView: product " + productSearched);
 
         // Init the web scrapping
-        AmazonScrape amazonScrape = new AmazonScrape();
-        amazonScrape.execute();
+        EbayScrape ebayScrape = new EbayScrape();
+        ebayScrape.execute();
 
         return amazonView;
     }
 
-    public class AmazonScrape extends AsyncTask<Void, Void, Void> {
+    public class EbayScrape extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {

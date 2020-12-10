@@ -35,10 +35,10 @@ import butterknife.ButterKnife;
 
 public class AmazonDetailFragment extends Fragment {
 
-//    TAG
+    //    TAG
     private static final String TAG = AmazonDetailFragment.class.getSimpleName();
 
-//    Local variables
+    //    Local variables
     // For the product
     private Product productToShowDetails;
     // For the url
@@ -48,25 +48,35 @@ public class AmazonDetailFragment extends Fragment {
     // For the description
     private String productDescription;
 
-//    Widgets
-    @BindView(R.id.productItemImage) ImageView wProductImage;
-    @BindView(R.id.productItemName) TextView wProductName;
-    @BindView(R.id.productItemPrice) TextView wProductPrice;
-    @BindView(R.id.productItemRating) TextView wProductRating;
-    @BindView(R.id.productWarranty) TextView wProductWarranty;
-    @BindView(R.id.productSpecs) TextView wProductSpecs;
-    @BindView(R.id.btnGoToSite) Button wToSite;
-    @BindView(R.id.specsProgressBar) ProgressBar wSpecsProgressBar;
+    //    Widgets
+    @BindView(R.id.productItemImage)
+    ImageView wProductImage;
+    @BindView(R.id.productItemName)
+    TextView wProductName;
+    @BindView(R.id.productItemPrice)
+    TextView wProductPrice;
+    @BindView(R.id.productItemRating)
+    TextView wProductRating;
+    @BindView(R.id.productWarranty)
+    TextView wProductWarranty;
+    @BindView(R.id.productSpecs)
+    TextView wProductSpecs;
+    @BindView(R.id.btnGoToSite)
+    Button wToSite;
+    @BindView(R.id.specsProgressBar)
+    ProgressBar wSpecsProgressBar;
     // Card views
-    @BindView(R.id.cvProductDetailsTitle) CardView wProductSpecsTitle;
-    @BindView(R.id.cvProductSpecs) CardView wProductSpecifications;
+    @BindView(R.id.cvProductDetailsTitle)
+    CardView wProductSpecsTitle;
+    @BindView(R.id.cvProductSpecs)
+    CardView wProductSpecifications;
 
 
     public AmazonDetailFragment() {
         // Required empty public constructor
     }
 
-    public static AmazonDetailFragment newInstance( Product product ) {
+    public static AmazonDetailFragment newInstance(Product product) {
         AmazonDetailFragment fragment = new AmazonDetailFragment();
         Bundle args = new Bundle();
 
@@ -82,7 +92,7 @@ public class AmazonDetailFragment extends Fragment {
         if (getArguments() != null) {
 
             // To get the data
-            productToShowDetails = Parcels.unwrap( getArguments().getParcelable(Constants.WRAP_PRODUCT) );
+            productToShowDetails = Parcels.unwrap(getArguments().getParcelable(Constants.WRAP_PRODUCT));
 
         }
     }
@@ -101,35 +111,44 @@ public class AmazonDetailFragment extends Fragment {
         int MAX_WIDTH = 230;
         int MAX_HEIGHT = 250;
 
-        if ( !(productToShowDetails.getImageUrl().equals("")) ) {
+        if (!(productToShowDetails.getImageUrl().equals(""))) {
             Picasso.get().load(productToShowDetails.getImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerInside()
                     .into(wProductImage);
-        }else{
-        Picasso.get().load(R.drawable.no_image)
-                .resize(MAX_WIDTH, MAX_HEIGHT)
-                .centerInside()
-                .into(wProductImage);
-    }
+        } else {
+            Picasso.get().load(R.drawable.no_image)
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerInside()
+                    .into(wProductImage);
+        }
 
-        if ( productToShowDetails.getName().isEmpty() ){
+        if (productToShowDetails.getName().isEmpty()) {
             wProductName.setText("No product name to display");
         } else {
             wProductName.setText(productToShowDetails.getName());
         }
 
-        if ( productToShowDetails.getPrice().isEmpty() ) {
+        if (productToShowDetails.getPrice().isEmpty()) {
             wProductPrice.setText("No price available");
         } else {
             wProductPrice.setText(productToShowDetails.getPrice());
         }
 
-        if ( productToShowDetails.getRating().isEmpty() ) {
+        if (productToShowDetails.getRating().isEmpty()) {
             wProductRating.setText("No rating available");
         } else {
             wProductRating.setText(productToShowDetails.getRating());
         }
+
+        wToSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(detailUrl));
+                startActivity(webIntent);
+            }
+        });
 
         // Scrape to get the details
         SecondaryScrape secondaryScrape = new SecondaryScrape();
@@ -174,34 +193,25 @@ public class AmazonDetailFragment extends Fragment {
                         Context context = getContext();
 
                         // Data obtained so hide bar and show details
-                        wSpecsProgressBar.setVisibility(View.GONE);
                         wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+                        wSpecsProgressBar.setVisibility(View.GONE);
                         wProductSpecifications.setVisibility(View.VISIBLE);
                         wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
                         wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-                        if ( productDeliveryAndWarranty.isEmpty() ) {
+                        if (productDeliveryAndWarranty.isEmpty()) {
                             wProductWarranty.setText(R.string.no_details);
                         } else {
                             wProductWarranty.setText(productDeliveryAndWarranty);
                         }
 
-                        if ( productDescription.isEmpty() ) {
+                        if (productDescription.isEmpty()) {
                             wProductSpecs.setText(R.string.no_specs);
                         } else {
                             wProductSpecs.setText(productDescription);
                         }
 
-                        wToSite.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse(detailUrl));
-                                startActivity(webIntent);
-                                Toast.makeText(getContext(), "Link: " + detailUrl, Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     }
                 });
 

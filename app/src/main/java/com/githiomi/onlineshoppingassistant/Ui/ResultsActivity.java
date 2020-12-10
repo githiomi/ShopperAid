@@ -250,7 +250,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onBackPressed() {
 
-
         if ( wInterstitialAd.isLoaded() ){
             wInterstitialAd.show();
 
@@ -258,15 +257,14 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onAdClosed() {
                     super.onAdClosed();
-                    ResultsActivity.super.onBackPressed();
                 }
 
                 @Override
                 public void onAdFailedToLoad(LoadAdError loadAdError) {
                     super.onAdFailedToLoad(loadAdError);
-                    ResultsActivity.super.onBackPressed();
                 }
             });
         }
+        super.onBackPressed();
     }
 }

@@ -123,6 +123,15 @@ public class JumiaDetailFragment extends Fragment {
             wProductRating.setText(productToShowDetails.getRating());
         }
 
+        wToSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(detailUrl));
+                startActivity(webIntent);
+            }
+        });
+
         // Scrape to get the details
         SecondaryScrape secondaryScrape = new SecondaryScrape();
         secondaryScrape.execute();
@@ -183,14 +192,6 @@ public class JumiaDetailFragment extends Fragment {
                             wProductSpecs.setText(productDescription);
                         }
 
-                        wToSite.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse(detailUrl));
-                                startActivity(webIntent);
-                            }
-                        });
                     }
                 });
 

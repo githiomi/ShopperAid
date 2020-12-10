@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -48,7 +49,6 @@ public class AmazonFragment extends Fragment {
     private String productSearched;
     // Results list
     private List<Product> amazonProducts;
-    private List<String> amazonLinks;
 
     //      Widgets
     @BindView(R.id.resultsRecyclerView) RecyclerView wAmazonRecyclerView;
@@ -98,6 +98,7 @@ public class AmazonFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
+            Activity thisActivity = getActivity();
             Log.d(TAG, "doInBackground: amazon scrape init");
 
             try {
@@ -117,24 +118,19 @@ public class AmazonFragment extends Fragment {
                     // initializing the list
                     amazonProducts = new ArrayList<>();
 
-                    for (int a = 0; a < ( dataSize - 3 ); a += 1) {
-
-                        amazonLinks = new ArrayList<>();
+                    for (int a = 0; a < dataSize; a += 1) {
 
                         String linkToPage = dataObtained
-                                .select("a.a-link-normal")
+                                .select("a.a-link-normal.s-no-outline")
                                 .eq(a)
                                 .attr("href");
 
-                        if ( !(linkToPage.contains("s?k")) ) {
-                            amazonLinks.add(linkToPage);
-                        }
-                        Log.d(TAG, "doInBackground: amazonLinks " + amazonLinks);
+                        Log.d(TAG, "doInBackground: amazonAsin: " + linkToPage);
 
                         String nameFromUrl = dataObtained
-                                .select("img.s-image")
+                                .select("span.a-size-base-plus.a-color-base.a-text-normal")
                                 .eq(a)
-                                .attr("alt");
+                                .text();
 
                         String imageFromUrl = dataObtained
                                 .select("img.s-image")
@@ -152,22 +148,12 @@ public class AmazonFragment extends Fragment {
                                 .eq(a)
                                 .text();
 
-                        if ( !(nameFromUrl.equals("")) || !(imageFromUrl.equals("")) || !(priceFromUrl.equals("")) || !(ratingFromUrl.equals(""))) {
-
-                            if ( amazonLinks.size() > 0 ) {
-                                for (int link = 0; link < ( amazonLinks.size() - 3 ); link += 1) {
-                                    String toProduct = amazonLinks.get(link);
-                                    amazonProducts.add(new Product(toProduct, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
-                                }
-                            }
-                            else{
-                                noResult();
-                            }
-
+                        if ( !(linkToPage.equals("")) || !(nameFromUrl.equals("")) || !(imageFromUrl.equals("")) || !(priceFromUrl.equals("")) || !(ratingFromUrl.equals(""))) {
+                            amazonProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
                         }
                     }
 
-                    getActivity().runOnUiThread(new Runnable() {
+                    thisActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -180,7 +166,7 @@ public class AmazonFragment extends Fragment {
                     });
 
                 } else {
-                    getActivity().runOnUiThread(new Runnable() {
+                    thisActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             noResult();
@@ -190,7 +176,7 @@ public class AmazonFragment extends Fragment {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                getActivity().runOnUiThread(new Runnable() {
+                thisActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showUnsuccessful();
