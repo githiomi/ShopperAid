@@ -34,7 +34,8 @@
     <string name="new_email">New Email</string>
     <string name="specs">Product Specifications</string>
     <string name="no_result">No result for your search</string>
-    <string name="no_details">COULDN\'T LOCATE THE DETAILS FOR THIS PRODUCT</string>
-    <string name="no_specs">COULDN\'T LOCATE THE SPECS FOR THIS PRODUCT</string>
-    <string name="seller_no_specs">SELLER DID NOT PROVIDE SPECS FOR THIS PRODUCT</string>
+    <string name="no_details">No delivery details provided for this product</string>
+    <string name="no_specs">No specifications provided for this product</string>
+    <string name="seller_no_specs">Seller did not provided specifications</string>
+    <string name="seller_no_details">Seller did not provided delivery information</string>
 </resources>

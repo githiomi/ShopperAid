@@ -183,7 +183,7 @@ public class EbayDetailFragment extends Fragment {
                         wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
                         if ( productDeliveryAndWarranty.isEmpty() ) {
-                            wProductWarranty.setText(R.string.no_details);
+                            wProductWarranty.setText(R.string.seller_no_details);
                         } else {
                             wProductWarranty.setText(productDeliveryAndWarranty);
                         }
