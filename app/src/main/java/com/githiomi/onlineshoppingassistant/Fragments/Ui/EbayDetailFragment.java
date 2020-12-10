@@ -48,6 +48,8 @@ public class EbayDetailFragment extends Fragment {
     private String productDeliveryAndWarranty;
     // For the description
     private String productDescription;
+    // For the activity
+    private Activity activity;
 
     //    Widgets
     @BindView(R.id.productItemImage) ImageView wProductImage;
@@ -97,6 +99,9 @@ public class EbayDetailFragment extends Fragment {
 
         // Binding widgets
         ButterKnife.bind(this, productDetail);
+
+        // Assigning activity
+        this.activity = getActivity();
 
         // Setting views
         // Image
@@ -171,22 +176,19 @@ public class EbayDetailFragment extends Fragment {
                         .select("span.viSNotesCnt")
                         .text();
 
-                // Assign method
-                final Activity productDetailActivity = getActivity();
-
-                productDetailActivity.runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
                         Context context = getContext();
 
                         // Data obtained so hide bar and show details
-                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_out));
                         wSpecsProgressBar.setVisibility(View.GONE);
                         wProductSpecifications.setVisibility(View.VISIBLE);
-                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
-                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
 
                         if (productDeliveryAndWarranty.isEmpty()) {
                             wProductWarranty.setText(R.string.seller_no_details);
@@ -207,7 +209,7 @@ public class EbayDetailFragment extends Fragment {
 
                 System.out.println(exception.getMessage());
 
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showUnsuccessful();

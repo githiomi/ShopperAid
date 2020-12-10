@@ -47,6 +47,8 @@ public class JumiaDetailFragment extends Fragment {
     private String productDeliveryAndWarranty;
     // For the description
     private String productDescription;
+    // For the activity
+    private Activity activity;
 
     //    Widgets
     @BindView(R.id.productItemImage) ImageView wProductImage;
@@ -96,6 +98,9 @@ public class JumiaDetailFragment extends Fragment {
 
         // Binding widgets
         ButterKnife.bind(this, productDetail);
+
+        // Assigning the activity
+        this.activity = getActivity();
 
         // Setting views
         // Image
@@ -172,20 +177,17 @@ public class JumiaDetailFragment extends Fragment {
                         .select("ul")
                         .text();
 
-                // Assign method
-                final Activity productDetailActivity = getActivity();
-
-                productDetailActivity.runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
                         // Data obtained so hide bar and show details
+                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_out));
                         wSpecsProgressBar.setVisibility(View.GONE);
-                        wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
                         wProductSpecifications.setVisibility(View.VISIBLE);
-                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                        wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
-                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                        wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
 
                         if (productDeliveryAndWarranty.isEmpty()) {
                             wProductWarranty.setText(R.string.no_details);
@@ -206,7 +208,7 @@ public class JumiaDetailFragment extends Fragment {
 
                 System.out.println(exception.getMessage());
 
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showUnsuccessful();

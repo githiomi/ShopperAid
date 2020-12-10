@@ -63,14 +63,14 @@
 
         </LinearLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/sideNavigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/navigation_header"
-            app:menu="@menu/side_main_navigation" />
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/sideNavigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/side_main_navigation" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
