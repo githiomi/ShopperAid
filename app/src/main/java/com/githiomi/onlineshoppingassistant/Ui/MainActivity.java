@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 startApp();
             }
-        }, 1500);
+        }, 2000);
     }
 
     // Method that will take user to the login page.

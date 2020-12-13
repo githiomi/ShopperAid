@@ -42,20 +42,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     //    Widgets
-    @BindView(R.id.userProfilePicture)
-    CircleImageView wUserProfilePicture;
-    @BindView(R.id.tvProfileUsername)
-    TextView wUsername;
-    @BindView(R.id.tvProfileEmail)
-    TextView wEmail;
-    @BindView(R.id.editProfilePicture)
-    ImageButton wEditProfilePicture;
-    @BindView(R.id.drawerLayout)
-    DrawerLayout wDrawerLayout;
-    @BindView(R.id.userNavigation)
-    NavigationView wNavigationView;
-    @BindView(R.id.profileProgressBar)
-    ProgressBar wProfileProgressBar;
+    @BindView(R.id.userProfilePicture) CircleImageView wUserProfilePicture;
+    @BindView(R.id.tvProfileUsername) TextView wUsername;
+    @BindView(R.id.tvProfileEmail) TextView wEmail;
+    @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
+    @BindView(R.id.drawerLayout) DrawerLayout wDrawerLayout;
+    @BindView(R.id.userNavigation) NavigationView wNavigationView;
+    @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
 
     // Navigation view
     View navigationView;
@@ -126,6 +119,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                     .load(userUri)
                     .into(wNavImage);
 
+        }else {
+            Picasso.get()
+                    .load(R.drawable.user_profile_picture)
+                    .into(wUserProfilePicture);
         }
 
         wUsername.setText(username);

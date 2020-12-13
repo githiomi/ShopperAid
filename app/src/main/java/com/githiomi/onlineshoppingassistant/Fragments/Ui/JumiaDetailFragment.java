@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.Jsoup;
@@ -229,6 +230,9 @@ public class JumiaDetailFragment extends Fragment {
         wSpecsProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+
+        Snackbar.make(getView(), "Swipe down to refresh", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
 
     }
 }

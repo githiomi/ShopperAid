@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.AmazonDetailFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.Ui.DetailFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.EbayDetailFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaDetailFragment;
 import com.githiomi.onlineshoppingassistant.Models.Product;
@@ -38,11 +37,6 @@ public class DetailViewPagerAdapter extends FragmentPagerAdapter {
         if ( fragmentName.equals("Jumia") ) {
             Product productDetail = parceledProducts.get(position);
             fragment = JumiaDetailFragment.newInstance(productDetail);
-        }
-
-        if ( fragmentName.equals("Jiji") ) {
-            Product productDetail = parceledProducts.get(position);
-            fragment = DetailFragment.newInstance(productDetail);
         }
 
         if ( fragmentName.equals("Amazon") ) {

@@ -136,6 +136,9 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                 } else {
+                    Picasso.get()
+                            .load(R.drawable.user_profile_picture)
+                            .into(wNavigationProfilePicture);
                     wNavigationUsername.setText("Guest");
                 }
             }
@@ -289,11 +292,5 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             });
         }
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        finish();
-        super.onDestroy();
     }
 }

@@ -22,6 +22,7 @@ import com.githiomi.onlineshoppingassistant.Adapters.ResultItemAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -197,6 +198,9 @@ public class AmazonFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
+        Snackbar.make(getView(), "Swipe down to refresh", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
+
     }
 
     private void noResult() {
@@ -205,6 +209,9 @@ public class AmazonFragment extends Fragment {
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
         wNoResult.setVisibility(View.VISIBLE);
         wNoResult.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+
+        Snackbar.make(getView(), "Swipe down to refresh", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
 
     }
 
