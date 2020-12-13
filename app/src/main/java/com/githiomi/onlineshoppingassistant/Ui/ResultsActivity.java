@@ -39,16 +39,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     private static final String TAG = ResultsActivity.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.search_drawer_layout)
-    DrawerLayout wSearchDrawerLayout;
-    @BindView(R.id.sideNavigation)
-    NavigationView wSideNavigation;
-    @BindView(R.id.tvProductSearched)
-    TextView wProductSearched;
-    @BindView(R.id.resultViewPager)
-    ViewPager wViewPager;
-    @BindView(R.id.refreshResult)
-    SwipeRefreshLayout wRefreshResults;
+    @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
+    @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
+    @BindView(R.id.tvProductSearched) TextView wProductSearched;
+    @BindView(R.id.resultViewPager) ViewPager wViewPager;
+    @BindView(R.id.refreshResult) SwipeRefreshLayout wRefreshResults;
 
     //    Local variables
     // The shopping options
@@ -294,5 +289,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             });
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        finish();
+        super.onDestroy();
     }
 }

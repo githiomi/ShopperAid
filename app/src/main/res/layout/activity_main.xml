@@ -26,8 +26,8 @@
         android:gravity="center"
         android:text="@string/app_moto"
         android:textAlignment="center"
-        android:textColor="#7A8090"
-        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <ProgressBar
@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:indeterminate="false"
-        android:indeterminateTint="@color/black"
+        android:indeterminateTint="@color/colorPrimary"
         android:progressDrawable="@color/white" />
 
 </RelativeLayout>

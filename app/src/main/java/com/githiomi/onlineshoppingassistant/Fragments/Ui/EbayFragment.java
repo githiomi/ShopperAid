@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -55,6 +56,8 @@ public class EbayFragment extends Fragment {
     private String productSearched;
     // For retrieved products
     private List<Product> ebayProducts;
+    // For the activity
+    private Activity activity;
 
     public EbayFragment() {
         // Required empty public constructor
@@ -81,6 +84,9 @@ public class EbayFragment extends Fragment {
 
         // Init the context
         this.context = getContext();
+
+        //  Assigning activity
+        this.activity = getActivity();
 
         // Getting the search input
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -155,7 +161,7 @@ public class EbayFragment extends Fragment {
                         }
                     }
 
-                    getActivity().runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // Passing the products to the adapter
@@ -168,7 +174,7 @@ public class EbayFragment extends Fragment {
                     });
 
                 } else {
-                    getActivity().runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             noResult();
@@ -178,7 +184,7 @@ public class EbayFragment extends Fragment {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showUnsuccessful();

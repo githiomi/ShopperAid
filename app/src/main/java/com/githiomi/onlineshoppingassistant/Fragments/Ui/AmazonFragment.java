@@ -49,6 +49,8 @@ public class AmazonFragment extends Fragment {
     private String productSearched;
     // Results list
     private List<Product> amazonProducts;
+    // For the activity
+    private Activity activity;
 
     //      Widgets
     @BindView(R.id.resultsRecyclerView) RecyclerView wAmazonRecyclerView;
@@ -81,6 +83,9 @@ public class AmazonFragment extends Fragment {
         // Context
         this.context = getContext();
 
+        // Assigning activity
+        this.activity = getActivity();
+
         // Getting the search input
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null).trim();
@@ -98,7 +103,6 @@ public class AmazonFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Activity thisActivity = getActivity();
             Log.d(TAG, "doInBackground: amazon scrape init");
 
             try {
@@ -151,7 +155,7 @@ public class AmazonFragment extends Fragment {
                         }
                     }
 
-                    thisActivity.runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -164,7 +168,7 @@ public class AmazonFragment extends Fragment {
                     });
 
                 } else {
-                    thisActivity.runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             noResult();
@@ -174,7 +178,7 @@ public class AmazonFragment extends Fragment {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                thisActivity.runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showUnsuccessful();

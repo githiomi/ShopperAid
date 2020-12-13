@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -48,6 +49,8 @@ public class JumiaFragment extends Fragment {
     private String productSearched;
     // Results list
     private List<Product> jumiaProducts;
+    // The activity
+    private Activity activity;
 
     //      Widgets
     @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
@@ -79,6 +82,9 @@ public class JumiaFragment extends Fragment {
 
         // Get the context
         this.context = getContext();
+
+        // Assigning activity
+        this.activity = getActivity();
 
         // Getting the search input
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -180,7 +186,7 @@ public class JumiaFragment extends Fragment {
                         }
                     }
 
-                    getActivity().runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -193,7 +199,7 @@ public class JumiaFragment extends Fragment {
                     });
 
                 } else {
-                    getActivity().runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             noResult();
@@ -203,7 +209,7 @@ public class JumiaFragment extends Fragment {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showUnsuccessful();
