@@ -1,12 +1,5 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
@@ -35,19 +35,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ResultsActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
-//    TAG
+    //    TAG
     private static final String TAG = ResultsActivity.class.getSimpleName();
 
-//    Widgets
-    @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
-    @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
-    @BindView(R.id.tvProductSearched) TextView wProductSearched;
-    @BindView(R.id.resultViewPager) ViewPager wViewPager;
-    @BindView(R.id.refreshResult) SwipeRefreshLayout wRefreshResults;
+    //    Widgets
+    @BindView(R.id.search_drawer_layout)
+    DrawerLayout wSearchDrawerLayout;
+    @BindView(R.id.sideNavigation)
+    NavigationView wSideNavigation;
+    @BindView(R.id.tvProductSearched)
+    TextView wProductSearched;
+    @BindView(R.id.resultViewPager)
+    ViewPager wViewPager;
+    @BindView(R.id.refreshResult)
+    SwipeRefreshLayout wRefreshResults;
 
-//    Local variables
+    //    Local variables
     // The shopping options
-    private final String[] shoppingSiteOptions = { "Jumia", "Amazon", "Ebay" };
+    private final String[] shoppingSiteOptions = {"Jumia", "Amazon", "Ebay"};
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -57,7 +62,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     View navigationView;
     CircleImageView wNavigationProfilePicture;
     TextView wNavigationUsername;
-    
+
     //    Interstitial ad
     private InterstitialAd wInterstitialAd;
 
@@ -81,13 +86,13 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         wInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         //ca-app-pub-8763169533349627/1133294713
         AdRequest interstitialAdRequest = new AdRequest.Builder()
-                                                       .build();
+                .build();
         wInterstitialAd.loadAd(interstitialAdRequest);
 
         // Get search string
         String searchInput = getIntent().getStringExtra(Constants.SEARCH_INPUT_KEY);
 
-        if ( !(searchInput.isEmpty()) ){
+        if (!(searchInput.isEmpty())) {
             wProductSearched.setText(searchInput);
         }
 
@@ -95,7 +100,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         wRefreshResults.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initViewPager(shoppingSiteOptions);
+                reInitViewPager(shoppingSiteOptions, wViewPager.getCurrentItem());
 
                 wRefreshResults.setRefreshing(false);
             }
@@ -127,10 +132,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                     wNavigationUsername.setText(signedInUser.getDisplayName());
                     Uri uri = signedInUser.getPhotoUrl();
 
-                    if ( uri != null ){
+                    if (uri != null) {
                         Picasso.get().load(uri)
                                 .into(wNavigationProfilePicture);
-                    }else{
+                    } else {
                         Picasso.get().load(R.drawable.user_profile_picture)
                                 .into(wNavigationProfilePicture);
                     }
@@ -148,20 +153,20 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-//    Method to allow user to search another item
-    public void optSearch(View view){
+    //    Method to allow user to search another item
+    public void optSearch(View view) {
 
         onBackPressed();
 
     }
 
-//    The method that will open the drawer layout
+    //    The method that will open the drawer layout
     public void clickMenu(View view) {
         wSearchDrawerLayout.openDrawer(GravityCompat.START);
     }
 
-//    Method to set up the view pager
-    private void initViewPager( String[] shoppingSites ) {
+    //    Method to set up the view pager
+    private void initViewPager(String[] shoppingSites) {
 
         // The view pager adapter
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), shoppingSites);
@@ -171,21 +176,32 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-//    Methods for selection of navigation items
+    //    Method to refresh view pager
+    private void reInitViewPager(String[] shoppingSites, int current) {
+
+        // The view pager adapter
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), shoppingSites);
+
+        wViewPager.setAdapter(viewPagerAdapter);
+        wViewPager.setCurrentItem(current);
+
+    }
+
+    //    Methods for selection of navigation items
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int selectedId = item.getItemId();
 
-        if ( selectedId == R.id.toSearchNav ) {
+        if (selectedId == R.id.toSearchNav) {
             // Do nothing
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
             Intent backToSearch = new Intent(this, SearchActivity.class);
-            backToSearch.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+            backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             onBackPressed();
         }
 
-        if ( selectedId == R.id.toProfileNav ) {
+        if (selectedId == R.id.toProfileNav) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
@@ -196,7 +212,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
-        if ( selectedId == R.id.toLogoutNav ) {
+        if (selectedId == R.id.toLogoutNav) {
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
             logout();
         }
@@ -204,10 +220,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-//    Method that will log out the user
+    //    Method that will log out the user
     private void logout() {
 
-        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             FirebaseAuth.getInstance().signOut();
         }
         Intent backToLogin = new Intent(this, LoginActivity.class);
@@ -217,7 +233,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-//    On click methods
+    //    On click methods
     @Override
     public void onClick(View v) {
 
@@ -262,10 +278,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onBackPressed() {
 
-        if ( wInterstitialAd.isLoaded() ){
+        if (wInterstitialAd.isLoaded()) {
             wInterstitialAd.show();
 
-            wInterstitialAd.setAdListener(new AdListener(){
+            wInterstitialAd.setAdListener(new AdListener() {
                 @Override
                 public void onAdClosed() {
                     super.onAdClosed();

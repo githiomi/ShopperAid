@@ -58,7 +58,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                initDetailViewPager();
+                reInitDetailViewPager(wDetailViewPager.getCurrentItem());
 
                 wDetailsRefresh.setRefreshing(false);
 
@@ -75,6 +75,16 @@ public class DetailActivity extends AppCompatActivity {
 
         wDetailViewPager.setAdapter(detailViewPagerAdapter);
         wDetailViewPager.setCurrentItem(itemPosition);
+
+    }
+
+    // To initialize the view pager
+    public void reInitDetailViewPager(int current) {
+
+        detailViewPagerAdapter = new DetailViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, parceledProducts, theFragment);
+
+        wDetailViewPager.setAdapter(detailViewPagerAdapter);
+        wDetailViewPager.setCurrentItem(current);
 
     }
 }
