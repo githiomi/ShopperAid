@@ -1,6 +1,5 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,27 +17,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.githiomi.onlineshoppingassistant.Adapters.Firebase.RecentSearchesAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -51,10 +39,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = SearchActivity.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
-    @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
-    @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
-    @BindView(R.id.btnSearch) Button wSearchButton;
+    @BindView(R.id.search_drawer_layout)
+    DrawerLayout wSearchDrawerLayout;
+    @BindView(R.id.sideNavigation)
+    NavigationView wSideNavigation;
+    @BindView(R.id.edSearchInput)
+    TextInputEditText wSearchInput;
+    @BindView(R.id.btnSearch)
+    Button wSearchButton;
 
     //    Local variables
     String productSearched;
@@ -68,8 +60,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    // Database
-    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,12 +80,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         // Init shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
-
-        // Init firebase
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            String currentUser = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-            databaseReference = FirebaseDatabase.getInstance().getReference("Recent Searches").child(currentUser);
-        }
 
         // Navigation listeners
         wSideNavigation.setNavigationItemSelectedListener(this);
@@ -213,11 +197,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         // Saving to shared preferences
         editor.putString(Constants.SEARCH_INPUT_KEY, searchText).apply();
 
-        // Saving text to firebase
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            databaseReference.child(searchText).setValue(searchText);
-        }
-
         startActivity(toResultActivity);
 
     }
@@ -259,7 +238,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Method that will log out the user
     private void logout() {
 
-        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             FirebaseAuth.getInstance().signOut();
         }
         Intent backToLogin = new Intent(this, LoginActivity.class);

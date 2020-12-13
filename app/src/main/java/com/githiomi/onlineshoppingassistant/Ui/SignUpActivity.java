@@ -27,7 +27,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
 //    TAG
     private static final String TAG = SignUpActivity.class.getSimpleName();
@@ -74,11 +74,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         // Listeners
         wBackToLogin.setOnClickListener(this);
         wBtnSignUp.setOnClickListener(this);
-        // Focus change listeners
-        wUsername.setOnFocusChangeListener(this);
-        wEmail.setOnFocusChangeListener(this);
-        wPassword.setOnFocusChangeListener(this);
-        wConfirmPassword.setOnFocusChangeListener(this);
 
     }
 
@@ -121,9 +116,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 if ( task.isSuccessful() ){
 
-                    Snackbar.make( v, "Your account has been created", Snackbar.LENGTH_SHORT )
-                            .setAction( "Action", null ).show();
-
                     // Add the username to the account created
                     FirebaseUser firebaseUser = task.getResult().getUser();
                     assert firebaseUser != null;
@@ -137,8 +129,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 }else {
 
-                    Snackbar.make( v, "Couldn't create your account", Snackbar.LENGTH_SHORT )
-                            .setBackgroundTint(getResources().getColor(R.color.white)).setActionTextColor(getResources().getColor(R.color.colorPrimary)).setAction( "Action", null ).show();
+                    Snackbar.make( v, "Couldn't create your account. Try again.", Snackbar.LENGTH_SHORT )
+                            .setAction( "Action", null ).show();
 
                 }
             }
@@ -199,27 +191,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-//    Methods to hide the keyboard
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (v == wUsername) {
-            hideKeyboard(v);
-        }
-
-        if (v == wEmail) {
-            hideKeyboard(v);
-        }
-
-        if ( v == wPassword ){
-            hideKeyboard(v);
-        }
-
-        if ( v == wConfirmPassword ){
-            hideKeyboard(v);
-        }
-
-    }
-
+//    Method to hide the keyboard
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

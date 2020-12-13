@@ -90,7 +90,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="100dp"

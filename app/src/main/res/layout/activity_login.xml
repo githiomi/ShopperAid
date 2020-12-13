@@ -36,8 +36,8 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@drawable/app_logo"
-            android:contentDescription="@string/app_moto" />
+            android:contentDescription="@string/app_moto"
+            android:src="@drawable/app_logo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                     android:background="@color/white"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +100,6 @@
                 app:endIconTint="@color/colorPrimary"
                 app:hintAnimationEnabled="true"
                 app:hintTextColor="@color/colorPrimary"
-                app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock"
                 app:startIconTint="@color/colorPrimary">
 
@@ -112,7 +111,7 @@
                     android:background="@color/white"
                     android:inputType="textPassword"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,18 +167,16 @@
             android:progressDrawable="@color/white"
             android:visibility="gone" />
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
             android:layout_margin="30dp"
             ads:adSize="BANNER"
-            android:layout_gravity="bottom|center"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        </com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
 
-<!--        ca-app-pub-8763169533349627/9562309458-->
+        <!--        ca-app-pub-8763169533349627/9562309458-->
 
     </LinearLayout>
 
