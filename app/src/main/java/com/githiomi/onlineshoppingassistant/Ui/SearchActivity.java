@@ -41,14 +41,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = SearchActivity.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.search_drawer_layout)
-    DrawerLayout wSearchDrawerLayout;
-    @BindView(R.id.sideNavigation)
-    NavigationView wSideNavigation;
-    @BindView(R.id.edSearchInput)
-    TextInputEditText wSearchInput;
-    @BindView(R.id.btnSearch)
-    Button wSearchButton;
+    @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
+    @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
+    @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
+    @BindView(R.id.btnSearch) Button wSearchButton;
 
     //    Local variables
     String productSearched;
@@ -58,6 +54,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     View navigationView;
     CircleImageView wNavigationImage;
     TextView wNavigationUsername;
+    TextView wLogout;
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -93,6 +90,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         navigationView = wSideNavigation.getHeaderView(0);
         wNavigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
         wNavigationImage = (CircleImageView) navigationView.findViewById(R.id.navUserProfilePicture);
+        wLogout = (TextView) navigationView.findViewById(R.id.toLogoutNav);
 
         // Setting up the navigation drawer
         wSideNavigation.bringToFront();
@@ -133,8 +131,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                                 .into(wNavigationImage);
                     }
 
-                } else {
-                    wNavigationUsername.setText("Guest");
                 }
             }
         };
@@ -148,8 +144,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     //    Method to open user recent searches
     public void recentSearches(View view) {
-        Intent toRecents = new Intent( this, RecentSearchesActivity.class );
-        startActivity(toRecents);
+        if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+            Intent toRecents = new Intent(this, RecentSearchesActivity.class);
+            startActivity(toRecents);
+        }else {
+            String noRecents = "No recent searches for guests.";
+            Toast.makeText(this, noRecents, Toast.LENGTH_SHORT).show();
+        }
     }
 
     //    Method implementation for the on click function
@@ -167,19 +168,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }else {
 
-                FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                String userName = user.getDisplayName();
+                if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+                    FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                    String userName = user.getDisplayName();
 
-                databaseReference = FirebaseDatabase.getInstance()
-                                                    .getReference("Recent Searches")
-                                                    .child(userName);
+                    databaseReference = FirebaseDatabase.getInstance()
+                            .getReference("Recent Searches")
+                            .child(userName);
 
-                databaseReference.push().setValue(productSearched);
+                    databaseReference.push().setValue(productSearched);
+                }
+
+                performSearch(productSearched);
 
             }
-
-            performSearch(productSearched);
-
         }
 
         if (v == wNavigationImage) {

@@ -40,4 +40,5 @@
     <string name="seller_no_details">Seller did not provided delivery information</string>
     <string name="recent_searches">Your recent searches</string>
     <string name="no_recent_searches_found">No recent searches found!</string>
+    <string name="proceed_to_order">PROCEED TO ORDER</string>
 </resources>
