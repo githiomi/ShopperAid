@@ -27,6 +27,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -60,6 +62,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    //    Firebase database
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +146,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         wSearchDrawerLayout.openDrawer(GravityCompat.START);
     }
 
+    //    Method to open user recent searches
+    public void recentSearches(View view) {
+        Intent toRecents = new Intent( this, RecentSearchesActivity.class );
+        startActivity(toRecents);
+        finish();
+    }
+
     //    Method implementation for the on click function
     @Override
     public void onClick(View v) {
@@ -154,6 +166,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             if (productSearched.isEmpty()) {
                 wSearchInput.setError("This field cannot be left blank");
                 return;
+            }else {
+
+                FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                String userName = user.getDisplayName();
+
+                databaseReference = FirebaseDatabase.getInstance()
+                                                    .getReference("Recent Searches")
+                                                    .child(userName);
+
+                databaseReference.push().setValue(productSearched);
+
             }
 
             performSearch(productSearched);
@@ -169,6 +192,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
                 Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
             }
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
         if (v == wNavigationUsername) {
@@ -180,6 +204,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
                 Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
             }
+            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 

@@ -38,4 +38,6 @@
     <string name="no_specs">No specifications provided for this product</string>
     <string name="seller_no_specs">Seller did not provided specifications</string>
     <string name="seller_no_details">Seller did not provided delivery information</string>
+    <string name="recent_searches">Your recent searches</string>
+    <string name="no_recent_searches_found">No recent searches found.</string>
 </resources>
