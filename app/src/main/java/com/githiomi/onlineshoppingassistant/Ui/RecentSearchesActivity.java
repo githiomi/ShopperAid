@@ -36,12 +36,9 @@ public class RecentSearchesActivity extends AppCompatActivity {
     private static final String TAG = RecentSearchesActivity.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.recentSearchesRecyclerView)
-    RecyclerView wRecentRecyclerView;
-    @BindView(R.id.tvNoRecent)
-    TextView wNoRecentText;
-    @BindView(R.id.recentProgressBar)
-    ProgressBar wRecentProgressBar;
+    @BindView(R.id.recentSearchesRecyclerView) RecyclerView wRecentRecyclerView;
+    @BindView(R.id.tvNoRecent) TextView wNoRecentText;
+    @BindView(R.id.recentProgressBar) ProgressBar wRecentProgressBar;
 
     //    Local variables
     // The adapter
@@ -137,10 +134,7 @@ public class RecentSearchesActivity extends AppCompatActivity {
 
     // Method when back arrow is clicked
     public void backToSearch(View view) {
-        Intent backToSearch = new Intent(this, SearchActivity.class);
-        backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(backToSearch);
-        finish();
+        onBackPressed();
     }
 
     // Overriding on start and stop methods
@@ -159,5 +153,10 @@ public class RecentSearchesActivity extends AppCompatActivity {
         if (recentAdapter != null) {
             recentAdapter.stopListening();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
