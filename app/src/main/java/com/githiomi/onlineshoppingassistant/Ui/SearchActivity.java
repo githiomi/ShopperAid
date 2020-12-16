@@ -150,7 +150,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void recentSearches(View view) {
         Intent toRecents = new Intent( this, RecentSearchesActivity.class );
         startActivity(toRecents);
-        finish();
     }
 
     //    Method implementation for the on click function
