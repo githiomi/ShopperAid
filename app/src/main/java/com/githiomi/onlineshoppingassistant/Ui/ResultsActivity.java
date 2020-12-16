@@ -3,8 +3,11 @@ package com.githiomi.onlineshoppingassistant.Ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.LoadAdError;
@@ -44,6 +48,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.tvProductSearched) TextView wProductSearched;
     @BindView(R.id.resultViewPager) ViewPager wViewPager;
     @BindView(R.id.refreshResult) SwipeRefreshLayout wRefreshResults;
+    @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
     //    Local variables
     // The shopping options
@@ -58,7 +63,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     CircleImageView wNavigationProfilePicture;
     TextView wNavigationUsername;
 
-    //    Interstitial ad
+    //    For the ads
+    // Ad view
+    private AdView adView;
+    // Interstitial ad
     private InterstitialAd wInterstitialAd;
 
     @Override
@@ -68,13 +76,15 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         // Binding widgets
         ButterKnife.bind(this);
-        //Adview
-        AdView wAdView = findViewById(R.id.adView);
+
+        // Init ads
         MobileAds.initialize(this);
 
-        // Loading adds
-        AdRequest bannerAdRequest = new AdRequest.Builder().build();
-        wAdView.loadAd(bannerAdRequest);
+        // Ads
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
 
         // Loading the interstitial add
         wInterstitialAd = new InterstitialAd(this);
@@ -149,6 +159,31 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         initViewPager(shoppingSiteOptions);
 
+    }
+
+    // For the adaptive banner
+    private void loadBanner() {
+        AdRequest adRequest =
+                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                        .build();
+
+        AdSize adSize = getAdSize();
+        adView.setAdSize(adSize);
+
+        adView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
     //    Method to allow user to search another item

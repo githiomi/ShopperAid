@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Display;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
+//    @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
 //    Local variables
     // Date entry
@@ -53,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // Firebase
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    // Ad view
+    private AdView wAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +68,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Binding widgets using butter knife
         ButterKnife.bind(this);
-        //Adview
-        AdView wAdView = findViewById(R.id.adView);
+        //Ad view
+        wAdView = findViewById(R.id.adView);
 
         MobileAds.initialize(this);
 
         // Loading adds
         AdRequest adRequest = new AdRequest.Builder().build();
         wAdView.loadAd(adRequest);
+
+        // Init the ad view
+//        adView = new AdView(this);
+//        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+//        wAdContainer.addView(adView);
+//        loadBanner();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -93,6 +106,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         wLoginButton.setOnClickListener(this);
         wForgotPassword.setOnClickListener(this);
         wToSignUp.setOnClickListener(this);
+    }
+
+    // For the adaptive banner
+    private void loadBanner() {
+        // Create an ad request. Check your logcat output for the hashed device ID
+        // to get test ads on a physical device, e.g.,
+        // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
+        // device."
+        AdRequest adRequest =
+                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                        .build();
+
+        AdSize adSize = getAdSize();
+        // Step 4 - Set the adaptive ad size on the ad view.
+        wAdView.setAdSize(adSize);
+
+        // Step 5 - Start loading the ad in the background.
+        wAdView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
     //    Implementation of the on click listener

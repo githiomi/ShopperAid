@@ -51,4 +51,13 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <FrameLayout
+        android:id="@+id/adContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="3dp">
+
+    </FrameLayout>
+
 </RelativeLayout>

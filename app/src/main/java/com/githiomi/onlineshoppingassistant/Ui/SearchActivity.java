@@ -5,10 +5,13 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
@@ -45,10 +49,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
     @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
     @BindView(R.id.btnSearch) Button wSearchButton;
+    @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
     //    Local variables
     String productSearched;
     private SharedPreferences.Editor editor;
+
+    //    Ads
+    // Ad view
+    private AdView adView;
 
     //    To alter the username
     View navigationView;
@@ -70,14 +79,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         // Binding widgets
         ButterKnife.bind(this);
-        //Adview
-        AdView wAdView = findViewById(R.id.adView);
 
+        // Init ads
         MobileAds.initialize(this);
 
-        // Loading adds
-        AdRequest adRequest = new AdRequest.Builder().build();
-        wAdView.loadAd(adRequest);
+        // Ad view
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
 
         // Init shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -134,6 +144,31 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         };
+    }
+
+    //    For the adaptive banner
+    private void loadBanner() {
+        AdRequest adRequest =
+                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                        .build();
+
+        AdSize adSize = getAdSize();
+        adView.setAdSize(adSize);
+
+        adView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
     //    The method that will open the drawer layout
