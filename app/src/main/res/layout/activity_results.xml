@@ -5,9 +5,9 @@
     android:id="@+id/search_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/search_result_background"
     android:clickable="true"
     android:fitsSystemWindows="true"
+    android:background="@color/colorBackground"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".Ui.SearchActivity">
@@ -56,7 +56,7 @@
             android:id="@+id/adContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp">
+            android:layout_margin="1dp">
 
         </FrameLayout>
 

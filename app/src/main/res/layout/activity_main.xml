@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:indeterminate="false"
-        android:indeterminateTint="@color/black"
+        android:indeterminateTint="@color/colorPrimary"
         android:progressDrawable="@color/white" />
 
 </RelativeLayout>

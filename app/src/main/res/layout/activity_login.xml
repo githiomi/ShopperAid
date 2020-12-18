@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/gradient_background"
+    android:background="@color/colorBackground"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -23,10 +23,11 @@
             android:layout_gravity="end"
             android:clickable="true"
             android:drawablePadding="10dp"
+            android:focusable="true"
             android:gravity="end"
             android:padding="5dp"
             android:text="@string/guest_proceed"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_proceed" />
@@ -40,13 +41,24 @@
             android:src="@drawable/app_logo" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="5dp"
             android:text="@string/user_login"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -61,7 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="5dp"
                 android:background="@color/white"
                 android:hint="@string/email_placeholder"
                 android:textColorHint="@color/colorPrimary"
@@ -90,7 +101,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="5dp"
                 android:background="@color/white"
                 android:hint="@string/password_placeholder"
                 android:textColorHint="@color/colorPrimary"
@@ -123,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
-            android:background="@color/black"
+            android:background="@color/colorPrimary"
             android:elevation="50dp"
             android:padding="2dp"
             android:text="@string/login_button_text"
@@ -140,7 +150,7 @@
             android:padding="5dp"
             android:text="@string/forgot_password"
             android:textAlignment="textEnd"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             android:visibility="gone" />
 
@@ -150,9 +160,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:clickable="true"
+            android:padding="5dp"
             android:text="@string/dont_have_an_account"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="13sp" />
 
         <ProgressBar
@@ -163,8 +174,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
             android:indeterminate="false"
-            android:indeterminateTint="@color/white"
-            android:progressDrawable="@color/white"
+            android:indeterminateTint="@color/black"
+            android:progressDrawable="@color/black"
             android:visibility="gone" />
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

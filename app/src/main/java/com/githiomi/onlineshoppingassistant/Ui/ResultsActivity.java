@@ -326,6 +326,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 }
             });
         }
+        deleteSharedPreferences(Constants.SEARCH_INPUT_KEY);
         super.onBackPressed();
     }
 }

@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/colorBackground"
     android:clickable="true"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
@@ -40,8 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="10dp"
+            android:background="@drawable/gradient_background"
             android:elevation="30dp"
-            app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="30dp">
 
             <LinearLayout
@@ -69,7 +69,7 @@
                     android:layout_height="125dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
-                    android:indeterminateTint="@color/white"
+                    android:indeterminateTint="@color/colorPrimary"
                     android:padding="3dp"
                     android:visibility="gone" />
 
@@ -114,12 +114,11 @@
                             android:id="@+id/tvProfileUsername"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="1dp"
                             android:background="@color/transparent"
                             android:clickable="true"
-                            android:padding="10dp"
+                            android:padding="15dp"
                             android:text="@string/username_placeholder"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             app:drawableRightCompat="@drawable/ic_edit" />
@@ -159,12 +158,11 @@
                             android:id="@+id/tvProfileEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
                             android:background="@color/transparent"
                             android:clickable="true"
-                            android:padding="10dp"
+                            android:padding="15dp"
                             android:text="@string/email_placeholder"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             app:drawableRightCompat="@drawable/ic_edit" />

@@ -24,7 +24,7 @@
         android:padding="3dp"
         android:textAlignment="center"
         android:gravity="center_horizontal"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="17sp"
         android:textStyle="bold" />
 

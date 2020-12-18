@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
+    android:background="@color/black"
+    android:elevation="20dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="3dp">
 
     <ImageView
         android:id="@+id/openDrawer"
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:clickable="true"
+        android:padding="5dp"
         android:contentDescription="@string/open_navigation_drawer"
         android:focusable="true"
         android:onClick="clickMenu"

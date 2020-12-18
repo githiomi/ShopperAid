@@ -19,6 +19,8 @@ public class RecentViewHolder extends RecyclerView.ViewHolder {
 //    Local variables
     private View view;
     private Context context;
+    // Shared preferences
+    private SharedPreferences.Editor editor;
 
     public RecentViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -32,6 +34,10 @@ public class RecentViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvRecentSearch = (TextView) view.findViewById(R.id.recentSearchItem);
 
+        // Init shared preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = sharedPreferences.edit();
+
         // Binding data to view
         tvRecentSearch.setText(recentSearch);
 
@@ -41,6 +47,9 @@ public class RecentViewHolder extends RecyclerView.ViewHolder {
 
                 Intent toResultActivity = new Intent(context, ResultsActivity.class);
                 toResultActivity.putExtra(Constants.SEARCH_INPUT_KEY, recentSearch);
+
+                // Saving to shared preferences
+                editor.putString(Constants.SEARCH_INPUT_KEY, recentSearch).apply();
 
                 context.startActivity(toResultActivity);
 

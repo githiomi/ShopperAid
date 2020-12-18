@@ -183,7 +183,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             Intent toRecents = new Intent(this, RecentSearchesActivity.class);
             startActivity(toRecents);
         }else {
-            String noRecents = "No recent searches for guests.";
+            String noRecents = "No Recent Searches For Guest Users.";
             Toast.makeText(this, noRecents, Toast.LENGTH_SHORT).show();
         }
     }
