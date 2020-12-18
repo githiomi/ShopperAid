@@ -100,8 +100,8 @@
                 android:text="@string/retrieve_error"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
                 android:visibility="gone" />
 
             <androidx.cardview.widget.CardView

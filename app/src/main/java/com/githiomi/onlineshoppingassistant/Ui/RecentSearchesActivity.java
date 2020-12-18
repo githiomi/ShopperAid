@@ -145,9 +145,7 @@ public class RecentSearchesActivity extends AppCompatActivity {
 
         // Allow swipe to delete
         ItemTouchHelper.Callback callback = new ItemSwipeHelperCallback(recentAdapter);
-        itemTouchHelper = new
-
-                ItemTouchHelper(callback);
+        itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(wRecentRecyclerView);
 
         wRecentRecyclerView.setHasFixedSize(true);

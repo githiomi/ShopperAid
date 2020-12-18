@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -198,8 +199,7 @@ public class AmazonFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Snackbar.make(getView(), "Swipe down to refresh", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show();
+        Toast.makeText(context, "Swipe down to refresh", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -210,8 +210,7 @@ public class AmazonFragment extends Fragment {
         wNoResult.setVisibility(View.VISIBLE);
         wNoResult.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Snackbar.make(getView(), "Swipe down to refresh", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show();
+        Toast.makeText(context, "Swipe down to refresh", Toast.LENGTH_SHORT).show();
 
     }
 

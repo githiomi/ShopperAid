@@ -46,8 +46,8 @@
         android:layout_centerInParent="true"
         android:text="@string/no_recent_searches_found"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:visibility="gone" />
 
