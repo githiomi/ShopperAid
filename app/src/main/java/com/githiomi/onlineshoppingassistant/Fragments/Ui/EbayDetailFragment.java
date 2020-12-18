@@ -62,6 +62,7 @@ public class EbayDetailFragment extends Fragment {
     @BindView(R.id.btnGoToSite) Button wToSite;
     @BindView(R.id.specsProgressBar) ProgressBar wSpecsProgressBar;
     @BindView(R.id.noResult) TextView wErrorMessage;
+    @BindView(R.id.cvButtonToSite) CardView wButtonCardView;
     // Card views
     @BindView(R.id.cvProductDetailsTitle) CardView wProductSpecsTitle;
     @BindView(R.id.cvProductSpecs) CardView wProductSpecifications;
@@ -190,6 +191,8 @@ public class EbayDetailFragment extends Fragment {
                         wProductSpecifications.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
                         wProductSpecsTitle.setVisibility(View.VISIBLE);
                         wProductSpecsTitle.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
+                        wButtonCardView.setVisibility(View.VISIBLE);
+                        wButtonCardView.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
 
                         if (productDeliveryAndWarranty.isEmpty()) {
                             wProductWarranty.setText(R.string.seller_no_details);
@@ -232,8 +235,6 @@ public class EbayDetailFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Snackbar.make(getView(), "Swipe down to refresh", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show();
-
+        Toast.makeText(context, "Swipe down to refresh", Toast.LENGTH_SHORT).show();
     }
 }

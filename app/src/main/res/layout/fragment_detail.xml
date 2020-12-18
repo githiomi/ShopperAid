@@ -8,7 +8,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btnGoToSite"
+        android:layout_above="@id/cvButtonToSite"
         android:layout_marginBottom="5dp">
 
         <RelativeLayout
@@ -202,17 +202,29 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/btnGoToSite"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvButtonToSite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="3dp"
-        android:background="@color/colorPrimary"
-        android:elevation="50dp"
-        android:padding="5dp"
-        android:text="@string/proceed_to_order"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:elevation="100dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="10dp">
+
+        <Button
+            android:id="@+id/btnGoToSite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="3dp"
+            android:background="@color/transparent"
+            android:padding="3dp"
+            android:text="@string/proceed_to_order"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
