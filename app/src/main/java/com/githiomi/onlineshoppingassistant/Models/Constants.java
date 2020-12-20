@@ -39,5 +39,7 @@ public class Constants {
     public static final String ITEM_POSITION = "Item Position";
     // For the products
     public static final String FRAGMENT_SOURCE = "Fragment Source";
+    // For the app fragments
+    public static final String APP_FRAGMENT_NAME = "App Fragment";
 
 }

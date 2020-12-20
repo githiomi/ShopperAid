@@ -137,25 +137,40 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
 
-            case R.id.toSearchNav:
-                Intent backToSearch = new Intent(this, SearchActivity.class);
-                backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(backToSearch);
-                finish();
-                break;
+        int selectedId = item.getItemId();
 
-            case R.id.toProfileNav:
-                break;
-
-            case R.id.toLogoutNav:
-                logout();
-                break;
-
+        if ( selectedId == R.id.toSearchNav ){
+            Intent backToSearch = new Intent(this, SearchActivity.class);
+            backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(backToSearch);
+            finish();
         }
 
-        wDrawerLayout.closeDrawer(GravityCompat.START);
+        if ( selectedId == R.id.toProfileNav ) {
+            wDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        if ( selectedId == R.id.toLogoutNav ) {
+            logout();
+        }
+
+        if (selectedId == R.id.toSettingsNav) {
+            Intent toSettingsIntent = new Intent(this, AppActivity.class);
+            toSettingsIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Settings");
+            startActivity(toSettingsIntent);
+        }
+
+        if (selectedId == R.id.toPrivacyPolicyNav) {
+            Intent toPrivacyPolicyIntent  = new Intent(this, AppActivity.class);
+            toPrivacyPolicyIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Privacy Policy");
+            startActivity(toPrivacyPolicyIntent);
+        }
+
+        if (selectedId == R.id.toRateThisApp) {
+            Toast.makeText(this, "Link to app in play store", Toast.LENGTH_SHORT).show();
+        }
+
         return true;
     }
 

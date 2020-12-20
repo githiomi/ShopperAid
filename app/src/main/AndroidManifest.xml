@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
-
+        <activity android:name=".Ui.AppActivity"></activity>
         <!-- For my ad mob account -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

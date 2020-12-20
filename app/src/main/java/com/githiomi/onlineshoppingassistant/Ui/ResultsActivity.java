@@ -250,6 +250,22 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             logout();
         }
 
+        if (selectedId == R.id.toSettingsNav) {
+            Intent toSettingsIntent = new Intent(this, AppActivity.class);
+            toSettingsIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Settings");
+            startActivity(toSettingsIntent);
+        }
+
+        if (selectedId == R.id.toPrivacyPolicyNav) {
+            Intent toPrivacyPolicyIntent  = new Intent(this, AppActivity.class);
+            toPrivacyPolicyIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Privacy Policy");
+            startActivity(toPrivacyPolicyIntent);
+        }
+
+        if (selectedId == R.id.toRateThisApp) {
+            Toast.makeText(this, "Link to app in play store", Toast.LENGTH_SHORT).show();
+        }
+
         return true;
     }
 
