@@ -38,17 +38,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:text="@string/search"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,8 +125,7 @@
         <FrameLayout
             android:id="@+id/adContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp">
+            android:layout_height="wrap_content">
 
         </FrameLayout>
 

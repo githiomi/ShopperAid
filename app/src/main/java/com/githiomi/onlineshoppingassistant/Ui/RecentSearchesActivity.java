@@ -99,7 +99,7 @@ public class RecentSearchesActivity extends AppCompatActivity {
 
         // Creating reference
         FirebaseRecyclerOptions<String> recentOptions = new FirebaseRecyclerOptions.Builder<String>()
-                .setQuery(databaseReference, String.class)
+                .setQuery(databaseReference.orderByValue(), String.class)
                 .build();
 
         // Checking if data exists

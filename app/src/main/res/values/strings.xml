@@ -16,7 +16,7 @@
     <string name="guest_proceed">Proceed As A Guest</string>
     <string name="app_spaced_name">Shopping Assistant</string>
     <string name="search">Search</string>
-    <string name="enter_product_name">Enter the product name</string>
+    <string name="enter_product_name">What are you looking for?</string>
     <string name="open_navigation_drawer">Open Navigation Drawer</string>
     <string name="close_navigation_drawer">Close Navigation Drawer</string>
     <string name="product_name">Product Name</string>
@@ -42,4 +42,5 @@
     <string name="no_recent_searches_found">No recent searches found!</string>
     <string name="proceed_to_order">PROCEED TO PLACE ORDER</string>
     <string name="back_to_login">Already Have An Account? Log In…</string>
+    <string name="profile">Profile</string>
 </resources>
