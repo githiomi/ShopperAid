@@ -210,8 +210,6 @@ public class AmazonFragment extends Fragment {
         wNoResult.setVisibility(View.VISIBLE);
         wNoResult.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Toast.makeText(context, "Swipe down to refresh", Toast.LENGTH_SHORT).show();
-
     }
 
     private void showResults() {

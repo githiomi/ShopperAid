@@ -33,7 +33,7 @@
 
                 <item
                     android:id="@+id/toLogoutNav"
-                    android:icon="@drawable/ic_back"
+                    android:icon="@drawable/ic_logout"
                     android:iconTint="@color/colorPrimary"
                     android:title="Logout" />
 

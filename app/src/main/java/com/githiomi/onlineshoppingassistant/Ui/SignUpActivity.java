@@ -5,14 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Patterns;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +46,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.edPassword) TextInputEditText wPassword;
     @BindView(R.id.edConfirmPassword) TextInputEditText wConfirmPassword;
     @BindView(R.id.btnSignUp) Button wBtnSignUp;
+    @BindView(R.id.tvBackToLogin) TextView wTvBackToLogin;
+    @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
 //    Local variables
     // User
@@ -46,6 +55,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     // Firebase
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    // Ads
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +65,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         // Binding widgets
         ButterKnife.bind(this);
-        //Adview
-        AdView wAdView = findViewById(R.id.adView);
 
+        // Init ads
         MobileAds.initialize(this);
 
-        // Loading adds
-        AdRequest adRequest = new AdRequest.Builder().build();
-        wAdView.loadAd(adRequest);
+        // Loading the banner ad
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
+
 
         //        Firebase variables authentication
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -74,7 +87,33 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         // Listeners
         wBackToLogin.setOnClickListener(this);
         wBtnSignUp.setOnClickListener(this);
+        wTvBackToLogin.setOnClickListener(this);
 
+    }
+
+    //    For the adaptive banner
+    private void loadBanner() {
+        AdRequest adRequest =
+                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                        .build();
+
+        AdSize adSize = getAdSize();
+        adView.setAdSize(adSize);
+
+        adView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
 //    The on click listener implementation
@@ -82,6 +121,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
 
         if ( v == wBackToLogin ){
+            hideKeyboard(v);
+            Intent backToLogin = new Intent(this, LoginActivity.class);
+            backToLogin.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+            startActivity(backToLogin);
+            finish();
+        }
+
+        if ( v == wTvBackToLogin ){
             hideKeyboard(v);
             Intent backToLogin = new Intent(this, LoginActivity.class);
             backToLogin.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );

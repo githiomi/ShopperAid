@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
-//    @BindView(R.id.adContainer) FrameLayout wAdContainer;
+    @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
 //    Local variables
     // Date entry
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     // Ad view
-    private AdView wAdView;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +68,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Binding widgets using butter knife
         ButterKnife.bind(this);
-        //Ad view
-        wAdView = findViewById(R.id.adView);
 
+        // Init ads
         MobileAds.initialize(this);
 
-        // Loading adds
-        AdRequest adRequest = new AdRequest.Builder().build();
-        wAdView.loadAd(adRequest);
-
         // Init the ad view
-//        adView = new AdView(this);
-//        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-//        wAdContainer.addView(adView);
-//        loadBanner();
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -120,10 +115,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         AdSize adSize = getAdSize();
         // Step 4 - Set the adaptive ad size on the ad view.
-        wAdView.setAdSize(adSize);
+        adView.setAdSize(adSize);
 
         // Step 5 - Start loading the ad in the background.
-        wAdView.loadAd(adRequest);
+        adView.loadAd(adRequest);
     }
 
     private AdSize getAdSize() {
