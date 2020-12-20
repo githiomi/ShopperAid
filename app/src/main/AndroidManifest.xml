@@ -11,12 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
-        <activity android:name=".Ui.AppActivity"></activity>
+
         <!-- For my ad mob account -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8763169533349627~3461959056" />
 
+        <activity
+            android:name=".Ui.AppActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Ui.RecentSearchesActivity"
             android:theme="@style/NoActionBar"
