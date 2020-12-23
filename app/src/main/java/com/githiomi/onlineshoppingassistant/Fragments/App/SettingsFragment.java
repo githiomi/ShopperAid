@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +24,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.privacyPolicy) CardView wPrivacyPolicyCv;
     @BindView(R.id.appInfo) CardView wAppInfoCv;
 
     public SettingsFragment() {
@@ -47,7 +49,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, settingsView);
 
         // Adding on click listeners
-        wPrivacyPolicyCv.setOnClickListener(this);
         wAppInfoCv.setOnClickListener(this);
 
         return settingsView;
@@ -56,7 +57,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     //    Method init to replace the fragment with another view
     private void replaceView(Fragment fragment) {
 
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.appFrameLayout, fragment);
         ft.commit();
 
@@ -66,15 +67,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if (v == wPrivacyPolicyCv) {
-            PrivacyPolicyFragment privacyPolicyFragment = PrivacyPolicyFragment.newInstance();
-            replaceView(privacyPolicyFragment);
-        }
-
         if (v == wAppInfoCv) {
             String appInfo = " No app info yet! :( ";
             Snackbar.make(getView(), appInfo, Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
+                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary)).setAction("Action", null).show();
         }
     }
 }

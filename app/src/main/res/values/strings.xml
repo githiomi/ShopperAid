@@ -44,4 +44,26 @@
     <string name="back_to_login">Already Have An Account? Log In…</string>
     <string name="profile">Profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pp1_body"> Shopping Assistant is a free online app. The services that are provided by Shopping Assistant are at no cost, and is intended for use as it is. Promotional services, however, may be charged. </string>
+    <string name="pp2_body"> This page is used to inform users of our policies with the collection, use and disclosure of personal data if anyone did decide to use our service. </string>
+    <string name="pp3_body"> If you choose to use this service, then you agree to the collection and use of information in relation to this policy. The information that is collected is used only to improve our service. Your information will not be shared with anyone else except as described here. </string>
+    <string name="ic1_body"> For a better experience, while using this service, we may require you to provide us with your personal information. This is including but not limited to names, phone numbers, email addresses and location. The information will be retained only by us as described. </string>
+    <string name="ic2_body"> This app uses third party services such as; Google, Google Play Services, AdMob and Firebase. </string>
+    <string name="ld1_body"> We wish to inform you that whenever you use our service, in case of an error in the app, we do collect the error data (through third party services) on your phone via Log Data. This Log Data may contain information such as the device\'s Internet Protocol (IP) Address, device name, the operating system, the time and date the error occurred. </string>
+    <string name="c1_body"> Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser and are stored in your phone\'s memory. </string>
+    <string name="c2_body"> This service, however, does not use cookies explicitly. The third party sites you are redirected to will however be responsible for collection and storage of your device\'s cookies. </string>
+    <string name="sec_body"> We do value your trust in providing us with your personal information. Thus we are striving to use commercially acceptable means to protect it at all costs. However, remember that no method of data transmission over the internet is ever 100% secure, and we can not therefore guarantee its absolute security. </string>
+    <string name="lts_body"> This app solely works on the principle of linking users to third party sites. If you click on any third party link, you will be directed to that site. Note that these sites are not operated by us and we therefore advise that you look into their privacy policies as well. We will not be help responsible for any inconvenience caused by any of these third party sites. </string>
+    <string name="cp_body"> The use of this service is not advices for anyone under the age of 13 years according to jurisdiction. Under this age, children may be unaware  of the information they provide through our services. If any such user is found, this data will immediately be delete from the servers. If the parent is aware that this information has been provided, then we advice that we are contacted to make the necessary actions. </string>
+    <string name="ctp_body"> We may frequently update the privacy policy from time to time. Thus you are advised to view this page periodically o view any changes made. We will notify users however of changes made. This is effective as of 25th–12–2020. </string>
+    <string name="contact_body"> If you have any questions or suggestions, kindly reach out and contact us at dhosiolux@gmail.com </string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="information_collection_and_use">Information Collection And Use</string>
+    <string name="log_data">Log Data</string>
+    <string name="cookies">Cookies</string>
+    <string name="security">Security</string>
+    <string name="link_to_other_sites">Link To Other Sites</string>
+    <string name="children_privacy">Children\'s Privacy</string>
+    <string name="changes_to_privacy_policy">Changes To Privacy Policy</string>
+    <string name="contact_us">Contact Us</string>
 </resources>

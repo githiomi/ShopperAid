@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvProfileUsername) TextView wUsername;
     @BindView(R.id.tvProfileEmail) TextView wEmail;
     @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
-    @BindView(R.id.drawerLayout) DrawerLayout wDrawerLayout;
+    @BindView(R.id.drawerLayout) DrawerLayout wProfileDrawerLayout;
     @BindView(R.id.userNavigation) NavigationView wNavigationView;
     @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
 
@@ -68,8 +68,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
 //        Navigation Drawer Menu
         wNavigationView.bringToFront();
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, wDrawerLayout, R.string.open_navigation_drawer, R.string.close_navigation_drawer);
-        wDrawerLayout.setDrawerListener(actionBarDrawerToggle);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, wProfileDrawerLayout, R.string.open_navigation_drawer, R.string.close_navigation_drawer);
+        wProfileDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         // Setting default checked item
         wNavigationView.setCheckedItem(R.id.toProfileNav);
@@ -132,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     //    The method that will open the drawer layout
     public void clickMenu(View view) {
-        wDrawerLayout.openDrawer(GravityCompat.START);
+        wProfileDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
 
         if ( selectedId == R.id.toProfileNav ) {
-            wDrawerLayout.closeDrawer(GravityCompat.START);
+            wProfileDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
         if ( selectedId == R.id.toLogoutNav ) {
@@ -168,9 +168,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
 
         if (selectedId == R.id.toRateThisApp) {
+            wNavigationView.setCheckedItem(R.id.toProfileNav);
             Toast.makeText(this, "Link to app in play store", Toast.LENGTH_SHORT).show();
         }
 
+        wProfileDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -189,8 +191,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @Override
     public void onBackPressed() {
 
-        if (wDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            wDrawerLayout.closeDrawer(GravityCompat.START);
+        if (wProfileDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            wProfileDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
             finish();
@@ -237,11 +239,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
 
         if (view == wNavImage) {
-            wDrawerLayout.closeDrawer(GravityCompat.START);
+            wProfileDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
         if (view == wNavUsername) {
-            wDrawerLayout.closeDrawer(GravityCompat.START);
+            wProfileDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
     }

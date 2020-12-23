@@ -43,7 +43,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     private static final String TAG = ResultsActivity.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
+    @BindView(R.id.search_drawer_layout) DrawerLayout wResultDrawerLayout;
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
     @BindView(R.id.tvProductSearched) TextView wProductSearched;
     @BindView(R.id.resultViewPager) ViewPager wViewPager;
@@ -195,7 +195,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     //    The method that will open the drawer layout
     public void clickMenu(View view) {
-        wSearchDrawerLayout.openDrawer(GravityCompat.START);
+        wResultDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     //    Method to set up the view pager
@@ -228,7 +228,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         if (selectedId == R.id.toSearchNav) {
             // Do nothing
-            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            wResultDrawerLayout.closeDrawer(GravityCompat.START);
             Intent backToSearch = new Intent(this, SearchActivity.class);
             backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             onBackPressed();
@@ -246,7 +246,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         if (selectedId == R.id.toLogoutNav) {
-            wSearchDrawerLayout.closeDrawer(GravityCompat.START);
+            wResultDrawerLayout.closeDrawer(GravityCompat.START);
             logout();
         }
 
@@ -266,6 +266,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, "Link to app in play store", Toast.LENGTH_SHORT).show();
         }
 
+        wResultDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

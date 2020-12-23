@@ -306,9 +306,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if (selectedId == R.id.toRateThisApp) {
+            wSideNavigation.setCheckedItem(R.id.toSearchNav);
             Toast.makeText(this, "Link to app in play store", Toast.LENGTH_SHORT).show();
         }
 
+        wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
