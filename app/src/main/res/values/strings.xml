@@ -66,4 +66,6 @@
     <string name="children_privacy">Children\'s Privacy</string>
     <string name="changes_to_privacy_policy">Changes To Privacy Policy</string>
     <string name="contact_us">Contact Us</string>
+    <string name="or">OR</string>
+    <string name="sign_in_with_google">Sign In With Google</string>
 </resources>

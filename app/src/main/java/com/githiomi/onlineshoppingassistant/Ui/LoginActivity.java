@@ -19,19 +19,30 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.edEmail) TextInputEditText wUserEmail;
     @BindView(R.id.edPassword) TextInputEditText wUserPassword;
     @BindView(R.id.btnLogin) Button wLoginButton;
+    @BindView(R.id.cvSignInWithGoogle) CardView wCvSignInWithGoogle;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
@@ -60,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     // Ad view
     private AdView adView;
+    // Sign in with google
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +91,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
         wAdContainer.addView(adView);
         loadBanner();
+
+        // Configure Google sign in options
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Adding the google options to google client
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -99,30 +122,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // All listeners
         wProceedAsGuest.setOnClickListener(this);
         wLoginButton.setOnClickListener(this);
+        wCvSignInWithGoogle.setOnClickListener(this);
         wForgotPassword.setOnClickListener(this);
         wToSignUp.setOnClickListener(this);
     }
 
     // For the adaptive banner
     private void loadBanner() {
-        // Create an ad request. Check your logcat output for the hashed device ID
-        // to get test ads on a physical device, e.g.,
-        // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
-        // device."
         AdRequest adRequest =
                 new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                         .build();
 
         AdSize adSize = getAdSize();
-        // Step 4 - Set the adaptive ad size on the ad view.
         adView.setAdSize(adSize);
 
-        // Step 5 - Start loading the ad in the background.
         adView.loadAd(adRequest);
     }
 
     private AdSize getAdSize() {
-        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
@@ -132,7 +149,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         int adWidth = (int) (widthPixels / density);
 
-        // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
@@ -155,6 +171,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loginUser(v);
         }
 
+        if (v == wCvSignInWithGoogle) {
+            signInWithGoogle();
+        }
+
         if (v == wForgotPassword) {
             hideKeyboard(v);
             resetPassword(v);
@@ -164,6 +184,58 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             hideKeyboard(v);
             toSignUp(v);
         }
+    }
+
+    //    Method to login user with google
+    private void signInWithGoogle() {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
+    }
+
+    //    Method for activity result
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == Constants.RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            if ( task.isSuccessful() ) {
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                    firebaseAuthWithGoogle(account.getIdToken());
+                } catch (ApiException e) {
+                    // Google Sign In failed, update UI appropriately
+                    Log.w(TAG, "Google sign in failed", e);
+                    // ...
+                }
+            }else{
+                String exception = Objects.requireNonNull(task.getException()).toString();
+                Log.d(TAG, "onActivityResult: Error ------ " + exception);
+            }
+        }
+    }
+
+    //    Method that will sign in user
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mFirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     //    Method to log in a user

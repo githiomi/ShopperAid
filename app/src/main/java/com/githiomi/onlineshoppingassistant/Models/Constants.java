@@ -41,5 +41,6 @@ public class Constants {
     public static final String FRAGMENT_SOURCE = "Fragment Source";
     // For the app fragments
     public static final String APP_FRAGMENT_NAME = "App Fragment";
-
+    // Google sign in constant
+    public static final int RC_SIGN_IN = 120;
 }

@@ -319,15 +319,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             FirebaseAuth.getInstance().signOut();
-
-            Intent backToLogin = new Intent(this, LoginActivity.class);
-            backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(backToLogin);
-            finish();
         }
-        String asGuest = "You're not logged in";
-        wSideNavigation.setCheckedItem(R.id.toSearchNav);
-        Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+        Intent backToLogin = new Intent(this, LoginActivity.class);
+        backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(backToLogin);
+        finish();
+
     }
 
     //    For the side navigation drawer
