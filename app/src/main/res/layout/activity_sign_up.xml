@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/ivBackToLogin"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_margin="5dp"
                 android:contentDescription="@string/app_spaced_name"
                 android:padding="3dp"
@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
+                android:padding="1dp"
                 android:text="@string/app_name"
                 android:textAlignment="center"
                 android:textAllCaps="true"
@@ -59,7 +59,7 @@
                 android:text="@string/sign_up_button_placeholder"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -205,20 +205,28 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSignUp"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/black"
+                android:layout_marginTop="5dp"
                 android:elevation="50dp"
-                android:padding="5dp"
-                android:text="@string/sign_up_button_placeholder"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center" >
+
+                <Button
+                    android:id="@+id/btnSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/transparent"
+                    android:padding="1dp"
+                    android:text="@string/sign_up_button_placeholder"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </androidx.cardview.widget.CardView>
 
             <ProgressBar
                 android:id="@+id/signUpProgressBar"

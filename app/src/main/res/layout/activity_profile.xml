@@ -195,7 +195,7 @@
                             android:text="@string/phone_number"
                             android:textColor="@color/colorPrimary"
                             android:textSize="17sp"
-                            app:drawableStartCompat="@drawable/ic_email_20" />
+                            app:drawableStartCompat="@drawable/ic_phone" />
 
                         <TextView
                             android:id="@+id/tvProfilePhone"

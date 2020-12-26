@@ -19,9 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
-import com.githiomi.onlineshoppingassistant.Models.PhoneNumber;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -50,14 +47,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     //    Widgets
-    @BindView(R.id.userProfilePicture) CircleImageView wUserProfilePicture;
-    @BindView(R.id.tvProfileUsername) TextView wUsername;
-    @BindView(R.id.tvProfileEmail) TextView wEmail;
-    @BindView(R.id.tvProfilePhone) TextView wPhoneNumber;
-    @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
-    @BindView(R.id.drawerLayout) DrawerLayout wProfileDrawerLayout;
-    @BindView(R.id.userNavigation) NavigationView wNavigationView;
-    @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
+    @BindView(R.id.userProfilePicture)
+    CircleImageView wUserProfilePicture;
+    @BindView(R.id.tvProfileUsername)
+    TextView wUsername;
+    @BindView(R.id.tvProfileEmail)
+    TextView wEmail;
+    @BindView(R.id.tvProfilePhone)
+    TextView wPhoneNumber;
+    @BindView(R.id.editProfilePicture)
+    ImageButton wEditProfilePicture;
+    @BindView(R.id.drawerLayout)
+    DrawerLayout wProfileDrawerLayout;
+    @BindView(R.id.userNavigation)
+    NavigationView wNavigationView;
+    @BindView(R.id.profileProgressBar)
+    ProgressBar wProfileProgressBar;
 
     // Navigation view
     View navigationView;
@@ -117,21 +122,14 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         // Get user number from database
         Query getPhoneNumber = FirebaseDatabase.getInstance().getReference("Users' Phone Numbers")
-                                                             .child(username);
+                .child(username);
 
         getPhoneNumber.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ( snapshot.exists() ){
+                if (snapshot.exists()) {
                     String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
                     wPhoneNumber.setText(phoneNumber);
-                }else{
-
-                    String googleNumber = currentUser.getPhoneNumber();
-
-                    if ( !(googleNumber.isEmpty()) ) {
-                        wPhoneNumber.setText(googleNumber);
-                    }
                 }
             }
 
@@ -154,7 +152,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                     .load(userUri)
                     .into(wNavImage);
 
-        }else {
+        } else {
             Picasso.get()
                     .load(R.drawable.user_profile_picture)
                     .into(wUserProfilePicture);
@@ -175,18 +173,18 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         int selectedId = item.getItemId();
 
-        if ( selectedId == R.id.toSearchNav ){
+        if (selectedId == R.id.toSearchNav) {
             Intent backToSearch = new Intent(this, SearchActivity.class);
             backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(backToSearch);
             finish();
         }
 
-        if ( selectedId == R.id.toProfileNav ) {
+        if (selectedId == R.id.toProfileNav) {
             wProfileDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
-        if ( selectedId == R.id.toLogoutNav ) {
+        if (selectedId == R.id.toLogoutNav) {
             logout();
         }
 
@@ -197,7 +195,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
 
         if (selectedId == R.id.toPrivacyPolicyNav) {
-            Intent toPrivacyPolicyIntent  = new Intent(this, AppActivity.class);
+            Intent toPrivacyPolicyIntent = new Intent(this, AppActivity.class);
             toPrivacyPolicyIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Privacy Policy");
             startActivity(toPrivacyPolicyIntent);
         }

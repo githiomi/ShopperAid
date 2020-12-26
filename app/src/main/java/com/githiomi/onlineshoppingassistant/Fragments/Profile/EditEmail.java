@@ -198,7 +198,9 @@ public class EditEmail extends Fragment implements View.OnClickListener {
 
                     Intent backToProfile = new Intent(getActivity(), ProfileActivity.class);
                     Toast.makeText(context, "Email updated", Toast.LENGTH_SHORT).show();
+                    backToProfile.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(backToProfile);
+                    getActivity().finish();
 
                 }else{
 
