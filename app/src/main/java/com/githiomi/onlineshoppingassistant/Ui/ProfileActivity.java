@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
+import com.githiomi.onlineshoppingassistant.Models.PhoneNumber;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +30,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.userProfilePicture) CircleImageView wUserProfilePicture;
     @BindView(R.id.tvProfileUsername) TextView wUsername;
     @BindView(R.id.tvProfileEmail) TextView wEmail;
+    @BindView(R.id.tvProfilePhone) TextView wPhoneNumber;
     @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
     @BindView(R.id.drawerLayout) DrawerLayout wProfileDrawerLayout;
     @BindView(R.id.userNavigation) NavigationView wNavigationView;
@@ -105,6 +114,32 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         String username = currentUser.getDisplayName();
         wNavUsername.setText(username);
         String email = currentUser.getEmail();
+
+        // Get user number from database
+        Query getPhoneNumber = FirebaseDatabase.getInstance().getReference("Users' Phone Numbers")
+                                                             .child(username);
+
+        getPhoneNumber.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if ( snapshot.exists() ){
+                    String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                    wPhoneNumber.setText(phoneNumber);
+                }else{
+
+                    String googleNumber = currentUser.getPhoneNumber();
+
+                    if ( !(googleNumber.isEmpty()) ) {
+                        wPhoneNumber.setText(googleNumber);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProfileActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         // Setting the profile picture
         Uri userUri = currentUser.getPhotoUrl();

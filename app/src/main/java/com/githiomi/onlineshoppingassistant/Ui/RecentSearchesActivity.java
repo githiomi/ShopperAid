@@ -122,7 +122,6 @@ public class RecentSearchesActivity extends AppCompatActivity {
                     wNoRecentText.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in));
 
                 }
-
             }
 
             @Override

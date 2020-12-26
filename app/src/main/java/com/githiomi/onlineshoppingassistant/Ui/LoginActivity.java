@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.edPassword) TextInputEditText wUserPassword;
     @BindView(R.id.btnLogin) Button wLoginButton;
     @BindView(R.id.cvSignInWithGoogle) CardView wCvSignInWithGoogle;
+    @BindView(R.id.cvSignInWithFacebook) CardView wCvSignInWithFacebook;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
@@ -123,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         wProceedAsGuest.setOnClickListener(this);
         wLoginButton.setOnClickListener(this);
         wCvSignInWithGoogle.setOnClickListener(this);
+        wCvSignInWithFacebook.setOnClickListener(this);
         wForgotPassword.setOnClickListener(this);
         wToSignUp.setOnClickListener(this);
     }
@@ -173,6 +175,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (v == wCvSignInWithGoogle) {
             signInWithGoogle();
+        }
+
+        if (v == wCvSignInWithFacebook) {
+            Snackbar.make(v, "Service is not yet available. :(", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary)).setAction("Action", null).show();
         }
 
         if (v == wForgotPassword) {

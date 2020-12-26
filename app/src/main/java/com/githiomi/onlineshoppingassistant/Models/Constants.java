@@ -14,6 +14,9 @@ public class Constants {
     public static final String JUMIA_BASE_URL = "https://www.jumia.co.ke/catalog/?q=";
     public static final String JUMIA_ITEM_URL = "https://www.jumia.co.ke";
 
+    // Jiji
+    public static final String JIJI_BASE_URL = "https://www.kilimall.co.ke/new/commoditysearch?q=";
+
     // Ebay
     public static final String PRE_EBAY_BASE_URL = "https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=";
     public static final String POST_EBAY_BASE_URL = "&_sacat=0";
@@ -28,7 +31,7 @@ public class Constants {
     public static final String TO_EDIT = "Edit Page Determinant";
     public static final String TO_EDIT_USERNAME = "Edit Username";
     public static final String TO_EDIT_EMAIL = "Edit Email";
-    //    Camera intent
+    // Camera intent
     public static final int REQUEST_IMAGE_CAPTURE = 111;
     // Currency converter
     public static final float DOLLARS_TO_KSH = 111;
@@ -43,4 +46,11 @@ public class Constants {
     public static final String APP_FRAGMENT_NAME = "App Fragment";
     // Google sign in constant
     public static final int RC_SIGN_IN = 120;
+    // To pass data to verify
+    public static final String USERNAME = "Username";
+    public static final String EMAIL = "Email";
+    public static final String PHONE_NUMBER = "Phone Number";
+    public static final String PASSWORD = "Password";
+    public static final String CONFIRM_PASSWORD = "Confirm Password";
+
 }

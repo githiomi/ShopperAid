@@ -15,7 +15,13 @@
         <!-- For my ad mob account -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8763169533349627~3461959056" />
+            android:value="ca-app-pub-8763169533349627~3461959056" /> <!-- For the facebook login -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".Ui.AppActivity"
@@ -57,11 +63,13 @@
         <activity
             android:name=".Ui.MainActivity"
             android:theme="@style/Welcome_NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

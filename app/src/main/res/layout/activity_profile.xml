@@ -170,6 +170,48 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:elevation="30dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvNumberPrompt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            android:background="@color/white"
+                            android:drawablePadding="10dp"
+                            android:padding="5dp"
+                            android:text="@string/phone_number"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="17sp"
+                            app:drawableStartCompat="@drawable/ic_email_20" />
+
+                        <TextView
+                            android:id="@+id/tvProfilePhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:padding="15dp"
+                            android:text="@string/no_phone_number_saved"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

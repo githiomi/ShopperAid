@@ -102,6 +102,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.2.1'
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
 
+//    Pin view
+    implementation 'com.chaos.view:pinview:1.4.3'
+
 //    For the ads
       implementation 'com.google.android.gms:play-services-ads:19.6.0'
 

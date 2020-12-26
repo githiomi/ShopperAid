@@ -15,8 +15,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.githiomi.onlineshoppingassistant.Models.Constants;
+import com.githiomi.onlineshoppingassistant.Models.PhoneNumber;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -30,6 +33,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,9 +48,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.ivBackToLogin) ImageView wBackToLogin;
     @BindView(R.id.edUsername) TextInputEditText wUsername;
     @BindView(R.id.edEmail) TextInputEditText wEmail;
+    @BindView(R.id.edPhoneNumber) TextInputEditText wPhoneNumber;
     @BindView(R.id.edPassword) TextInputEditText wPassword;
     @BindView(R.id.edConfirmPassword) TextInputEditText wConfirmPassword;
     @BindView(R.id.btnSignUp) Button wBtnSignUp;
+    @BindView(R.id.signUpProgressBar) ProgressBar wSignUpProgressBar;
     @BindView(R.id.tvBackToLogin) TextView wTvBackToLogin;
     @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
@@ -74,7 +81,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
         wAdContainer.addView(adView);
         loadBanner();
-
 
         //        Firebase variables authentication
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -147,15 +153,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         username = wUsername.getText().toString().trim();
         String email = wEmail.getText().toString().trim();
+        String phoneNumber = wPhoneNumber.getText().toString().trim();
         String password = wPassword.getText().toString().trim();
         String confirmPassword = wConfirmPassword.getText().toString().trim();
 
         // Validating the input
         boolean isNameValid = isUsernameValid(username);
         boolean isEmailValid = isEmailValid(email);
+        boolean isNumberValid = isNumberValid(phoneNumber);
         boolean isPasswordsValid = isPasswordsValid(password, confirmPassword);
 
-        if ( !(isNameValid) || !(isEmailValid) || !(isPasswordsValid) ) return;
+        if ( !(isNameValid) || !(isEmailValid) || !(isNumberValid) || !(isPasswordsValid) ) return;
+
+        // Exchange button with progress bar
+        wBtnSignUp.setVisibility(View.GONE);
+        wSignUpProgressBar.setVisibility(View.VISIBLE);
 
         mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -168,6 +180,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     assert firebaseUser != null;
                     addUsernameToAccount(firebaseUser);
 
+                    // Save the phone number to firebase
+                    // Creating reference
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                                                                          .getReference("Users' Phone Numbers")
+                                                                          .child(username);
+
+                    String completeNumber = "+254" + phoneNumber;
+                    PhoneNumber phoneNumberClass = new PhoneNumber(username, completeNumber);
+
+                    databaseReference.setValue(phoneNumberClass);
+
+                    // Exchange button with progress bar
+                    wSignUpProgressBar.setVisibility(View.GONE);
+                    wBtnSignUp.setVisibility(View.VISIBLE);
+
                     // Go to the search activity
                     Intent toSearchActivity = new Intent( v.getContext(), SearchActivity.class );
                     toSearchActivity.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
@@ -175,6 +202,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     finish();
 
                 }else {
+
+                    // Exchange button with progress bar
+                    wSignUpProgressBar.setVisibility(View.GONE);
+                    wBtnSignUp.setVisibility(View.VISIBLE);
 
                     Snackbar.make( v, "Couldn't create your account. Try again.", Snackbar.LENGTH_SHORT )
                             .setAction( "Action", null ).show();
@@ -214,6 +245,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
         return true;
+    }
+
+    // Validate Phone number
+    private boolean isNumberValid( String phoneNumber ){
+        int digitLimit = 9;
+        int numberLength = phoneNumber.length();
+
+        if ( numberLength == digitLimit ){
+
+            char firstDigit = phoneNumber.charAt(0);
+
+            return firstDigit == '7' || firstDigit == '1';
+
+        }else {
+            wPhoneNumber.setError("Incorrect Phone number format");
+            return false;
+        }
     }
 
     // Validate Passwords
