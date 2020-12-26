@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.edEmail) TextInputEditText wUserEmail;
     @BindView(R.id.edPassword) TextInputEditText wUserPassword;
     @BindView(R.id.btnLogin) Button wLoginButton;
+    @BindView(R.id.cvLoginbtn) CardView wCvLoginButton;
     @BindView(R.id.cvSignInWithGoogle) CardView wCvSignInWithGoogle;
     @BindView(R.id.cvSignInWithFacebook) CardView wCvSignInWithFacebook;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
@@ -258,7 +259,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (!(isEmailValid) && !(isPasswordValid)) return;
 
-        // Make the progress bar visible
+        // Hide button & show progress bar
+        wCvLoginButton.setVisibility(View.GONE);
         wLoginProgressBar.setVisibility(View.VISIBLE);
 
         // Sign in
@@ -275,7 +277,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 } else {
 
+                    // Hide progress bar & return button
+                    wLoginProgressBar.setVisibility(View.GONE);
+                    wCvLoginButton.setVisibility(View.VISIBLE);
                     wForgotPassword.setVisibility(View.VISIBLE);
+
                     Snackbar.make(v, "Incorrect email or password. Try again", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
 

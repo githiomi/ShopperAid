@@ -208,11 +208,11 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/black"
+                android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:elevation="50dp"
-                android:layout_gravity="center" >
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="15dp">
 
                 <Button
                     android:id="@+id/btnSignUp"
@@ -220,11 +220,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@color/transparent"
-                    android:padding="1dp"
                     android:text="@string/sign_up_button_placeholder"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -234,11 +233,11 @@
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:indeterminate="false"
                 android:indeterminateTint="@color/black"
                 android:progressDrawable="@color/black"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvBackToLogin"

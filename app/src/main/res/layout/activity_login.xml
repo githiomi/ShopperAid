@@ -134,6 +134,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvLoginbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
@@ -155,6 +156,18 @@
                     android:textSize="14sp" />
 
             </androidx.cardview.widget.CardView>
+
+            <ProgressBar
+                android:id="@+id/loginProgressBar"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:indeterminate="false"
+                android:indeterminateTint="@color/black"
+                android:progressDrawable="@color/black"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -279,18 +292,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <ProgressBar
-                android:id="@+id/loginProgressBar"
-                style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="80dp"
-                android:indeterminate="false"
-                android:indeterminateTint="@color/black"
-                android:progressDrawable="@color/black"
-                android:visibility="gone" />
 
         </LinearLayout>
 
