@@ -29,6 +29,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
@@ -52,7 +54,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     //    Local variables
     // The shopping options
-    private final String[] shoppingSiteOptions = {"Jumia", "Jiji", "Amazon", "Ebay"};
+    private final String[] shoppingSiteOptions = {"Jumia", "Kilimall", "Amazon", "Ebay"};
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
@@ -239,9 +241,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
             } else {
-                String asGuest = "You're not logged in";
-                wSideNavigation.setCheckedItem(R.id.toSearchNav);
-                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+                Intent backToLogin = new Intent(this, LoginActivity.class);
+                backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(backToLogin);
+                finish();
             }
         }
 
@@ -292,10 +295,13 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
             } else {
-                String asGuest = "You're not logged in";
-                wSideNavigation.setCheckedItem(R.id.toSearchNav);
-                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+                String asGuest = "You're not logged in!";
+                Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setAction("Action", null).show();
             }
+            wResultDrawerLayout.closeDrawer(GravityCompat.START);
         }
 
         if (v == wNavigationUsername) {
@@ -303,10 +309,13 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
             } else {
-                String asGuest = "You're not logged in";
-                wSideNavigation.setCheckedItem(R.id.toSearchNav);
-                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+                String asGuest = "You're not logged in!";
+                Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setAction("Action", null).show();
             }
+            wResultDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 

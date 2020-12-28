@@ -34,6 +34,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
@@ -216,9 +217,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                     firebaseAuthWithGoogle(account.getIdToken());
                 } catch (ApiException e) {
-                    // Google Sign In failed, update UI appropriately
                     Log.w(TAG, "Google sign in failed", e);
-                    // ...
                 }
             }else{
                 String exception = Objects.requireNonNull(task.getException()).toString();
@@ -273,7 +272,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if ( task.isSuccessful() ) {
 
-                    Log.d(TAG, "onComplete: " + mFirebaseAuth.getCurrentUser().getDisplayName() + " logged in");
+                    // User is logged in
 
                 } else {
 
@@ -283,6 +282,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     wForgotPassword.setVisibility(View.VISIBLE);
 
                     Snackbar.make(v, "Incorrect email or password. Try again", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                             .setAction("Action", null).show();
 
                 }
@@ -344,27 +345,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String email = textInputEditText.getText().toString().trim();
 
                 if (email.isEmpty()) {
-                    Snackbar.make(v, "Cannot leave the field empty", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(v, "You must provide a valid email address", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                             .setAction("Action", null).show();
-                }
+                } else {
+                    // Send email
+                    mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
 
-                // Send email
-                mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if (task.isSuccessful()) {
-                            Snackbar.make(v, "Reset email has been sent", Snackbar.LENGTH_SHORT)
-                                    .setAction("Action", null).show();
-                        } else {
-                            Snackbar.make(v, "Reset email has been sent", Snackbar.LENGTH_SHORT)
-                                    .setAction("Action", null).show();
+                            if (task.isSuccessful()) {
+                                Snackbar.make(v, "Reset email has been sent", Snackbar.LENGTH_SHORT)
+                                        .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                                        .setAction("Action", null).show();
+                            } else {
+                                Snackbar.make(v, "Reset email has not been sent", Snackbar.LENGTH_SHORT)
+                                        .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                                        .setAction("Action", null).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
-
         resetPasswordDialog.setNegativeButton("Cancel", null);
 
         // Display the dialog

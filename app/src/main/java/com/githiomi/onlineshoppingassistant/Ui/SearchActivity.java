@@ -22,17 +22,23 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.githiomi.onlineshoppingassistant.Models.Constants;
+import com.githiomi.onlineshoppingassistant.Models.RecentSearch;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -182,8 +188,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             Intent toRecents = new Intent(this, RecentSearchesActivity.class);
             startActivity(toRecents);
         }else {
-            String noRecents = "No Recent Searches For Guest Users.";
-            Toast.makeText(this, noRecents, Toast.LENGTH_SHORT).show();
+            hideKeyboard(view);
+            String noRecents = "No Recent Searches For Guest Users!";
+            Snackbar.make(view, noRecents, Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setAction("Action", null).show();
         }
     }
 
@@ -204,13 +214,34 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                 if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                    assert user != null;
                     String userName = user.getDisplayName();
 
+                    assert userName != null;
                     databaseReference = FirebaseDatabase.getInstance()
                             .getReference("Recent Searches")
-                            .child(userName);
+                            .child(userName)
+                            .child(productSearched);
 
-                    databaseReference.push().setValue(productSearched);
+                    RecentSearch recentSearch = new RecentSearch(productSearched);
+
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            // Check if item is in recents
+                            if ( !(snapshot.exists()) ){
+                                databaseReference.setValue(recentSearch);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
                 }
 
                 performSearch(productSearched);
@@ -223,9 +254,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
             } else {
-                String asGuest = "You're not logged in";
+                String asGuest = "You're not yet logged in!";
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
-                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+                Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setAction("Action", null).show();
             }
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -235,9 +269,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
             } else {
-                String asGuest = "You're not logged in";
+                String asGuest = "You're not yet logged in!";
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
-                Toast.makeText(this, asGuest, Toast.LENGTH_SHORT).show();
+                Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setAction("Action", null).show();
             }
             wSearchDrawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -285,7 +322,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(backToLogin);
                 finish();
             }
-
         }
 
         if (selectedId == R.id.toLogoutNav) {

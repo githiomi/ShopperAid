@@ -23,6 +23,7 @@ import com.githiomi.onlineshoppingassistant.Adapters.ResultItemAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.jsoup.Jsoup;
@@ -31,6 +32,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,7 +112,7 @@ public class AmazonFragment extends Fragment {
             try {
 
                 // Url to be used in browser
-                String url = Constants.PRE_AMAZON_BASE_URL + productSearched + Constants.POST_AMAZON_BASE_URL;
+                String url = Constants.PRE_AMAZON_BASE_URL + productSearched.trim() + Constants.POST_AMAZON_BASE_URL;
                 Document extractedContent = Jsoup.connect(url).get();
 
                 // Confirming url
@@ -199,7 +201,10 @@ public class AmazonFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Toast.makeText(context, "Swipe down to refresh", Toast.LENGTH_SHORT).show();
+        Snackbar.make(Objects.requireNonNull(getView()), "Swipe Down To Refresh!", Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                .setAction("Action", null).show();
 
     }
 

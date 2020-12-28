@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.githiomi.onlineshoppingassistant.R;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
@@ -25,6 +24,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     //    Widgets
     @BindView(R.id.appInfo) CardView wAppInfoCv;
+    @BindView(R.id.appVersion) CardView wAppVersion;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -50,17 +50,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         // Adding on click listeners
         wAppInfoCv.setOnClickListener(this);
+        wAppVersion.setOnClickListener(this);
 
         return settingsView;
-    }
-
-    //    Method init to replace the fragment with another view
-    private void replaceView(Fragment fragment) {
-
-        FragmentTransaction ft = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.appFrameLayout, fragment);
-        ft.commit();
-
     }
 
     //      Method to perform action when a view is clicked
@@ -68,9 +60,20 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         if (v == wAppInfoCv) {
-            String appInfo = " No app info yet! :( ";
-            Snackbar.make(getView(), appInfo, Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary)).setAction("Action", null).show();
+            String appInfo = " No application information yet! :( ";
+            Snackbar.make(Objects.requireNonNull(getView()), appInfo, Snackbar.LENGTH_SHORT)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setAction("Action", null).show();
         }
+
+        if (v == wAppVersion) {
+            String appInfo = " Application Version: 1.0 :) ";
+            Snackbar.make(Objects.requireNonNull(getView()), appInfo, Snackbar.LENGTH_SHORT)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setAction("Action", null).show();
+        }
+
     }
 }

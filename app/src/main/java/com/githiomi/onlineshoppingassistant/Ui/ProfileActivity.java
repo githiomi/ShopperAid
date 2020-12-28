@@ -122,7 +122,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         // Get user number from database
         Query getPhoneNumber = FirebaseDatabase.getInstance().getReference("Users' Phone Numbers")
-                .child(username);
+                                                             .child(username);
 
         getPhoneNumber.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -16,7 +16,7 @@ public class Constants {
     public static final String JUMIA_PAGE_NO = "&page=";
 
     // Jiji
-    public static final String JIJI_BASE_URL = "https://jiji.co.ke/search?query=";
+    public static final String JIJI_BASE_URL = "https://www.kilimall.co.ke/new/commoditysearch?q=";
 
     // Ebay
     public static final String PRE_EBAY_BASE_URL = "https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=";

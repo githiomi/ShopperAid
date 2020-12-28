@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.githiomi.onlineshoppingassistant.Adapters.Firebase.RecentAdapter;
+import com.githiomi.onlineshoppingassistant.Models.RecentSearch;
 import com.githiomi.onlineshoppingassistant.R;
 import com.githiomi.onlineshoppingassistant.Utils.ItemSwipeHelperCallback;
 import com.google.android.gms.ads.AdRequest;
@@ -80,9 +81,11 @@ public class RecentSearchesActivity extends AppCompatActivity {
 
         // Getting user data
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
         String userName = currentUser.getDisplayName();
 
         // Database reference
+        assert userName != null;
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference("Recent Searches")
                 .child(userName);
@@ -98,8 +101,8 @@ public class RecentSearchesActivity extends AppCompatActivity {
         Activity activity = this;
 
         // Creating reference
-        FirebaseRecyclerOptions<String> recentOptions = new FirebaseRecyclerOptions.Builder<String>()
-                .setQuery(databaseReference.orderByValue(), String.class)
+        FirebaseRecyclerOptions<RecentSearch> recentOptions = new FirebaseRecyclerOptions.Builder<RecentSearch>()
+                .setQuery(databaseReference, RecentSearch.class)
                 .build();
 
         // Checking if data exists

@@ -12,19 +12,20 @@ import androidx.annotation.NonNull;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
+import com.githiomi.onlineshoppingassistant.Models.RecentSearch;
 import com.githiomi.onlineshoppingassistant.R;
 import com.githiomi.onlineshoppingassistant.Ui.ResultsActivity;
 import com.githiomi.onlineshoppingassistant.Ui.SearchActivity;
 import com.githiomi.onlineshoppingassistant.Utils.ItemSwipeHelperAdapter;
 import com.google.firebase.database.DatabaseReference;
 
-public class RecentAdapter extends FirebaseRecyclerAdapter<String, RecentViewHolder> implements ItemSwipeHelperAdapter {
+public class RecentAdapter extends FirebaseRecyclerAdapter<RecentSearch, RecentViewHolder> implements ItemSwipeHelperAdapter {
 
     // Local variables
     private DatabaseReference databaseReference;
     private Context context;
 
-    public RecentAdapter(@NonNull FirebaseRecyclerOptions<String> options,
+    public RecentAdapter(@NonNull FirebaseRecyclerOptions<RecentSearch> options,
                          DatabaseReference databaseReference,
                          Context context) {
         super(options);
@@ -36,9 +37,9 @@ public class RecentAdapter extends FirebaseRecyclerAdapter<String, RecentViewHol
 
 
     @Override
-    protected void onBindViewHolder(@NonNull RecentViewHolder recentsViewHolder, int i, @NonNull String recentSearch) {
+    protected void onBindViewHolder(@NonNull RecentViewHolder recentsViewHolder, int i, @NonNull RecentSearch recentSearch) {
 
-        recentsViewHolder.bindToView(recentSearch);
+        recentsViewHolder.bindToView(recentSearch.getSearchName());
 
     }
 
