@@ -109,7 +109,7 @@ public class AmazonDetailFragment extends Fragment {
         int MAX_WIDTH = 230;
         int MAX_HEIGHT = 250;
 
-        if (!(productToShowDetails.getImageUrl().equals(""))) {
+        if (!(productToShowDetails.getImageUrl().isEmpty())) {
             Picasso.get().load(productToShowDetails.getImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerInside()

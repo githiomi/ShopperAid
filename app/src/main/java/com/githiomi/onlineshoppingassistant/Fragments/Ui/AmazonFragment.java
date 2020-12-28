@@ -110,7 +110,7 @@ public class AmazonFragment extends Fragment {
             try {
 
                 // Url to be used in browser
-                String url = Constants.PRE_AMAZON_BASE_URL + productSearched.trim() + Constants.POST_AMAZON_BASE_URL;
+                String url = Constants.PRE_AMAZON_BASE_URL + productSearched + Constants.POST_AMAZON_BASE_URL;
                 Document extractedContent = Jsoup.connect(url).get();
 
                 // Confirming url

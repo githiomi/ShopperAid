@@ -34,10 +34,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EbayFragment extends Fragment {
+public class JijiFragment extends Fragment {
 
     //    TAG
-    private static final String TAG = EbayFragment.class.getSimpleName();
+    private static final String TAG = JijiFragment.class.getSimpleName();
 
     //    Widgets
     @BindView(R.id.progressBar)
@@ -47,7 +47,7 @@ public class EbayFragment extends Fragment {
     @BindView(R.id.noResult)
     TextView wNoResult;
     @BindView(R.id.resultsRecyclerView)
-    RecyclerView wEbayRecyclerView;
+    RecyclerView wJijiRecyclerView;
 
     //    Local variables
     // Adapter
@@ -59,16 +59,16 @@ public class EbayFragment extends Fragment {
     // For the search inputted
     private String productSearched;
     // For retrieved products
-    private List<Product> ebayProducts;
+    private List<Product> jijiProducts;
     // For the activity
     private Activity activity;
 
-    public EbayFragment() {
+    public JijiFragment() {
         // Required empty public constructor
     }
 
-    public static EbayFragment newInstance() {
-        return new EbayFragment();
+    public static JijiFragment newInstance() {
+        return new JijiFragment();
     }
 
     @Override
@@ -81,10 +81,10 @@ public class EbayFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View ebayView = inflater.inflate(R.layout.fragment_ebay, container, false);
+        View jijiView = inflater.inflate(R.layout.fragment_jiji, container, false);
 
         // Binding widgets
-        ButterKnife.bind(this, ebayView);
+        ButterKnife.bind(this, jijiView);
 
         // Init the context
         this.context = getContext();
@@ -97,96 +97,83 @@ public class EbayFragment extends Fragment {
         productSearched = sharedPreferences.getString(Constants.SEARCH_INPUT_KEY, null).trim();
 
         // Init the web scrapping
-        EbayScrape ebayScrape = new EbayScrape();
-        ebayScrape.execute();
+        JijiScrape jijiScrape = new JijiScrape();
+        jijiScrape.execute();
 
-        return ebayView;
+        return jijiView;
     }
 
-    public class EbayScrape extends AsyncTask<Void, Void, Void> {
+    public class JijiScrape extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Log.d(TAG, "doInBackground: ebay scrape init");
+            Log.d(TAG, "doInBackground: jiji scrape init");
 
             try {
 
-                // init array list
-                ebayProducts = new ArrayList<>();
+                // Url to be used in browser
+                String url = Constants.JIJI_BASE_URL + productSearched;
+                Document extractedContent = Jsoup.connect(url).get();
 
-                // Loop to get data from 2 pages
-                for (int pageNumber = 1; pageNumber < 3; pageNumber += 1) {
+                // Confirming url
+                Log.d(TAG, "doInBackground: extracted jiji content url " + url);
+                Elements dataObtained = extractedContent.select("div.qa-advert-listing.advert-listing");
 
-                    // Url to be used in browser
-                    String url = Constants.PRE_EBAY_BASE_URL + productSearched + Constants.POST_EBAY_BASE_URL + Constants.EBAY_PAGE_NO + pageNumber;
-                    Document extractedContent = Jsoup.connect(url).get();
+                if (dataObtained.size() > 0) {
 
-                    // Confirming url
-                    Log.d(TAG, "doInBackground: extracted ebay content url " + url);
+                    // initializing the list
+                    jijiProducts = new ArrayList<>();
 
-                    // Code that scrapes ebay
-                    Elements obtainedData = extractedContent.select("li.s-item");
+                    for (int ji = 0; ji < 60; ji += 1) {
 
-                    if (obtainedData.size() > 0) {
+                        String linkToPage = dataObtained
+                                .select("a.js-handle-click-ctr.b-list-advert")
+                                .eq(ji)
+                                .attr("href");
 
-                        int dataSize = obtainedData.size();
+                        String nameFromUrl = dataObtained
+                                .select("div.b-advert-title-inner.qa-advert-title.b-advert-title-inner--h3")
+                                .eq(ji)
+                                .text();
 
-                        for (int e = 0; e < dataSize; e += 1) {
+                        String imageFromUrl = dataObtained
+                                .select("picture.h-flex-center.h-width-100p.h-height-100p.h-overflow-hidden")
+                                .select("img")
+                                .eq(ji)
+                                .attr("src");
 
-                            String productLink = obtainedData
-                                    .select("a.s-item__link")
-                                    .eq(e)
-                                    .attr("href");
+                        String priceFromUrl = dataObtained
+                                .select("div.b-list-advert__price.qa-advert-price")
+                                .eq(ji)
+                                .text()
+                                .trim();
 
-                            String productName = obtainedData
-                                    .select("h3.s-item__title")
-                                    .eq(e)
-                                    .text();
-
-                            String productImage = obtainedData
-                                    .select("img.s-item__image-img")
-                                    .eq(e)
-                                    .attr("src");
-
-                            String productPrice = obtainedData
-                                    .select("span.s-item__price")
-                                    .eq(e)
-                                    .text();
-
-                            String productRating = obtainedData
-                                    .select("div.x-star-rating")
-                                    .select("span.clipped")
-                                    .eq(e)
-                                    .text();
-
-                            if (!(productPrice.contains("to"))) {
-                                if (!(productLink.isEmpty()) || !(productName.isEmpty()) || !(productImage.isEmpty()) || !(productPrice.isEmpty()) || !(productRating.isEmpty())) {
-                                    ebayProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
-                                }
-                            }
+                        if (!(linkToPage.equals("")) || !(nameFromUrl.equals("")) || !(imageFromUrl.equals("")) || !(priceFromUrl.equals(""))) {
+                            jijiProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, "No rating available", imageFromUrl));
                         }
-                    } else {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                noResult();
-                            }
-                        });
                     }
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // Passing the products to the adapter
+                            passToAdapter(jijiProducts);
+
+                            // Method to hide progress bar
+                            showResults();
+                        }
+                    });
+
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            noResult();
+                        }
+                    });
                 }
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Passing the products to the adapter
-                        passToAdapter(ebayProducts);
-
-                        // Method to hide progress bar
-                        showResults();
-
-                    }
-                });
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -224,8 +211,8 @@ public class EbayFragment extends Fragment {
 
         wProgressBar.setVisibility(View.GONE);
         wProgressBar.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
-        wEbayRecyclerView.setVisibility(View.VISIBLE);
-        wEbayRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+        wJijiRecyclerView.setVisibility(View.VISIBLE);
+        wJijiRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
     }
 
@@ -234,9 +221,9 @@ public class EbayFragment extends Fragment {
         resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Ebay", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
-        wEbayRecyclerView.setAdapter(resultItemAdapter);
-        wEbayRecyclerView.setLayoutManager(gridLayoutManager);
-        wEbayRecyclerView.setClipToPadding(false);
+        wJijiRecyclerView.setAdapter(resultItemAdapter);
+        wJijiRecyclerView.setLayoutManager(gridLayoutManager);
+        wJijiRecyclerView.setClipToPadding(false);
 
     }
 }

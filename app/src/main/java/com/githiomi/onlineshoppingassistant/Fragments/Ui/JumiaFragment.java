@@ -143,13 +143,12 @@ public class JumiaFragment extends Fragment {
                                         .eq(j)
                                         .text();
 
-                                String imageFromUrl = dataObtained.select("div.imgClass")
-                                        .select("img.src")
+                                String imageFromUrl = dataObtained.select("div.img-c")
+                                        .select("img.img")
                                         .eq(j)
                                         .attr("data-src");
 
-                                String priceFromUrl = dataObtained.select("div.sd")
-                                        .select("div.prc")
+                                String priceFromUrl = dataObtained.select("div.prc")
                                         .eq(j)
                                         .text();
 
