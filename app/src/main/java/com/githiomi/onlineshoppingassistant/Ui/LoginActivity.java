@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.edEmail) TextInputEditText wUserEmail;
     @BindView(R.id.edPassword) TextInputEditText wUserPassword;
     @BindView(R.id.btnLogin) Button wLoginButton;
-    @BindView(R.id.cvLoginbtn) CardView wCvLoginButton;
+    @BindView(R.id.cvLoginBtn) CardView wCvLoginButton;
     @BindView(R.id.cvSignInWithGoogle) CardView wCvSignInWithGoogle;
     @BindView(R.id.cvSignInWithFacebook) CardView wCvSignInWithFacebook;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;

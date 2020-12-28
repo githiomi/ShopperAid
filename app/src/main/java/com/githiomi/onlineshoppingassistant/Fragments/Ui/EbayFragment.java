@@ -5,11 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.githiomi.onlineshoppingassistant.Adapters.ResultItemAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,16 +36,20 @@ import butterknife.ButterKnife;
 
 public class EbayFragment extends Fragment {
 
-//    TAG
+    //    TAG
     private static final String TAG = EbayFragment.class.getSimpleName();
 
-//    Widgets
-    @BindView(R.id.progressBar) ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage) TextView wErrorMessage;
-    @BindView(R.id.noResult) TextView wNoResult;
-    @BindView(R.id.resultsRecyclerView) RecyclerView wEbayRecyclerView;
+    //    Widgets
+    @BindView(R.id.progressBar)
+    ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage)
+    TextView wErrorMessage;
+    @BindView(R.id.noResult)
+    TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView)
+    RecyclerView wEbayRecyclerView;
 
-//    Local variables
+    //    Local variables
     // Adapter
     private ResultItemAdapter resultItemAdapter;
     // Context
@@ -112,77 +114,81 @@ public class EbayFragment extends Fragment {
 
             try {
 
-                // Url to be used in browser
-                String url = Constants.PRE_EBAY_BASE_URL + productSearched + Constants.POST_EBAY_BASE_URL;
-                Document extractedContent = Jsoup.connect(url).get();
+                // init array list
+                ebayProducts = new ArrayList<>();
 
-                // Confirming url
-                Log.d(TAG, "doInBackground: extracted ebay content url " + url);
+                // Loop to get data from 2 pages
+                for (int pageNumber = 1; pageNumber < 3; pageNumber += 1) {
 
-                // Code that scrapes ebay
-                Elements obtainedData = extractedContent.select("li.s-item");
+                    // Url to be used in browser
+                    String url = Constants.PRE_EBAY_BASE_URL + productSearched + Constants.POST_EBAY_BASE_URL + Constants.EBAY_PAGE_NO + pageNumber;
+                    Document extractedContent = Jsoup.connect(url).get();
 
-                if (obtainedData.size() > 0) {
+                    // Confirming url
+                    Log.d(TAG, "doInBackground: extracted ebay content url " + url);
 
-                    int dataSize = obtainedData.size();
+                    // Code that scrapes ebay
+                    Elements obtainedData = extractedContent.select("li.s-item");
 
-                    ebayProducts = new ArrayList<>();
+                    if (obtainedData.size() > 0) {
 
-                    for (int e = 0; e < dataSize; e += 1) {
+                        int dataSize = obtainedData.size();
 
-                        String productLink = obtainedData
-                                .select("a.s-item__link")
-                                .eq(e)
-                                .attr("href");
+                        for (int e = 0; e < dataSize; e += 1) {
 
-                        String productName = obtainedData
-                                .select("h3.s-item__title")
-                                .eq(e)
-                                .text();
+                            String productLink = obtainedData
+                                    .select("a.s-item__link")
+                                    .eq(e)
+                                    .attr("href");
 
-                        String productImage = obtainedData
-                                .select("img.s-item__image-img")
-                                .eq(e)
-                                .attr("src");
+                            String productName = obtainedData
+                                    .select("h3.s-item__title")
+                                    .eq(e)
+                                    .text();
 
-                        String productPrice = obtainedData
-                                .select("span.s-item__price")
-                                .eq(e)
-                                .text();
+                            String productImage = obtainedData
+                                    .select("img.s-item__image-img")
+                                    .eq(e)
+                                    .attr("src");
 
-                        String productRating = obtainedData
-                                .select("div.x-star-rating")
-                                .select("span.clipped")
-                                .eq(e)
-                                .text();
+                            String productPrice = obtainedData
+                                    .select("span.s-item__price")
+                                    .eq(e)
+                                    .text();
 
-                        if ( !(productPrice.contains("to")) ){
-                            if ( !(productLink.isEmpty()) || !(productName.isEmpty()) || !(productImage.isEmpty()) || !(productPrice.isEmpty()) || !(productRating.isEmpty()) ) {
-                                ebayProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
+                            String productRating = obtainedData
+                                    .select("div.x-star-rating")
+                                    .select("span.clipped")
+                                    .eq(e)
+                                    .text();
+
+                            if (!(productPrice.contains("to"))) {
+                                if (!(productLink.isEmpty()) || !(productName.isEmpty()) || !(productImage.isEmpty()) || !(productPrice.isEmpty()) || !(productRating.isEmpty())) {
+                                    ebayProducts.add(new Product(productLink, productName, productPrice, productRating, productImage));
+                                }
                             }
                         }
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                noResult();
+                            }
+                        });
                     }
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Passing the products to the adapter
-                            passToAdapter(ebayProducts);
-
-                            // Method to hide progress bar
-                            showResults();
-
-                        }
-                    });
-
-                } else {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            noResult();
-                        }
-                    });
                 }
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Passing the products to the adapter
+                        passToAdapter(ebayProducts);
+
+                        // Method to hide progress bar
+                        showResults();
+
+                    }
+                });
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

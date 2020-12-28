@@ -23,7 +23,6 @@ import com.githiomi.onlineshoppingassistant.Adapters.ResultItemAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,10 +54,14 @@ public class JumiaFragment extends Fragment {
     private Activity activity;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
-    @BindView(R.id.progressBar) ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage) TextView wErrorMessage;
-    @BindView(R.id.noResult) TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView)
+    RecyclerView wJumiaRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage)
+    TextView wErrorMessage;
+    @BindView(R.id.noResult)
+    TextView wNoResult;
 
     public JumiaFragment() {
         // Required empty public constructor
@@ -108,120 +111,123 @@ public class JumiaFragment extends Fragment {
 
             try {
 
-                // Url to be used in browser
-                String url = Constants.JUMIA_BASE_URL + productSearched;
-                Document extractedContent = Jsoup.connect(url).get();
+                // init the array list
+                jumiaProducts = new ArrayList<>();
 
-                // Confirming url
-                Log.d(TAG, "doInBackground: extracted content url " + url);
+                // Loop to get data from 2 pages
+                for (int pageNumber = 1; pageNumber < 3; pageNumber += 1) {
 
-                Elements dataObtained = extractedContent.select("a.core");
+                    // Url to be used in browser
+                    String url = Constants.JUMIA_BASE_URL + productSearched + Constants.JUMIA_PAGE_NO + pageNumber;
+                    Document extractedContent = Jsoup.connect(url).get();
 
-                if (dataObtained.size() > 0) {
+                    // Confirming url
+                    Log.d(TAG, "doInBackground: extracted content url " + url);
 
-                    int dataSize = dataObtained.size();
+                    Elements dataObtained = extractedContent.select("a.core");
 
-                    // initializing the list
-                    jumiaProducts = new ArrayList<>();
+                    if (dataObtained.size() > 0) {
 
-                    for (int j = 0; j < dataSize; j += 1) {
+                        int dataSize = dataObtained.size();
 
-                        if (productSearched.equals("iphone") || productSearched.equals("Iphone") || productSearched.equals("iPhone")) {
+                        for (int j = 0; j < dataSize; j += 1) {
 
-                            String linkToPage = dataObtained.select("a.core")
-                                    .eq(j)
-                                    .attr("href");
+                            if (productSearched.equals("iphone") || productSearched.equals("Iphone") || productSearched.equals("iPhone")) {
 
-                            Log.d(TAG, "doInBackground: jumiaProductLink " + linkToPage);
+                                String linkToPage = dataObtained.select("a.core")
+                                        .eq(j)
+                                        .attr("href");
 
+                                String nameFromUrl = dataObtained.select("div.info")
+                                        .select("h3.name")
+                                        .eq(j)
+                                        .text();
 
-                            String nameFromUrl = dataObtained.select("div.info")
-                                    .select("h3.name")
-                                    .eq(j)
-                                    .text();
+                                String imageFromUrl = dataObtained.select("div.imgClass")
+                                        .select("img.src")
+                                        .eq(j)
+                                        .attr("data-src");
 
-                            String imageFromUrl = dataObtained.select("div.imgClass")
-                                    .select("img.src")
-                                    .eq(j)
-                                    .attr("data-src");
+                                String priceFromUrl = dataObtained.select("div.sd")
+                                        .select("div.prc")
+                                        .eq(j)
+                                        .text();
 
-                            String priceFromUrl = dataObtained.select("div.sd")
-                                    .select("div.prc")
-                                    .eq(j)
-                                    .text();
+                                String ratingFromUrl = dataObtained.select("div.rev")
+                                        .eq(j)
+                                        .text();
 
-                            String ratingFromUrl = dataObtained.select("div.rev")
-                                    .eq(j)
-                                    .text();
-
-                            jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
-
-                        } else {
-
-                            String linkToPage = dataObtained.select("a.core")
-                                    .eq(j)
-                                    .attr("href");
-
-                            String nameFromUrl = dataObtained.select("div.info")
-                                    .select("h3.name")
-                                    .eq(j)
-                                    .text();
-
-                            String imageFromUrl = dataObtained.select("div.img-c")
-                                    .select("img.img")
-                                    .eq(j)
-                                    .attr("data-src");
-
-                            String priceFromUrl = dataObtained.select("div.info")
-                                    .select("div.prc")
-                                    .eq(j)
-                                    .text();
-
-                            String ratingFromUrl = dataObtained.select("div.rev")
-                                    .eq(j)
-                                    .text();
-
-                            if ( !(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty()) ) {
                                 jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+
+                            } else {
+
+                                String linkToPage = dataObtained.select("a.core")
+                                        .eq(j)
+                                        .attr("href");
+
+                                String nameFromUrl = dataObtained.select("div.info")
+                                        .select("h3.name")
+                                        .eq(j)
+                                        .text();
+
+                                String imageFromUrl = dataObtained.select("div.img-c")
+                                        .select("img.img")
+                                        .eq(j)
+                                        .attr("data-src");
+
+                                String priceFromUrl = dataObtained.select("div.info")
+                                        .select("div.prc")
+                                        .eq(j)
+                                        .text();
+
+                                String ratingFromUrl = dataObtained.select("div.rev")
+                                        .eq(j)
+                                        .text();
+
+                                if (!(linkToPage.isEmpty()) || !(nameFromUrl.isEmpty()) || !(imageFromUrl.isEmpty()) || !(priceFromUrl.isEmpty()) || !(ratingFromUrl.isEmpty())) {
+                                    jumiaProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, ratingFromUrl, imageFromUrl));
+                                }
                             }
-
                         }
+                    } else{
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                noResult();
+                            }
+                        });
                     }
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            // Passing the products to the adapter
-                            passToAdapter(jumiaProducts);
-
-                            // Method to hide progress bar
-                            showResults();
-                        }
-                    });
-
-                } else {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            noResult();
-                        }
-                    });
                 }
 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showUnsuccessful();
+
+                        // Passing the products to the adapter
+                        passToAdapter(jumiaProducts);
+
+                        // Method to hide progress bar
+                        showResults();
                     }
                 });
-            }
+
+        } catch(
+        Exception e)
+
+        {
+            System.out.println(e.getMessage());
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showUnsuccessful();
+                }
+            });
+        }
 
             return null;
-        }
     }
+
+}
 
     private void showUnsuccessful() {
 
