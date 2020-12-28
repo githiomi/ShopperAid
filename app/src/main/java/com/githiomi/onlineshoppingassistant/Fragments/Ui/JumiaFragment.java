@@ -195,7 +195,9 @@ public class JumiaFragment extends Fragment {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                noResult();
+                                if ( !(wJumiaRecyclerView.isFocusable()) ) {
+                                    noResult();
+                                }
                             }
                         });
                     }
