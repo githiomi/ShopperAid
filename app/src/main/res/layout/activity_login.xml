@@ -137,11 +137,11 @@
                 android:id="@+id/cvLoginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/black"
+                android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:elevation="50dp"
-                android:layout_gravity="center" >
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="15dp">
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -167,7 +167,7 @@
                 android:indeterminate="false"
                 android:indeterminateTint="@color/black"
                 android:progressDrawable="@color/black"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -189,16 +189,17 @@
                 app:cardCornerRadius="15dp">
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
 
                     <ImageView
                         android:id="@+id/ivGoogleIcon"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:contentDescription="@string/app_moto"
                         android:padding="10dp"
+                        android:layout_alignParentStart="true"
                         android:src="@drawable/google_icon" />
 
                     <TextView
@@ -206,8 +207,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginTop="15dp"
-                        android:layout_toEndOf="@id/ivGoogleIcon"
                         android:text="@string/sign_in_with_google"
                         android:textAlignment="center"
                         android:textAllCaps="true"
@@ -221,39 +220,25 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvSignInWithFacebook"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="15dp">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/ButtonFacebookLogin"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <ImageView
-                        android:id="@+id/ivFacebookIcon"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/app_moto"
-                        android:padding="10dp"
-                        android:src="@drawable/facebook_icon" />
-
-                    <TextView
-                        android:id="@+id/tvSignInWithFacebook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="15dp"
-                        android:layout_toEndOf="@id/ivFacebookIcon"
-                        android:text="@string/sign_in_with_facebook"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-                </RelativeLayout>
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:backgroundTint="@color/transparent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textStyle="normal"
+                    android:textSize="15sp" />
 
             </androidx.cardview.widget.CardView>
 

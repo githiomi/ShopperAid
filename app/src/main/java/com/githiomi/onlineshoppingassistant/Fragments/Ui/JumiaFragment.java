@@ -57,14 +57,10 @@ public class JumiaFragment extends Fragment {
     private Activity activity;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView)
-    RecyclerView wJumiaRecyclerView;
-    @BindView(R.id.progressBar)
-    ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage)
-    TextView wErrorMessage;
-    @BindView(R.id.noResult)
-    TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
 
     public JumiaFragment() {
         // Required empty public constructor

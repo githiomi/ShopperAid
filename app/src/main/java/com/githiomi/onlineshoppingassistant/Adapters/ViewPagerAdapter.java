@@ -35,10 +35,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             fragment = JumiaFragment.newInstance();
         }
 
-        if (siteOption.equals("Kilimall")) {
-            fragment = JijiFragment.newInstance();
-        }
-
         if (siteOption.equals("Amazon")) {
             fragment = AmazonFragment.newInstance();
         }

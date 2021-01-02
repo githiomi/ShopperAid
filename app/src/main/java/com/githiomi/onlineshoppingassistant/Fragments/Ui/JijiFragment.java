@@ -43,14 +43,10 @@ public class JijiFragment extends Fragment {
     private static final String TAG = JijiFragment.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.progressBar)
-    ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage)
-    TextView wErrorMessage;
-    @BindView(R.id.noResult)
-    TextView wNoResult;
-    @BindView(R.id.resultsRecyclerView)
-    RecyclerView wJijiRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wJijiRecyclerView;
 
     //    Local variables
     // Adapter

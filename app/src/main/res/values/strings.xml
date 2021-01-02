@@ -69,19 +69,13 @@
     <string name="changes_to_privacy_policy">Changes To Privacy Policy</string>
     <string name="contact_us">Contact Us</string>
     <string name="or">OR</string>
-    <string name="sign_in_with_google">Sign In With Google</string>
+    <string name="sign_in_with_google">Continue With Google</string>
     <string name="sign_in_with_facebook">Sign In With Facebook</string>
-    <string name="sign_in_with_phone">Sign In With Phone Number</string>
-
-    <!--  Facebook data  -->
-    <string name="facebook_app_id">2804782563095827</string>
-    <string name="fb_login_protocol_scheme">fb2804782563095827</string>
-    <string name="verify">Verify</string>
-    <string name="number_preview_placeholder">Verification Code has been sent to: \n +254712345678</string>
-    <string name="resend_verification_code">Resend Verification Code…</string>
-    <string name="verification_text">Verification</string>
-    <string name="code">CO\nDE</string>
     <string name="phone_number">Phone Number</string>
     <string name="no_phone_number_saved">No phone number saved</string>
+
+    <!--  Facebook data  -->
+    <string name="facebook_app_id">211763487210697</string>
+    <string name="fb_login_protocol_scheme">fb211763487210697</string>
 
 </resources>

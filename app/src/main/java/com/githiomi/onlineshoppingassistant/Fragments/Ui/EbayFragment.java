@@ -43,14 +43,10 @@ public class EbayFragment extends Fragment {
     private static final String TAG = EbayFragment.class.getSimpleName();
 
     //    Widgets
-    @BindView(R.id.progressBar)
-    ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage)
-    TextView wErrorMessage;
-    @BindView(R.id.noResult)
-    TextView wNoResult;
-    @BindView(R.id.resultsRecyclerView)
-    RecyclerView wEbayRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage) TextView wErrorMessage;
+    @BindView(R.id.noResult) TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView) RecyclerView wEbayRecyclerView;
 
     //    Local variables
     // Adapter

@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.facebook.login.widget.LoginButton;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 import com.google.android.gms.ads.AdRequest;
@@ -43,6 +44,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+// Facebook libraries
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -61,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.cvLoginBtn) CardView wCvLoginButton;
     @BindView(R.id.cvSignInWithGoogle) CardView wCvSignInWithGoogle;
     @BindView(R.id.cvSignInWithFacebook) CardView wCvSignInWithFacebook;
+    @BindView(R.id.ButtonFacebookLogin) LoginButton wFacebookLoginButton;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
