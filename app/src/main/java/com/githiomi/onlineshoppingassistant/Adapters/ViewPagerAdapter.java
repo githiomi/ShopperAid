@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.EbayFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.Ui.JijiFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.AmazonFragment;
 
