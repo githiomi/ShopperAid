@@ -353,8 +353,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Method that will log out the user
     private void logout() {
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            FirebaseAuth.getInstance().signOut();
+        if (mFirebaseAuth.getCurrentUser() != null) {
+            mFirebaseAuth.signOut();
         }
         Intent backToLogin = new Intent(this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -400,7 +400,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStop() {
         super.onStop();
-        if (mFirebaseAuth != null) {
+        if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }

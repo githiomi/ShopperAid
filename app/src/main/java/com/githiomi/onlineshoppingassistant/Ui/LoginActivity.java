@@ -21,6 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
@@ -28,6 +34,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -40,6 +47,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -83,6 +92,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private AdView adView;
     // Sign in with google
     private GoogleSignInClient googleSignInClient;
+    // Sign in with facebook
+     // Callbacks
+    private CallbackManager mCallbackManager;
+     // Token tracker
+    private AccessTokenTracker accessTokenTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +105,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Binding widgets using butter knife
         ButterKnife.bind(this);
+
+        // Requesting email & profile
+        wFacebookLoginButton.setReadPermissions("email", "public_profile");
 
         // Init ads
         MobileAds.initialize(this);
@@ -109,6 +126,52 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Adding the google options to google client
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Sign in with facebook
+         // Init callback manager
+        mCallbackManager = CallbackManager.Factory.create();
+         // The button to change to login if the token is null
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+                if ( currentAccessToken == null ){
+                    mFirebaseAuth.signOut();
+                }
+            }
+        };
+
+        // Adding callback to facebook button
+        wFacebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                // If the login is a success
+                String success = "Login successful";
+                Log.d(TAG, "onSuccess: Obtained loginResult ----- " + success);
+
+                // method that will make use of the access token
+                handleFacebookToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+
+                // If cancelled
+                String cancelled = "Login cancelled";
+                Log.d(TAG, "onCancel: " + cancelled);
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+                // If an error occurs
+                String errorToPrint = error.getMessage().toString();
+                Log.d(TAG, "onError: " + errorToPrint);
+
+            }
+        });
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -210,6 +273,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //    Method for activity result
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // Adding the activity result to the callback
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -236,7 +303,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mFirebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -249,6 +316,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
+    }
+
+    // Method to login user with access token passed
+    private void handleFacebookToken(AccessToken accessToken){
+
+        // Print the access token
+        Log.d(TAG, "handleFacebookToken: Access token: " + accessToken.getToken());
+
+        // Get credential to sign in
+        AuthCredential facebookAuthCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
+
+        // sign in user using the access token
+        mFirebaseAuth.signInWithCredential(facebookAuthCredential)
+                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signInWithFacebookCredential:success");
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithFacebookCredential:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, "This email address already exists! Login with Google.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     //    Method to log in a user
@@ -429,7 +521,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStop() {
         super.onStop();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+
+        if ( mAuthStateListener != null ) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
     }
 
 }

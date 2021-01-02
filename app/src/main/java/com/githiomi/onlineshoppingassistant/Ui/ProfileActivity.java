@@ -69,6 +69,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     CircleImageView wNavImage;
     TextView wNavUsername;
 
+    // Local variables
+    // Firebase
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     //    Firebase current user
     FirebaseUser currentUser;
 
@@ -79,6 +83,21 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
 //        Binding widgets
         ButterKnife.bind(this);
+
+//        Init firebase and the auth state listener
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                // Get current user
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+                if ( currentUser != null ) {
+                    getUserData(currentUser);
+                }
+            }
+        };
 
 //        Navigation Drawer Menu
         wNavigationView.bringToFront();
@@ -105,16 +124,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         wNavImage.setOnClickListener(this);
         wNavUsername.setOnClickListener(this);
 
-        getUserData();
-
     }
 
     // To collect data to show
-    private void getUserData() {
-
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        assert currentUser != null;
+    private void getUserData(FirebaseUser currentUser) {
 
         String username = currentUser.getDisplayName();
         wNavUsername.setText(username);
@@ -212,7 +225,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     //    Custom method for the user to logout
     private void logout() {
 
-        FirebaseAuth.getInstance().signOut();
+        mFirebaseAuth.signOut();
         Intent backToLogin = new Intent(ProfileActivity.this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(backToLogin);
@@ -390,5 +403,23 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Add the auth state listener
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // Remove the auth state listener
+        if (mAuthStateListener != null){
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
     }
 }
