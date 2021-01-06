@@ -2,13 +2,11 @@ package com.githiomi.onlineshoppingassistant.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +17,10 @@ import com.githiomi.onlineshoppingassistant.R;
 import com.githiomi.onlineshoppingassistant.Ui.DetailActivity;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcel;
+import org.json.JSONException;
 import org.parceler.Parcels;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,9 +32,9 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     private static final String TAG = ResultItemAdapter.class.getSimpleName();
 
 //    Local variables
-    private List<Product> productsRetrieved;
-    private String fragmentSource;
-    private Context context;
+    private final List<Product> productsRetrieved;
+    private final String fragmentSource;
+    private final Context context;
 
 //    Constructor
     public ResultItemAdapter(List<Product> products, String fragmentSource, Context contextPassed){
@@ -59,7 +56,11 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
     public void onBindViewHolder(@NonNull ResultItemAdapter.ResultItemViewHolder holder, int position) {
         // Binding passed result
         Product product = productsRetrieved.get(position);
-        holder.bindResultToView(product);
+        try {
+            holder.bindResultToView(product);
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -91,7 +92,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 
         }
 
-        public void bindResultToView(Product product) {
+        public void bindResultToView(Product product) throws IOException, JSONException {
 
             if ( !(product.getImageUrl().isEmpty()) ) {
                 Picasso.get().load(product.getImageUrl())
@@ -118,7 +119,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
                 float ksh = (Constants.DOLLARS_TO_KSH * dollars);
 
                 wProductPrice.setText(product.getPrice());
-                wInKenyaShillings.setText("KSh " + ksh);
+                String toKes = "KES " + ksh;
+                wInKenyaShillings.setText(toKes);
 
             }else {
                 wInKenyaShillings.setVisibility(View.GONE);

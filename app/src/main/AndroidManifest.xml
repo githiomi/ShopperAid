@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShoppingAssistant">
 
+        <!-- Apache -->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
         <!-- For my ad mob account -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

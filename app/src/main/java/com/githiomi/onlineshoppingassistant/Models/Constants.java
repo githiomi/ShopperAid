@@ -1,15 +1,8 @@
 package com.githiomi.onlineshoppingassistant.Models;
 
-import android.util.DisplayMetrics;
-import android.view.Display;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
 public class Constants {
 
-//    Web scraping base URLs
+    //    Web scraping base URLs
     // Jumia
     public static final String JUMIA_BASE_URL = "https://www.jumia.co.ke/catalog/?q=";
     public static final String JUMIA_ITEM_URL = "https://www.jumia.co.ke";
@@ -28,7 +21,7 @@ public class Constants {
     public static final String PRE_AMAZON_BASE_URL = "https://www.amazon.com/s?k=";
     public static final String POST_AMAZON_BASE_URL = "&ref=nb_sb_noss_1";
 
-//    Repetitive constants
+    //    Repetitive constants
     // For the profile
     public static final String TO_EDIT = "Edit Page Determinant";
     public static final String TO_EDIT_USERNAME = "Edit Username";
@@ -36,7 +29,8 @@ public class Constants {
     // Camera intent
     public static final int REQUEST_IMAGE_CAPTURE = 111;
     // Currency converter
-    public static final float DOLLARS_TO_KSH = 111;
+    public static final float DOLLARS_TO_KSH = 109;
+
     // Search key
     public static final String SEARCH_INPUT_KEY = "User Search Input";
     // To wrap a product

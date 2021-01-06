@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         }
 
         if (v == wAppVersion) {
-            String appInfo = " Application Version: 1.0 :) ";
+            String appInfo = " BaseApplication Version: 1.0 :) ";
             Snackbar.make(Objects.requireNonNull(getView()), appInfo, Snackbar.LENGTH_SHORT)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
