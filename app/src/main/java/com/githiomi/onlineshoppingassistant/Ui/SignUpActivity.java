@@ -3,6 +3,8 @@ package com.githiomi.onlineshoppingassistant.Ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -130,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             hideKeyboard(v);
             Intent backToLogin = new Intent(this, LoginActivity.class);
             backToLogin.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
-            startActivity(backToLogin);
+            startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         }
 
@@ -138,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             hideKeyboard(v);
             Intent backToLogin = new Intent(this, LoginActivity.class);
             backToLogin.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
-            startActivity(backToLogin);
+            startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         }
 
@@ -169,6 +171,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         wBtnSignUp.setVisibility(View.GONE);
         wSignUpProgressBar.setVisibility(View.VISIBLE);
 
+        // Activity
+        Activity activity = this;
+
         mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -198,7 +203,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     // Go to the search activity
                     Intent toSearchActivity = new Intent( v.getContext(), SearchActivity.class );
                     toSearchActivity.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
-                    startActivity(toSearchActivity);
+                    startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
                     finish();
 
                 }else {

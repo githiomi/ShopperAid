@@ -1,6 +1,7 @@
 package com.githiomi.onlineshoppingassistant.Fragments.Ui;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -152,7 +153,7 @@ public class EbayDetailFragment extends Fragment {
                 } else {
                     Intent webIntent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse(detailUrl));
-                    startActivity(webIntent);
+                    startActivity(webIntent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 }
             }
         });

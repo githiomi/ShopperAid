@@ -233,8 +233,6 @@ public class AmazonFragment extends Fragment {
         resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Amazon", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
-        wAmazonRecyclerView.setNestedScrollingEnabled(false);
-
         wAmazonRecyclerView.setAdapter(resultItemAdapter);
         wAmazonRecyclerView.setLayoutManager(gridLayoutManager);
         wAmazonRecyclerView.setClipToPadding(false);

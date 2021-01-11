@@ -122,8 +122,8 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
                 DecimalFormat df = new DecimalFormat("###,###,###,###.00");
                 String decimal = String.valueOf(df.format(ksh));
                 wProductPrice.setText(product.getPrice());
-                String toKes = "KES " + ksh;
-                wInKenyaShillings.setText(decimal);
+                String toKes = "KES " + decimal;
+                wInKenyaShillings.setText(toKes);
 
             }else {
                 wInKenyaShillings.setVisibility(View.GONE);

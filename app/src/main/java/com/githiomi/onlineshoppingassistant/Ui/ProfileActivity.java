@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -189,7 +190,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         if (selectedId == R.id.toSearchNav) {
             Intent backToSearch = new Intent(this, SearchActivity.class);
             backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(backToSearch);
+            startActivity(backToSearch, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         }
 
@@ -204,13 +205,13 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         if (selectedId == R.id.toSettingsNav) {
             Intent toSettingsIntent = new Intent(this, AppActivity.class);
             toSettingsIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Settings");
-            startActivity(toSettingsIntent);
+            startActivity(toSettingsIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
         if (selectedId == R.id.toPrivacyPolicyNav) {
             Intent toPrivacyPolicyIntent = new Intent(this, AppActivity.class);
             toPrivacyPolicyIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Privacy Policy");
-            startActivity(toPrivacyPolicyIntent);
+            startActivity(toPrivacyPolicyIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
         if (selectedId == R.id.toRateThisApp) {
@@ -228,7 +229,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         mFirebaseAuth.signOut();
         Intent backToLogin = new Intent(ProfileActivity.this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(backToLogin);
+        startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
 
     }
@@ -272,7 +273,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
             Intent editUsername = new Intent(this, EditActivity.class);
             editUsername.putExtra(Constants.TO_EDIT, Constants.TO_EDIT_USERNAME);
-            startActivity(editUsername);
+            startActivity(editUsername, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         }
 
@@ -280,7 +281,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
             Intent editEmail = new Intent(this, EditActivity.class);
             editEmail.putExtra(Constants.TO_EDIT, Constants.TO_EDIT_EMAIL);
-            startActivity(editEmail);
+            startActivity(editEmail, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         }
 

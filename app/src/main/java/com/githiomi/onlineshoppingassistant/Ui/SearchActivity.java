@@ -187,7 +187,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void recentSearches(View view) {
         if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
             Intent toRecents = new Intent(this, RecentSearchesActivity.class);
-            startActivity(toRecents);
+            startActivity(toRecents, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }else {
             hideKeyboard(view);
             String noRecents = "No Recent Searches For Guest Users!";
@@ -253,7 +253,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (v == wNavigationImage) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivity(toProfile, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 String asGuest = "You're not yet logged in!";
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
@@ -268,7 +268,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (v == wNavigationUsername) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivity(toProfile, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 String asGuest = "You're not yet logged in!";
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
@@ -316,11 +316,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivity(toProfile, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 Intent backToLogin = new Intent(this, LoginActivity.class);
                 backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(backToLogin);
+                startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 finish();
             }
         }
@@ -333,13 +333,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (selectedId == R.id.toSettingsNav) {
             Intent toSettingsIntent = new Intent(this, AppActivity.class);
             toSettingsIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Settings");
-            startActivity(toSettingsIntent);
+            startActivity(toSettingsIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
         if (selectedId == R.id.toPrivacyPolicyNav) {
             Intent toPrivacyPolicyIntent  = new Intent(this, AppActivity.class);
             toPrivacyPolicyIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Privacy Policy");
-            startActivity(toPrivacyPolicyIntent);
+            startActivity(toPrivacyPolicyIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
         if (selectedId == R.id.toRateThisApp) {
@@ -359,7 +359,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
         Intent backToLogin = new Intent(this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(backToLogin);
+        startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
 
     }

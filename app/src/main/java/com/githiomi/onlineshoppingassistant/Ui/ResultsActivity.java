@@ -269,11 +269,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if (selectedId == R.id.toProfileNav) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivity(toProfile, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 Intent backToLogin = new Intent(this, LoginActivity.class);
                 backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(backToLogin);
+                startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 finish();
             }
         }
@@ -286,13 +286,13 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if (selectedId == R.id.toSettingsNav) {
             Intent toSettingsIntent = new Intent(this, AppActivity.class);
             toSettingsIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Settings");
-            startActivity(toSettingsIntent);
+            startActivity(toSettingsIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
         if (selectedId == R.id.toPrivacyPolicyNav) {
             Intent toPrivacyPolicyIntent  = new Intent(this, AppActivity.class);
             toPrivacyPolicyIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Privacy Policy");
-            startActivity(toPrivacyPolicyIntent);
+            startActivity(toPrivacyPolicyIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
         if (selectedId == R.id.toRateThisApp) {
@@ -323,7 +323,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if (v == wNavigationProfilePicture) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivity(toProfile, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 String asGuest = "You're not logged in!";
                 Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
@@ -337,7 +337,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         if (v == wNavigationUsername) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivity(toProfile, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 String asGuest = "You're not logged in!";
                 Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)

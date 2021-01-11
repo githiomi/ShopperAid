@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -175,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        Activity activity = this;
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -185,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     Intent toSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
                     toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(toSearchActivity);
+                    startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
                     finish();
 
                 }
@@ -235,7 +237,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             hideKeyboard(v);
             Intent toSearchActivity = new Intent(this, SearchActivity.class);
             toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(toSearchActivity);
+            startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
 
         }
@@ -268,7 +270,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //    Method to login user with google
     private void signInWithGoogle() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
+        startActivityForResult(signInIntent, Constants.RC_SIGN_IN, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     //    Method for activity result
@@ -480,7 +482,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void toSignUp(View v) {
 
         Intent toSignUp = new Intent(this, SignUpActivity.class);
-        startActivity(toSignUp);
+        startActivity(toSignUp, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
     }
 
