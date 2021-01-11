@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="?attr/mainActivityBackground"
     tools:context=".Ui.MainActivity">
 
     <ImageView
@@ -26,7 +26,7 @@
         android:gravity="center"
         android:text="@string/app_moto"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/mainActivityText"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:indeterminate="false"
-        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTint="?attr/mainActivityProgressBar"
         android:progressDrawable="@color/white" />
 
 </RelativeLayout>

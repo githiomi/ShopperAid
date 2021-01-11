@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // The styleables
+    <declare-styleable name="styleableAttributes">
+
+        <!-- Main Activity -->
+        <attr name="mainActivityBackground" format="color" />
+        <attr name="mainActivityText" format="color" />
+        <attr name="mainActivityProgressBar" format="color" />
+
+        <!-- Login Activity -->
+        <attr name="loginBackground" format="color" />
+        <attr name="loginActivityText" format="color" />
+        <attr name="textInputFieldBackground" format="color" />
+        <attr name="textInputFieldHint" format="color" />
+        <attr name="textInputFieldHintAfter" format="color" />
+        <attr name="textInputFieldText" format="color" />
+        <attr name="loginButtonBackground" format="color" />
+        <attr name="loginButtonText" format="color" />
+        <attr name="loginProgressBar" format="color" />
+
+    </declare-styleable>
+
+</resources>

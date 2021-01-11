@@ -102,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Check and apply theme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

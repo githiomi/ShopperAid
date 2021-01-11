@@ -14,29 +14,33 @@
     </style>
 
     <style name="Welcome_NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <!-- Main Activity -->
+        <item name="mainActivityBackground">@color/black</item>
+        <item name="mainActivityProgressBar">@color/colorPrimary</item>
+        <item name="mainActivityText">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/transparent</item>
+        <!-- Window Animation -->
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <!-- Login Activity -->
+        <item name="loginBackground">@color/black</item>
+        <item name="loginActivityText">@color/white</item>
+        <item name="textInputFieldBackground">@color/textInputFieldBackground</item>
+        <item name="textInputFieldText">@color/white</item>
+        <item name="loginButtonBackground">@color/colorPrimary</item>
+        <item name="textInputFieldHint">@color/white</item>
+        <item name="textInputFieldHintAfter">@color/colorPrimary</item>
+        <item name="loginButtonText">@color/white</item>
+        <item name="loginProgressBar">@color/colorPrimary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <!-- Window Animation -->
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>
