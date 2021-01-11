@@ -73,6 +73,11 @@
     <string name="sign_in_with_facebook">Sign In With Facebook</string>
     <string name="phone_number">Phone Number</string>
     <string name="no_phone_number_saved">No phone number saved</string>
+    <string name="app_info">App Info</string>
+    <string name="app_theme">App Theme</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="app_version">App Version</string>
 
     <!--  Facebook data  -->
     <string name="facebook_app_id">211763487210697</string>

@@ -13,6 +13,7 @@ import com.githiomi.onlineshoppingassistant.Adapters.DetailViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.Models.Product;
 import com.githiomi.onlineshoppingassistant.R;
+import com.githiomi.onlineshoppingassistant.Utils.ZoomOutPageTransformer;
 
 import org.parceler.Parcels;
 
@@ -48,6 +49,9 @@ public class DetailActivity extends AppCompatActivity {
         // Binding widgets
         ButterKnife.bind(this);
 
+        // Change color of the swipe progress
+        wDetailsRefresh.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryLight);
+
         // Getting data parceled
         Intent fromResultsActivity = getIntent();
         parceledProducts = Parcels.unwrap(fromResultsActivity.getParcelableExtra(Constants.WRAP_PRODUCT));
@@ -73,6 +77,9 @@ public class DetailActivity extends AppCompatActivity {
 
         detailViewPagerAdapter = new DetailViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, parceledProducts, theFragment);
 
+        // Setting animation
+        wDetailViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         wDetailViewPager.setAdapter(detailViewPagerAdapter);
         wDetailViewPager.setCurrentItem(itemPosition);
 
@@ -82,6 +89,9 @@ public class DetailActivity extends AppCompatActivity {
     public void reInitDetailViewPager(int current) {
 
         detailViewPagerAdapter = new DetailViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, parceledProducts, theFragment);
+
+        // Setting animation
+        wDetailViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         wDetailViewPager.setAdapter(detailViewPagerAdapter);
         wDetailViewPager.setCurrentItem(current);

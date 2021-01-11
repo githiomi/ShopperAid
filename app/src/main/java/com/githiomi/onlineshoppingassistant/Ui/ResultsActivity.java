@@ -1,8 +1,11 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MenuItem;
@@ -13,14 +16,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
 
 import com.githiomi.onlineshoppingassistant.Adapters.ViewPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
+import com.githiomi.onlineshoppingassistant.Utils.ZoomOutPageTransformer;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -49,6 +55,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
     @BindView(R.id.tvProductSearched) TextView wProductSearched;
     @BindView(R.id.resultViewPager) ViewPager wViewPager;
+    @BindView(R.id.resultViewPagerStrip) PagerTabStrip wPagerTabStrip;
     @BindView(R.id.refreshResult) SwipeRefreshLayout wRefreshResults;
     @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
@@ -76,8 +83,22 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        // Apply theme
+        // Get the theme applied
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sharedPreferences.getString(Constants.APP_THEME, "Light Mode");
+
+        if (theme.equals("Dark Mode")){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         // Binding widgets
         ButterKnife.bind(this);
+
+        // Change color of the swipe progress
+        wRefreshResults.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryLight);
 
         // Init ads
         MobileAds.initialize(this);
@@ -107,6 +128,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         wRefreshResults.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
                 reInitViewPager(shoppingSiteOptions, wViewPager.getCurrentItem());
 
                 wRefreshResults.setRefreshing(false);
@@ -206,7 +228,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         // The view pager adapter
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), shoppingSites);
 
+        // Slide animation
+        wViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         wViewPager.setAdapter(viewPagerAdapter);
+        wPagerTabStrip.setTextColor(getResources().getColor(R.color.black));
         wViewPager.setCurrentItem(0);
 
     }
@@ -217,7 +243,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         // The view pager adapter
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), shoppingSites);
 
+        // Slide animation
+        wViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         wViewPager.setAdapter(viewPagerAdapter);
+        wPagerTabStrip.setTextColor(getResources().getColor(R.color.black));
         wViewPager.setCurrentItem(current);
 
     }
@@ -281,7 +311,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         }
         Intent backToLogin = new Intent(this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(backToLogin);
+        startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
 
     }

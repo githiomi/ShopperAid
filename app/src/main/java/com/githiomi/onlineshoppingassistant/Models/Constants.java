@@ -42,5 +42,10 @@ public class Constants {
     public static final String APP_FRAGMENT_NAME = "App Fragment";
     // Google sign in constant
     public static final int RC_SIGN_IN = 120;
+    // For the theme that is active
+    public static final String APP_THEME = "App Theme";
 
+    //  API access token
+    public static final String ACCESS_TOKEN = "82032c34d7d42c35c071715d76b6c951";
+    public static final String CURRENCY_TO_GET = "KES";
 }

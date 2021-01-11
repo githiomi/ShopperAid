@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -292,9 +293,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         toResultActivity.putExtra(Constants.SEARCH_INPUT_KEY, searchText);
 
         // Saving to shared preferences
-        editor.putString(Constants.SEARCH_INPUT_KEY, searchText).apply();
+        editor.putString(Constants.SEARCH_INPUT_KEY, searchText).commit();
 
-        startActivity(toResultActivity);
+        startActivity(toResultActivity, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
     }
 

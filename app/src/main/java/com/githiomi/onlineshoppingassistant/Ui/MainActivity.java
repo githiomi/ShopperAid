@@ -2,6 +2,7 @@ package com.githiomi.onlineshoppingassistant.Ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent toLogin = new Intent(this, LoginActivity.class);
         toLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(toLogin);
+        startActivity(toLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
 
     }

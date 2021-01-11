@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.githiomi.onlineshoppingassistant.Adapters.ResultItemAdapter;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
@@ -230,6 +232,8 @@ public class AmazonFragment extends Fragment {
 
         resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Amazon", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
+
+        wAmazonRecyclerView.setNestedScrollingEnabled(false);
 
         wAmazonRecyclerView.setAdapter(resultItemAdapter);
         wAmazonRecyclerView.setLayoutManager(gridLayoutManager);

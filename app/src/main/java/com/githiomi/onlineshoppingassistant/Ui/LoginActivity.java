@@ -1,5 +1,6 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -512,7 +513,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Intent toSearchActivity = new Intent(this, SearchActivity.class);
             toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(toSearchActivity);
+            startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
 
         }

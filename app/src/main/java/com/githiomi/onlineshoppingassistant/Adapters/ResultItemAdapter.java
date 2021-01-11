@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -118,9 +119,11 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 
                 float ksh = (Constants.DOLLARS_TO_KSH * dollars);
 
+                DecimalFormat df = new DecimalFormat("###,###,###,###.00");
+                String decimal = String.valueOf(df.format(ksh));
                 wProductPrice.setText(product.getPrice());
                 String toKes = "KES " + ksh;
-                wInKenyaShillings.setText(toKes);
+                wInKenyaShillings.setText(decimal);
 
             }else {
                 wInKenyaShillings.setVisibility(View.GONE);
