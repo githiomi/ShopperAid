@@ -98,7 +98,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
 
         // Change color of the swipe progress
-        wRefreshResults.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
+        wRefreshResults.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryLight);
 
         // Init ads
         MobileAds.initialize(this);
@@ -142,6 +142,9 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         navigationView = wSideNavigation.getHeaderView(0);
         wNavigationProfilePicture = (CircleImageView) navigationView.findViewById(R.id.navUserProfilePicture);
         wNavigationUsername = (TextView) navigationView.findViewById(R.id.navUserUsername);
+
+        // Animate navigation
+        animateNavigation();
 
         // CLick listeners
         wNavigationProfilePicture.setOnClickListener(this);
@@ -208,6 +211,30 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         int adWidth = (int) (widthPixels / density);
 
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    }
+
+    //      Method to animate navigation sliding
+    private void animateNavigation() {
+
+        wResultDrawerLayout.setScrimColor(getResources().getColor(R.color.transparent));
+
+        wResultDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - Constants.END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                wRefreshResults.setScaleX(offsetScale);
+                wRefreshResults.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = wRefreshResults.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                wRefreshResults.setTranslationX(xTranslation);
+            }
+        });
     }
 
     //    Method to allow user to search another item

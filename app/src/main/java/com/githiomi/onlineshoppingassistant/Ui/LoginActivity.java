@@ -192,16 +192,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                FirebaseUser loggedInUser = mFirebaseAuth.getCurrentUser();
-
-                if (loggedInUser != null) {
-
-                    Intent toSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
-                    toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-                    finish();
-
-                }
             }
         };
 
@@ -544,7 +534,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Intent toSearchActivity = new Intent(this, SearchActivity.class);
             toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(toSearchActivity);
             finish();
 
         }

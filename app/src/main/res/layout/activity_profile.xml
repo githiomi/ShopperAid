@@ -32,6 +32,7 @@
         app:menu="@menu/side_main_navigation" />
 
     <RelativeLayout
+        android:id="@+id/profileContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

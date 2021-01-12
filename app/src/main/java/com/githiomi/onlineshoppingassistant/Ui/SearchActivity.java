@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //    Widgets
     @BindView(R.id.search_drawer_layout) DrawerLayout wSearchDrawerLayout;
     @BindView(R.id.sideNavigation) NavigationView wSideNavigation;
+    @BindView(R.id.searchContent) LinearLayout wSearchContent;
     @BindView(R.id.edSearchInput) TextInputEditText wSearchInput;
     @BindView(R.id.btnSearch) Button wSearchButton;
     @BindView(R.id.adContainer) FrameLayout wAdContainer;
@@ -119,6 +121,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         actionBarDrawerToggle.syncState();
         // Setting initial selected item
         wSideNavigation.setCheckedItem(R.id.toSearchNav);
+
+        // Animate the navigation
+        animateNavigation();
 
         // Click listeners
         wSearchButton.setOnClickListener(this);
@@ -209,6 +214,30 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setAction("Action", null).show();
         }
+    }
+
+    //      Method to animate navigation sliding
+    private void animateNavigation() {
+
+        wSearchDrawerLayout.setScrimColor(getResources().getColor(R.color.transparent));
+
+        wSearchDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - Constants.END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                wSearchContent.setScaleX(offsetScale);
+                wSearchContent.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = wSearchContent.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                wSearchContent.setTranslationX(xTranslation);
+            }
+        });
     }
 
     //    Method implementation for the on click function

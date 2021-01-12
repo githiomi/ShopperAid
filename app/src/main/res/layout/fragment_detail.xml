@@ -101,7 +101,7 @@
                 android:text="@string/retrieve_error"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="?attr/textInputFieldText"
                 android:textSize="13sp"
                 android:visibility="gone" />
 

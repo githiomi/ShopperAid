@@ -78,10 +78,12 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="light_mode">Light Mode</string>
     <string name="app_version">App Version</string>
+    <string name="product_delivery">Product Delivery</string>
+    <string name="user_info">User Info</string>
+    <string name="logout">Logout</string>
 
     <!--  Facebook data  -->
     <string name="facebook_app_id">211763487210697</string>
     <string name="fb_login_protocol_scheme">fb211763487210697</string>
-    <string name="product_delivery">Product Delivery</string>
 
 </resources>

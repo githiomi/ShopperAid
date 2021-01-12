@@ -247,8 +247,10 @@ public class JumiaDetailFragment extends Fragment {
 
         Snackbar.make(Objects.requireNonNull(getView()), "Swipe Down To Refresh!", Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                .setTextColor(getResources().getColor(R.color.white))
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                 .setAction("Action", null).show();
+
 
     }
 }

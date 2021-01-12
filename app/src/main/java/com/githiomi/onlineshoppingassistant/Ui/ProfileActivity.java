@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvProfilePhone) TextView wPhoneNumber;
     @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
     @BindView(R.id.drawerLayout) DrawerLayout wProfileDrawerLayout;
+    @BindView(R.id.profileContent) RelativeLayout wProfileContent;
     @BindView(R.id.userNavigation) NavigationView wNavigationView;
     @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
 
@@ -114,6 +116,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // Setting default checked item
         wNavigationView.setCheckedItem(R.id.toProfileNav);
 
+        // Animate navigation view
+        animateNavigation();
+
 //        Customize the navigation
         navigationView = wNavigationView.getHeaderView(0);
 
@@ -131,6 +136,30 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         wNavImage.setOnClickListener(this);
         wNavUsername.setOnClickListener(this);
 
+    }
+
+    //      Method to animate navigation sliding
+    private void animateNavigation() {
+
+        wProfileDrawerLayout.setScrimColor(getResources().getColor(R.color.transparent));
+
+        wProfileDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - Constants.END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                wProfileContent.setScaleX(offsetScale);
+                wProfileContent.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = wProfileContent.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                wProfileContent.setTranslationX(xTranslation);
+            }
+        });
     }
 
     // To collect data to show

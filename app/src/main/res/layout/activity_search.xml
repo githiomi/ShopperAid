@@ -12,6 +12,16 @@
     android:focusableInTouchMode="true"
     tools:context=".Ui.SearchActivity">
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/sideNavigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:backgroundTint="?attr/navigationBackground"
+        android:theme="@style/sideNavigationTheme"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/side_main_navigation" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,16 +34,8 @@
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/sideNavigation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:backgroundTint="?attr/navigationBackground"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/side_main_navigation" />
-
     <LinearLayout
+        android:id="@+id/searchContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

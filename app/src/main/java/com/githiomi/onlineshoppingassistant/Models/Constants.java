@@ -30,7 +30,8 @@ public class Constants {
     public static final int REQUEST_IMAGE_CAPTURE = 111;
     // Currency converter
     public static final float DOLLARS_TO_KSH = 109;
-
+    // Slide navigation
+    public static final float END_SCALE = 0.7f;
     // Search key
     public static final String SEARCH_INPUT_KEY = "User Search Input";
     // To wrap a product
@@ -48,4 +49,5 @@ public class Constants {
     //  API access token
     public static final String ACCESS_TOKEN = "82032c34d7d42c35c071715d76b6c951";
     public static final String CURRENCY_TO_GET = "KES";
+
 }
