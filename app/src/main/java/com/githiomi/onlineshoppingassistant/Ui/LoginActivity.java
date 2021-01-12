@@ -123,15 +123,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Requesting email & profile
         wFacebookLoginButton.setReadPermissions("email", "public_profile");
 
-        // Init auth listener
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-            }
-        };
-
         // Configure Google sign in options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -199,6 +190,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        // Init auth listener
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+            }
+        };
+
         // All listeners
         wProceedAsGuest.setOnClickListener(this);
         wLoginButton.setOnClickListener(this);
@@ -258,6 +258,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if (v == wLoginButton) {
+            // Update UI
             hideKeyboard(v);
             loginUser(v);
         }

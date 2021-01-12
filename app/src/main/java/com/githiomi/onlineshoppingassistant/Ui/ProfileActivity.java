@@ -100,10 +100,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 // Get current user
-                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                currentUser = firebaseAuth.getCurrentUser();
 
                 if ( currentUser != null ) {
-                    getUserData(currentUser);
+                    getUserData();
                 }
             }
         };
@@ -163,7 +163,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
     // To collect data to show
-    private void getUserData(FirebaseUser currentUser) {
+    private void getUserData() {
 
         String username = currentUser.getDisplayName();
         wNavUsername.setText(username);
@@ -179,6 +179,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 if (snapshot.exists()) {
                     String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
                     wPhoneNumber.setText(phoneNumber);
+                }else {
+
                 }
             }
 
@@ -421,6 +423,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                             Picasso.get()
                                     .load(currentUser.getPhotoUrl())
                                     .into(wNavImage);
+
+                            // Set new image to profile
+                            Picasso.get()
+                                    .load(currentUser.getPhotoUrl())
+                                    .into(wUserProfilePicture);
 
                         } else {
 
