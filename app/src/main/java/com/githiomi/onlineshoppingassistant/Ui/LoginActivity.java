@@ -1,6 +1,5 @@
 package com.githiomi.onlineshoppingassistant.Ui;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -75,8 +74,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.btnLogin) Button wLoginButton;
     @BindView(R.id.cvLoginBtn) CardView wCvLoginButton;
     @BindView(R.id.cvSignInWithGoogle) CardView wCvSignInWithGoogle;
+    @BindView(R.id.googleProgressBar) ProgressBar wGoogleProgressBar;
     @BindView(R.id.cvSignInWithFacebook) CardView wCvSignInWithFacebook;
     @BindView(R.id.ButtonFacebookLogin) LoginButton wFacebookLoginButton;
+    @BindView(R.id.facebookProgressBar) ProgressBar wFacebookProgressBar;
     @BindView(R.id.tvToSignUp) TextView wToSignUp;
     @BindView(R.id.tvForgotPassword) TextView wForgotPassword;
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
@@ -106,9 +107,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPreferences.getString(Constants.APP_THEME, "Light Mode");
 
-        if (theme.equals("Dark Mode")){
+        if (theme.equals("Dark Mode")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
@@ -122,14 +123,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Requesting email & profile
         wFacebookLoginButton.setReadPermissions("email", "public_profile");
 
-        // Init ads
-        MobileAds.initialize(this);
+        // Init auth listener
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-        // Init the ad view
-        adView = new AdView(this);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-        wAdContainer.addView(adView);
-        loadBanner();
+            }
+        };
 
         // Configure Google sign in options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -148,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
-                if (currentAccessToken == null) {
+                if (oldAccessToken == null || oldAccessToken.isDataAccessExpired() || currentAccessToken == null) {
                     mFirebaseAuth.signOut();
                 }
             }
@@ -158,6 +159,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         wFacebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+
+                // Update UI
+                wCvSignInWithFacebook.setVisibility(View.GONE);
+                wFacebookProgressBar.setVisibility(View.VISIBLE);
 
                 // If the login is a success
                 String success = "Login successful";
@@ -170,6 +175,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCancel() {
 
+                // Return card view
+                wFacebookProgressBar.setVisibility(View.GONE);
+                wCvSignInWithFacebook.setVisibility(View.VISIBLE);
+
                 // If cancelled
                 String cancelled = "Login cancelled";
                 Log.d(TAG, "onCancel: " + cancelled);
@@ -179,21 +188,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onError(FacebookException error) {
 
+                // Return card view
+                wFacebookProgressBar.setVisibility(View.GONE);
+                wCvSignInWithFacebook.setVisibility(View.VISIBLE);
+
                 // If an error occurs
                 String errorToPrint = error.getMessage().toString();
                 Log.d(TAG, "onError: " + errorToPrint);
 
             }
         });
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        Activity activity = this;
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-            }
-        };
 
         // All listeners
         wProceedAsGuest.setOnClickListener(this);
@@ -202,6 +206,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         wCvSignInWithFacebook.setOnClickListener(this);
         wForgotPassword.setOnClickListener(this);
         wToSignUp.setOnClickListener(this);
+
+        // Init ads
+        MobileAds.initialize(this);
+
+        // Init the ad view
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
+
     }
 
     // For the adaptive banner
@@ -249,12 +263,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if (v == wCvSignInWithGoogle) {
+            // Update UI
+            wCvSignInWithGoogle.setVisibility(View.GONE);
+            wGoogleProgressBar.setVisibility(View.VISIBLE);
             signInWithGoogle();
-        }
-
-        if (v == wCvSignInWithFacebook) {
-            Snackbar.make(v, "Service is not yet available. :(", Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary)).setAction("Action", null).show();
         }
 
         if (v == wForgotPassword) {
@@ -279,26 +291,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         // Adding the activity result to the callback
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        if (mCallbackManager == null) {
+            // Update UI
+            wGoogleProgressBar.setVisibility(View.GONE);
+            wCvSignInWithGoogle.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+        } else {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
-        super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == Constants.RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+            if (requestCode == Constants.RC_SIGN_IN) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
-            if (task.isSuccessful()) {
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                    firebaseAuthWithGoogle(account.getIdToken());
-                } catch (ApiException e) {
-                    Log.w(TAG, "Google sign in failed", e);
+                if (task.isSuccessful()) {
+                    try {
+                        // Google Sign In was successful, authenticate with Firebase
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+                        Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                        firebaseAuthWithGoogle(account.getIdToken());
+
+                    } catch (ApiException e) {
+                        // Update UI
+                        wGoogleProgressBar.setVisibility(View.GONE);
+                        wCvSignInWithGoogle.setVisibility(View.VISIBLE);
+                        Toast.makeText(this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+
+                        Log.w(TAG, "Google sign in failed", e);
+                    }
+                } else {
+                    // Update UI
+                    wGoogleProgressBar.setVisibility(View.GONE);
+                    wCvSignInWithGoogle.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+
+                    String exception = Objects.requireNonNull(task.getException()).toString();
+                    Log.d(TAG, "onActivityResult: Error ------ " + exception);
                 }
-            } else {
-                String exception = Objects.requireNonNull(task.getException()).toString();
-                Log.d(TAG, "onActivityResult: Error ------ " + exception);
             }
         }
     }
@@ -311,11 +341,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+
+                            Intent toSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
+                            toSearchActivity.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+                            startActivity(toSearchActivity);
+                            finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
+
                             Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -338,6 +372,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithFacebookCredential:success");
+                            Intent toSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
+                            toSearchActivity.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+                            startActivity(toSearchActivity);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithFacebookCredential:failure", task.getException());
@@ -372,11 +410,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Make the progress bar invisible
                 wLoginProgressBar.setVisibility(View.GONE);
 
-                if (task.isSuccessful()) {
-
-                    // User is logged in
-
-                } else {
+                if ( !(task.isSuccessful()) ) {
 
                     // Hide progress bar & return button
                     wLoginProgressBar.setVisibility(View.GONE);

@@ -223,10 +223,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         int selectedId = item.getItemId();
 
         if (selectedId == R.id.toSearchNav) {
-            Intent backToSearch = new Intent(this, SearchActivity.class);
-            backToSearch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(backToSearch, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            finish();
+            super.onBackPressed();
         }
 
         if (selectedId == R.id.toProfileNav) {
