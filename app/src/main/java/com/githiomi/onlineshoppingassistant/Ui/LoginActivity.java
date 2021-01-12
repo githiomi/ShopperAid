@@ -410,8 +410,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 // Make the progress bar invisible
                 wLoginProgressBar.setVisibility(View.GONE);
+                wCvLoginButton.setVisibility(View.VISIBLE);
 
-                if ( !(task.isSuccessful()) ) {
+                if ( task.isSuccessful() ) {
+
+                    Intent toSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
+                    toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(toSearchActivity);
+                    finish();
+
+                }else {
 
                     // Hide progress bar & return button
                     wLoginProgressBar.setVisibility(View.GONE);

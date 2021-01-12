@@ -303,14 +303,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         }
 
-        if (view == wUsername) {
-
-            Intent editUsername = new Intent(this, EditActivity.class);
-            editUsername.putExtra(Constants.TO_EDIT, Constants.TO_EDIT_USERNAME);
-            startActivity(editUsername, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-
-        }
-
         if (view == wEmail) {
 
             Intent editEmail = new Intent(this, EditActivity.class);

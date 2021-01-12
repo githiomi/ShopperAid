@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.githiomi.onlineshoppingassistant.Fragments.Profile.EditEmail;
-import com.githiomi.onlineshoppingassistant.Fragments.Profile.EditUsername;
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
 
@@ -39,15 +38,7 @@ public class EditActivity extends AppCompatActivity {
 
         assert fragmentDeterminant != null;
 
-        if ( fragmentDeterminant.equals(Constants.TO_EDIT_USERNAME) ){
-
-            EditUsername editUsername = EditUsername.newInstance();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.editProfilerFrameLayout, editUsername);
-            ft.commit();
-
-        }
-        else if (fragmentDeterminant.equals(Constants.TO_EDIT_EMAIL) ){
+        if (fragmentDeterminant.equals(Constants.TO_EDIT_EMAIL) ){
 
             EditEmail editEmail = EditEmail.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

@@ -118,13 +118,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
-                            android:clickable="true"
                             android:padding="15dp"
                             android:text="@string/username_placeholder"
                             android:textColor="?attr/profileAttributeBodyText"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:drawableRightCompat="@drawable/ic_edit" />
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
