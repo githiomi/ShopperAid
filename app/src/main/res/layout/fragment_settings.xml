@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/textInputFieldBackground"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="0dp"
                 android:text="App Info"
-                android:textColor="@color/black"
+                android:textColor="?attr/settingsBodyText"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/textInputFieldBackground"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
@@ -88,7 +88,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp"
                     android:text="@string/dark_mode"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/settingsBodyText"
                     android:textSize="15sp" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
@@ -115,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/textInputFieldBackground"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
@@ -141,8 +141,8 @@
                 android:layout_margin="5dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="0dp"
-                android:text="1.0"
-                android:textColor="@color/black"
+                android:text="1.0.0"
+                android:textColor="?attr/settingsBodyText"
                 android:textSize="15sp" />
 
         </LinearLayout>

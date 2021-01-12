@@ -114,8 +114,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         if (v == wAppInfoCv) {
             String appInfo = " No application information yet! :( ";
             Snackbar.make(Objects.requireNonNull(getView()), appInfo, Snackbar.LENGTH_SHORT)
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setTextColor(getResources().getColor(R.color.white))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setAction("Action", null).show();
         }
 
@@ -128,16 +129,18 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             }
             String appTheme = "The app is in " + currentTheme ;
             Snackbar.make(Objects.requireNonNull(getView()), appTheme, Snackbar.LENGTH_SHORT)
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setTextColor(getResources().getColor(R.color.white))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setAction("Action", null).show();
         }
 
         if (v == wAppVersion) {
-            String appInfo = " BaseApplication Version: 1.0 :) ";
+            String appInfo = " Application Version: 1.0.0 :) ";
             Snackbar.make(Objects.requireNonNull(getView()), appInfo, Snackbar.LENGTH_SHORT)
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setTextColor(getResources().getColor(R.color.white))
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setAction("Action", null).show();
         }
 

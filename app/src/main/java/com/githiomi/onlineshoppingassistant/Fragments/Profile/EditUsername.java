@@ -19,6 +19,8 @@ import com.githiomi.onlineshoppingassistant.R;
 import com.githiomi.onlineshoppingassistant.Ui.ProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -130,7 +132,11 @@ public class EditUsername extends Fragment implements View.OnClickListener {
 
                 }else{
 
-                    Toast.makeText(context, "Couldn't update username. Try again", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Username could not be updated! Try again later.", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setTextColor(getResources().getColor(R.color.white))
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                            .setAction("Action", null).show();
 
                 }
             }

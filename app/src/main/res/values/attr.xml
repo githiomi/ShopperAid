@@ -40,10 +40,15 @@
         <attr name="recentSearchText" format="color" />
         <attr name="recentSearchItemText" format="color" />
 
-        <!-- Profile Activity -->
+        <!-- Profile Activity & Fragments -->
         <attr name="profileAttributeHeaderBackground" format="color" />
         <attr name="profileAttributeHeaderText" format="color" />
         <attr name="profileAttributeBodyText" format="color" />
+        <attr name="editButtonTextColor" format="color" />
+
+        <!-- App Activity & Fragments -->
+        <attr name="settingsBodyText" format="color" />
+        <attr name="policyBodyText" format="color" />
 
         <!-- Dark Toolbar -->
         <attr name="darkToolbarBackground" format="color" />

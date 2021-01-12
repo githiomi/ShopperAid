@@ -61,11 +61,15 @@
         <item name="recentSearchDrawable">@color/black</item>
         <item name="recentSearchText">@color/black</item>
         <item name="recentSearchItemText">@color/colorPrimary</item>
-        <!-- Profile Activity -->
+        <!-- Profile Activity & Fragments-->
         <item name="profileIcons">@color/colorPrimary</item>
         <item name="profileAttributeHeaderBackground">@color/white</item>
         <item name="profileAttributeHeaderText">@color/colorPrimary</item>
         <item name="profileAttributeBodyText">@color/black</item>
+        <item name="editButtonTextColor">@color/black</item>
+        <!-- App Activity & Fragments -->
+        <item name="settingsBodyText">@color/black</item>
+        <item name="policyBodyText">@color/black</item>
         <!-- Dark Toolbar -->
         <item name="darkToolbarBackground">@color/black</item>
         <item name="darkToolbarTextColor">@color/white</item>

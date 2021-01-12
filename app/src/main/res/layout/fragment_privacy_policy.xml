@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/transparent"
     tools:context=".Fragments.App.PrivacyPolicyFragment">
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/pp1_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/pp2_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/pp3_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/ic1_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/ic2_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/ld1_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/c1_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/c2_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/sec_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/lts_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/cp_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -184,7 +184,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/ctp_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
         <TextView
@@ -202,7 +202,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/contact_body"
-            android:textColor="@color/black"
+            android:textColor="?attr/policyBodyText"
             android:textSize="13sp" />
 
     </LinearLayout>

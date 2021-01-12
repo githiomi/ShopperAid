@@ -21,6 +21,8 @@ import com.githiomi.onlineshoppingassistant.R;
 import com.githiomi.onlineshoppingassistant.Ui.ProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -95,7 +97,7 @@ public class EditEmail extends Fragment implements View.OnClickListener {
 
         if ( view == wVerifyPasswordButton ) {
 
-            verifyUser();
+            verifyUser(view);
 
         }
 
@@ -107,7 +109,7 @@ public class EditEmail extends Fragment implements View.OnClickListener {
     }
 
     // Method to verify the user
-    private void verifyUser(){
+    private void verifyUser(View view){
 
         String newPassword = wPassword.getText().toString().trim();
 
@@ -133,7 +135,11 @@ public class EditEmail extends Fragment implements View.OnClickListener {
                     wPassword.setError(error);
                     wPassword.requestFocus();
 
-                    Toast.makeText(context, "Cannot Authenticate! Try Again.", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, error, Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setTextColor(getResources().getColor(R.color.white))
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                            .setAction("Action", null).show();
 
                 }
             }
@@ -206,7 +212,11 @@ public class EditEmail extends Fragment implements View.OnClickListener {
 
                     String error = task.getException().getMessage().toString();
                     Log.d(TAG, "onComplete: " + error);
-                    Toast.makeText(context, "Couldn't update email. Try again", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Email could not be updated! Try again later.", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setTextColor(getResources().getColor(R.color.white))
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                            .setAction("Action", null).show();
 
                 }
             }
