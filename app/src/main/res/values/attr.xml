@@ -5,6 +5,7 @@
     <declare-styleable name="styleableAttributes">
         <!-- Universals -->
         <attr name="universalBackground" format="color" />
+        <attr name="profileIcons" format="color" />
 
         <!-- Main Activity -->
         <attr name="mainActivityBackground" format="color" />
@@ -38,6 +39,11 @@
         <attr name="recentSearchDrawable" format="color" />
         <attr name="recentSearchText" format="color" />
         <attr name="recentSearchItemText" format="color" />
+
+        <!-- Profile Activity -->
+        <attr name="profileAttributeHeaderBackground" format="color" />
+        <attr name="profileAttributeHeaderText" format="color" />
+        <attr name="profileAttributeBodyText" format="color" />
 
         <!-- Dark Toolbar -->
         <attr name="darkToolbarBackground" format="color" />
