@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
+    android:background="?attr/darkToolbarBackground"
     android:elevation="20dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -28,8 +28,8 @@
         android:padding="5dp"
         android:text="@string/search"
         android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="23sp"
+        android:textColor="?attr/darkToolbarTextColor"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <ImageView

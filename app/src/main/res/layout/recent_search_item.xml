@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/textInputFieldBackground"
         android:padding="10dp" >
 
         <TextView
@@ -24,7 +24,7 @@
             android:text="@string/app_name"
             android:drawablePadding="10dp"
             android:clickable="true"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/recentSearchItemText"
             android:textSize="15sp"
             android:focusable="true"
             app:drawableStartCompat="@drawable/ic_recent" />

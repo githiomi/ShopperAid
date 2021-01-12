@@ -26,14 +26,16 @@
     </style>
 
     <style name="NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Login Activity -->
-        <item name="loginBackground">@color/black</item>
-        <item name="loginActivityText">@color/white</item>
+        <!-- Universals -->
+        <item name="universalBackground">@color/black</item>
         <item name="textInputFieldBackground">@color/textInputFieldBackground</item>
         <item name="textInputFieldText">@color/white</item>
         <item name="loginButtonBackground">@color/colorPrimary</item>
         <item name="textInputFieldHint">@color/white</item>
         <item name="textInputFieldHintAfter">@color/colorPrimary</item>
+        <!-- Login Activity -->
+        <item name="loginBackground">@color/black</item>
+        <item name="loginActivityText">@color/white</item>
         <item name="loginButtonText">@color/white</item>
         <item name="loginProgressBar">@color/colorPrimary</item>
         <!-- Sign Up Activity -->
@@ -42,10 +44,22 @@
         <item name="signUpButtonBackground">@color/colorPrimary</item>
         <item name="signUpButtonText">@color/white</item>
         <item name="signUpProgressBar">@color/colorPrimary</item>
-        <!-- Toolbar -->
+        <!-- Search Activity -->
+        <item name="searchActivityText">@color/white</item>
+        <item name="searchButtonBackground">@color/colorPrimary</item>
+        <item name="searchButtonText">@color/white</item>
+        <!-- Recent Search Activity -->
+        <item name="recentSearchDrawable">@color/colorPrimary</item>
+        <item name="recentSearchText">@color/colorPrimary</item>
+        <item name="recentSearchItemText">@color/white</item>
+        <!-- Dark Toolbar -->
         <item name="darkToolbarBackground">@color/black</item>
-        <item name="darkToolbarIconTint">@color/white</item>
         <item name="darkToolbarTextColor">@color/white</item>
+        <item name="darkToolbarIconTint">@color/white</item>
+        <!-- Light Toolbar -->
+        <item name="lightToolbarBackground">@color/transparent</item>
+        <item name="lightToolbarTextColor">@color/white</item>
+        <item name="lightToolbarIconTint">@color/colorPrimary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
         <!-- Window Animation -->

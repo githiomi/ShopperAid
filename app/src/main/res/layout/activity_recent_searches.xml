@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="?attr/universalBackground"
+    android:fitsSystemWindows="true"
     tools:context=".Ui.RecentSearchesActivity">
 
     <LinearLayout
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminate="false"
-        android:indeterminateTint="@color/colorPrimary" />
+        android:indeterminateTint="?attr/loginProgressBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recentSearchesRecyclerView"
@@ -46,7 +47,7 @@
         android:layout_centerInParent="true"
         android:text="@string/no_recent_searches_found"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/recentSearchText"
         android:textSize="15sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -55,7 +56,7 @@
         android:id="@+id/adContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true">
 
     </FrameLayout>
 

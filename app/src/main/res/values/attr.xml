@@ -3,6 +3,8 @@
 
     <!-- The styleables -->
     <declare-styleable name="styleableAttributes">
+        <!-- Universals -->
+        <attr name="universalBackground" format="color" />
 
         <!-- Main Activity -->
         <attr name="mainActivityBackground" format="color" />
@@ -27,10 +29,25 @@
         <attr name="signUpButtonText" format="color" />
         <attr name="signUpProgressBar" format="color" />
 
-        <!-- Toolbar -->
+        <!-- Search Activity -->
+        <attr name="searchActivityText" format="color" />
+        <attr name="searchButtonBackground" format="color" />
+        <attr name="searchButtonText" format="color" />
+
+        <!-- Recent Search Activity -->
+        <attr name="recentSearchDrawable" format="color" />
+        <attr name="recentSearchText" format="color" />
+        <attr name="recentSearchItemText" format="color" />
+
+        <!-- Dark Toolbar -->
         <attr name="darkToolbarBackground" format="color" />
         <attr name="darkToolbarIconTint" format="color" />
         <attr name="darkToolbarTextColor" format="color" />
+
+        <!-- Light Toolbar -->
+        <attr name="lightToolbarBackground" format="color" />
+        <attr name="lightToolbarIconTint" format="color" />
+        <attr name="lightToolbarTextColor" format="color" />
 
     </declare-styleable>
 
