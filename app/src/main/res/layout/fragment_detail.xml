@@ -23,7 +23,7 @@
                 android:layout_margin="5dp"
                 android:elevation="30dp"
                 android:padding="5dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="?attr/textInputFieldBackground"
                 app:cardCornerRadius="20dp">
 
                 <RelativeLayout
@@ -46,10 +46,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_toEndOf="@id/productItemImage"
-                        android:background="@color/white"
+                        android:background="@color/transparent"
                         android:padding="5dp"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="?attr/productDetailNameText"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/productItemPrice"
@@ -72,7 +73,7 @@
                         android:layout_toEndOf="@id/productItemImage"
                         android:paddingBottom="10dp"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="?attr/productDetailRatingText" />
 
                 </RelativeLayout>
 
@@ -140,7 +141,7 @@
                 android:elevation="30dp"
                 android:padding="5dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="?attr/textInputFieldBackground"
                 app:cardCornerRadius="20dp">
 
                 <RelativeLayout
@@ -155,7 +156,7 @@
                         android:drawablePadding="15dp"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text="Product Delivery"
+                        android:text="@string/product_delivery"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
@@ -168,7 +169,7 @@
                         android:layout_below="@id/tvWarrantyTitle"
                         android:layout_margin="5dp"
                         android:padding="10dp"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="?attr/productDetailsText" />
 
                     <TextView
                         android:id="@+id/tvSpecsTitle"
@@ -192,7 +193,7 @@
                         android:layout_below="@id/tvSpecsTitle"
                         android:layout_margin="5dp"
                         android:padding="10dp"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="?attr/productDetailsText" />
 
                 </RelativeLayout>
 
@@ -210,7 +211,7 @@
         android:layout_margin="3dp"
         android:elevation="100dp"
         android:visibility="gone"
-        app:cardBackgroundColor="@color/black"
+        app:cardBackgroundColor="?attr/loginButtonBackground"
         app:cardCornerRadius="10dp">
 
         <Button
@@ -222,7 +223,7 @@
             android:background="@color/transparent"
             android:padding="3dp"
             android:text="@string/proceed_to_order"
-            android:textColor="@color/white"
+            android:textColor="?attr/loginButtonText"
             android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>

@@ -82,5 +82,6 @@
     <!--  Facebook data  -->
     <string name="facebook_app_id">211763487210697</string>
     <string name="fb_login_protocol_scheme">fb211763487210697</string>
+    <string name="product_delivery">Product Delivery</string>
 
 </resources>

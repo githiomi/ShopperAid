@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/navigationToolbar"
         android:layout_gravity="start"
+        android:backgroundTint="?attr/navigationBackground"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/side_main_navigation" />
 

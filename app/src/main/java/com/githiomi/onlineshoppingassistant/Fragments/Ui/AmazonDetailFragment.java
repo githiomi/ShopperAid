@@ -105,7 +105,7 @@ public class AmazonDetailFragment extends Fragment {
         // Binding widgets
         ButterKnife.bind(this, productDetail);
 
-        // Assigning activty
+        // Assigning activity
         this.activity = getActivity();
 
         // Setting views

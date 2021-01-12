@@ -5,7 +5,7 @@
     android:id="@+id/search_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="?attr/universalBackground"
     android:clickable="true"
     android:fitsSystemWindows="true"
     android:focusable="true"
@@ -31,7 +31,7 @@
                 android:id="@+id/resultViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_margin="3dp">
 
                 <androidx.viewpager.widget.PagerTabStrip
                     android:id="@+id/resultViewPagerStrip"
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
                     android:background="@color/transparent"
-                    android:padding="3dp" />
+                    android:padding="2dp" />
 
             </androidx.viewpager.widget.ViewPager>
 
@@ -67,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:backgroundTint="?attr/navigationBackground"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/side_main_navigation" />
 

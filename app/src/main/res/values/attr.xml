@@ -6,6 +6,7 @@
         <!-- Universals -->
         <attr name="universalBackground" format="color" />
         <attr name="profileIcons" format="color" />
+        <attr name="navigationBackground" format="color" />
 
         <!-- Main Activity -->
         <attr name="mainActivityBackground" format="color" />
@@ -40,6 +41,18 @@
         <attr name="recentSearchText" format="color" />
         <attr name="recentSearchItemText" format="color" />
 
+        <!-- Result Activity -->
+        <attr name="productNameText" format="color" />
+        <attr name="productPriceText" format="color" />
+        <attr name="productCurrencyText" format="color" />
+        <attr name="productRatingText" format="color" />
+
+        <!-- Detail Fragment -->
+        <attr name="productDetailNameText" format="color" />
+        <attr name="productDetailsText" format="color" />
+        <attr name="productDetailCurrencyText" format="color" />
+        <attr name="productDetailRatingText" format="color" />
+
         <!-- Profile Activity & Fragments -->
         <attr name="profileAttributeHeaderBackground" format="color" />
         <attr name="profileAttributeHeaderText" format="color" />
@@ -59,6 +72,11 @@
         <attr name="lightToolbarBackground" format="color" />
         <attr name="lightToolbarIconTint" format="color" />
         <attr name="lightToolbarTextColor" format="color" />
+
+        <!-- Result Toolbar -->
+        <attr name="resultToolbarBackground" format="color" />
+        <attr name="resultToolbarText" format="color" />
+        <attr name="resultToolbarIconTint" format="color" />
 
     </declare-styleable>
 

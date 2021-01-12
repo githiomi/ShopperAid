@@ -2,9 +2,11 @@ package com.githiomi.onlineshoppingassistant.Ui;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -48,22 +51,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     //    Widgets
-    @BindView(R.id.userProfilePicture)
-    CircleImageView wUserProfilePicture;
-    @BindView(R.id.tvProfileUsername)
-    TextView wUsername;
-    @BindView(R.id.tvProfileEmail)
-    TextView wEmail;
-    @BindView(R.id.tvProfilePhone)
-    TextView wPhoneNumber;
-    @BindView(R.id.editProfilePicture)
-    ImageButton wEditProfilePicture;
-    @BindView(R.id.drawerLayout)
-    DrawerLayout wProfileDrawerLayout;
-    @BindView(R.id.userNavigation)
-    NavigationView wNavigationView;
-    @BindView(R.id.profileProgressBar)
-    ProgressBar wProfileProgressBar;
+    @BindView(R.id.userProfilePicture) CircleImageView wUserProfilePicture;
+    @BindView(R.id.tvProfileUsername) TextView wUsername;
+    @BindView(R.id.tvProfileEmail) TextView wEmail;
+    @BindView(R.id.tvProfilePhone) TextView wPhoneNumber;
+    @BindView(R.id.editProfilePicture) ImageButton wEditProfilePicture;
+    @BindView(R.id.drawerLayout) DrawerLayout wProfileDrawerLayout;
+    @BindView(R.id.userNavigation) NavigationView wNavigationView;
+    @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
 
     // Navigation view
     View navigationView;
@@ -79,6 +74,17 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply theme
+        // Get the theme applied
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sharedPreferences.getString(Constants.APP_THEME, "Light Mode");
+
+        if (theme.equals("Dark Mode")){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 

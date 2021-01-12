@@ -80,9 +80,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
-
         // Apply theme
         // Get the theme applied
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -94,11 +91,14 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_results);
+
         // Binding widgets
         ButterKnife.bind(this);
 
         // Change color of the swipe progress
-        wRefreshResults.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryLight);
+        wRefreshResults.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
 
         // Init ads
         MobileAds.initialize(this);
@@ -232,7 +232,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         wViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         wViewPager.setAdapter(viewPagerAdapter);
-        wPagerTabStrip.setTextColor(getResources().getColor(R.color.black));
         wViewPager.setCurrentItem(0);
 
     }
@@ -247,7 +246,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         wViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         wViewPager.setAdapter(viewPagerAdapter);
-        wPagerTabStrip.setTextColor(getResources().getColor(R.color.black));
         wViewPager.setCurrentItem(current);
 
     }
@@ -328,6 +326,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 String asGuest = "You're not logged in!";
                 Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setTextColor(getResources().getColor(R.color.white))
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .setAction("Action", null).show();
             }
@@ -342,6 +341,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                 String asGuest = "You're not logged in!";
                 Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setTextColor(getResources().getColor(R.color.white))
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .setAction("Action", null).show();
             }

@@ -28,6 +28,7 @@
     <style name="NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Universals -->
         <item name="universalBackground">@color/black</item>
+        <item name="navigationBackground">@color/colorPrimaryText</item>
         <item name="textInputFieldBackground">@color/textInputFieldBackground</item>
         <item name="textInputFieldText">@color/white</item>
         <item name="loginButtonBackground">@color/colorPrimary</item>
@@ -52,12 +53,21 @@
         <item name="recentSearchDrawable">@color/colorPrimary</item>
         <item name="recentSearchText">@color/colorPrimary</item>
         <item name="recentSearchItemText">@color/white</item>
+        <!-- Result Activity -->
+        <item name="productNameText">@color/colorPrimary</item>
+        <item name="productPriceText">@color/white</item>
+        <item name="productCurrencyText">@color/darkGrey</item>
+        <item name="productRatingText">@color/darkGrey</item>
+        <!-- Detail Fragment -->
+        <item name="productDetailNameText">@color/colorPrimary</item>
+        <item name="productDetailRatingText">@color/white</item>
+        <item name="productDetailsText">@color/white</item>
         <!-- Profile Activity & Fragments -->
         <item name="profileIcons">@color/white</item>
         <item name="profileAttributeHeaderBackground">@color/black</item>
         <item name="profileAttributeHeaderText">@color/colorPrimary</item>
-        <item name="profileAttributeBodyText">@color/white</item>
-        <item name="editButtonTextColor">@color/white</item>
+        <item name="profileAttributeBodyText">@color/colorIcons</item>
+        <item name="editButtonTextColor">@color/colorIcons</item>
         <!-- App Activity & Fragments -->
         <item name="settingsBodyText">@color/white</item>
         <item name="policyBodyText">@color/white</item>
@@ -69,6 +79,9 @@
         <item name="lightToolbarBackground">@color/transparent</item>
         <item name="lightToolbarTextColor">@color/white</item>
         <item name="lightToolbarIconTint">@color/colorPrimary</item>
+        <!-- Result Toolbar -->
+        <item name="resultToolbarBackground">@color/black</item>
+        <item name="resultToolbarIconTint">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
         <!-- Window Animation -->
