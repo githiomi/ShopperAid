@@ -87,15 +87,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         // Binding widgets
         ButterKnife.bind(this);
 
-        // Init ads
-        MobileAds.initialize(this);
-
-        // Ad view
-        adView = new AdView(this);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-        wAdContainer.addView(adView);
-        loadBanner();
-
         // Init shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
@@ -150,6 +141,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         };
+
+        // Init ads
+        MobileAds.initialize(this);
+
+        // Ad view
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
+
     }
 
     //    For the adaptive banner
@@ -193,6 +194,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             String noRecents = "No Recent Searches For Guest Users!";
             Snackbar.make(view, noRecents, Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setTextColor(getResources().getColor(R.color.white))
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setAction("Action", null).show();
         }
@@ -209,11 +211,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             productSearched = wSearchInput.getText().toString().trim();
 
             if (productSearched.isEmpty()) {
-                wSearchInput.setError("This field cannot be left blank");
+                wSearchInput.setError("This field must not be left blank");
                 return;
             }else {
 
                 if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
+
                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     assert user != null;
                     String userName = user.getDisplayName();
@@ -259,6 +262,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
                 Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setTextColor(getResources().getColor(R.color.white))
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .setAction("Action", null).show();
             }
@@ -274,6 +278,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 wSideNavigation.setCheckedItem(R.id.toSearchNav);
                 Snackbar.make(v, asGuest, Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                        .setTextColor(getResources().getColor(R.color.white))
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .setAction("Action", null).show();
             }

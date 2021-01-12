@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    // The styleables
+    <!-- The styleables -->
     <declare-styleable name="styleableAttributes">
 
         <!-- Main Activity -->
@@ -19,6 +19,18 @@
         <attr name="loginButtonBackground" format="color" />
         <attr name="loginButtonText" format="color" />
         <attr name="loginProgressBar" format="color" />
+
+        <!-- Sign up Activity -->
+        <attr name="signUpBackground" format="color" />
+        <attr name="signUpActivityText" format="color" />
+        <attr name="signUpButtonBackground" format="color" />
+        <attr name="signUpButtonText" format="color" />
+        <attr name="signUpProgressBar" format="color" />
+
+        <!-- Toolbar -->
+        <attr name="darkToolbarBackground" format="color" />
+        <attr name="darkToolbarIconTint" format="color" />
+        <attr name="darkToolbarTextColor" format="color" />
 
     </declare-styleable>
 

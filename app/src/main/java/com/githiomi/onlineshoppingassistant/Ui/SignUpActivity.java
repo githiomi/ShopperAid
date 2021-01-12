@@ -75,15 +75,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         // Binding widgets
         ButterKnife.bind(this);
 
-        // Init ads
-        MobileAds.initialize(this);
-
-        // Loading the banner ad
-        adView = new AdView(this);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-        wAdContainer.addView(adView);
-        loadBanner();
-
         //        Firebase variables authentication
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -96,6 +87,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         wBackToLogin.setOnClickListener(this);
         wBtnSignUp.setOnClickListener(this);
         wTvBackToLogin.setOnClickListener(this);
+
+        // Init ads
+        MobileAds.initialize(this);
+
+        // Loading the banner ad
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        wAdContainer.addView(adView);
+        loadBanner();
 
     }
 
@@ -271,6 +271,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     // Validate Passwords
     private boolean isPasswordsValid( String password, String confirmPassword ){
+        if (password.isEmpty()) {
+            String error = "This field cannot be left blank";
+            wPassword.setError(error);
+            return false;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            String error = "This field cannot be left blank";
+            wConfirmPassword.setError(error);
+            return false;
+        }
+
         if (password.length() < 8 ) {
             String error = "Password must contain at least 8 characters";
             wPassword.setError(error);

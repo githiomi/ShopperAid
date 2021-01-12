@@ -36,7 +36,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,27 +48,24 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-// Facebook libraries
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+// Facebook libraries
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
-//    TAG
+    //    TAG
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-//    Binding widgets using butter knife
+    //    Binding widgets using butter knife
     @BindView(R.id.tvProceedAsGuest) TextView wProceedAsGuest;
     @BindView(R.id.edEmail) TextInputEditText wUserEmail;
     @BindView(R.id.edPassword) TextInputEditText wUserPassword;
@@ -83,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.loginProgressBar) ProgressBar wLoginProgressBar;
     @BindView(R.id.adContainer) FrameLayout wAdContainer;
 
-//    Local variables
+    //    Local variables
     // Date entry
     private String userEmail;
     private String userPassword;
@@ -95,9 +91,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // Sign in with google
     private GoogleSignInClient googleSignInClient;
     // Sign in with facebook
-     // Callbacks
+    // Callbacks
     private CallbackManager mCallbackManager;
-     // Token tracker
+    // Token tracker
     private AccessTokenTracker accessTokenTracker;
 
     @Override
@@ -131,14 +127,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Sign in with facebook
-         // Init callback manager
+        // Init callback manager
         mCallbackManager = CallbackManager.Factory.create();
-         // The button to change to login if the token is null
+        // The button to change to login if the token is null
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
-                if ( currentAccessToken == null ){
+                if (currentAccessToken == null) {
                     mFirebaseAuth.signOut();
                 }
             }
@@ -233,7 +229,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        if ( v == wProceedAsGuest ){
+        if (v == wProceedAsGuest) {
 
             hideKeyboard(v);
             Intent toSearchActivity = new Intent(this, SearchActivity.class);
@@ -287,7 +283,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (requestCode == Constants.RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
-            if ( task.isSuccessful() ) {
+            if (task.isSuccessful()) {
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -296,7 +292,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } catch (ApiException e) {
                     Log.w(TAG, "Google sign in failed", e);
                 }
-            }else{
+            } else {
                 String exception = Objects.requireNonNull(task.getException()).toString();
                 Log.d(TAG, "onActivityResult: Error ------ " + exception);
             }
@@ -307,7 +303,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mFirebaseAuth.signInWithCredential(credential)
-                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -323,7 +319,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     // Method to login user with access token passed
-    private void handleFacebookToken(AccessToken accessToken){
+    private void handleFacebookToken(AccessToken accessToken) {
 
         // Print the access token
         Log.d(TAG, "handleFacebookToken: Access token: " + accessToken.getToken());
@@ -333,18 +329,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // sign in user using the access token
         mFirebaseAuth.signInWithCredential(facebookAuthCredential)
-                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "signInWithFacebookCredential:success");
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithFacebookCredential:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, "This email address already exists! Login with Google.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInWithFacebookCredential:success");
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithFacebookCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "This email address already exists! Login with Google.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     //    Method to log in a user
@@ -358,7 +354,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         boolean isEmailValid = emailValidity(userEmail);
         boolean isPasswordValid = passwordValidity(userPassword);
 
-        if (!(isEmailValid) && !(isPasswordValid)) return;
+        if (!(isEmailValid) || !(isPasswordValid)) return;
 
         // Hide button & show progress bar
         wCvLoginButton.setVisibility(View.GONE);
@@ -372,7 +368,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Make the progress bar invisible
                 wLoginProgressBar.setVisibility(View.GONE);
 
-                if ( task.isSuccessful() ) {
+                if (task.isSuccessful()) {
 
                     // User is logged in
 
@@ -385,6 +381,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     Snackbar.make(v, "Incorrect email or password. Try again", Snackbar.LENGTH_SHORT)
                             .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setTextColor(getResources().getColor(R.color.white))
                             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                             .setAction("Action", null).show();
 
@@ -393,29 +390,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-//    Data validation
+    //    Data validation
     // For email
     private boolean emailValidity(String email) {
 
-        boolean isEmailGood = (email != null &&
-                Patterns.EMAIL_ADDRESS.matcher(email).matches());
-
-        if (!(isEmailGood)) {
-            wUserEmail.setError("Email Address is not valid. Try again");
+        if (email.isEmpty()) {
+            String error = "This field must not be left blank";
+            wUserEmail.setError(error);
             return false;
+        } else {
+
+            boolean isEmailGood = (email != null &&
+                    Patterns.EMAIL_ADDRESS.matcher(email).matches());
+
+            if (!(isEmailGood)) {
+                wUserEmail.setError("Email Address is not valid. Try again");
+                return false;
+            }
         }
 
         return true;
-
     }
 
     // For password
     private boolean passwordValidity(String password) {
 
-        if (password.length() < 8) {
-            wUserPassword.setError("Minimum of 8 characters required");
-            wForgotPassword.setVisibility(View.VISIBLE);
+        if (password.isEmpty() || password.equals("")) {
+            String error = "This field must not be left blank";
+            wUserPassword.setError(error);
             return false;
+        } else {
+            if (password.length() < 8) {
+                wUserPassword.setError("Minimum of 8 characters required");
+                wForgotPassword.setVisibility(View.VISIBLE);
+                return false;
+            }
         }
 
         wForgotPassword.setVisibility(View.GONE);
@@ -440,7 +449,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         resetPasswordDialog.setMessage(message);
         resetPasswordDialog.setView(textInputEditText);
 
-        resetPasswordDialog.setPositiveButton("Send Reset Link", new DialogInterface.OnClickListener() {
+        resetPasswordDialog.setPositiveButton("Send Link", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -449,6 +458,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (email.isEmpty()) {
                     Snackbar.make(v, "You must provide a valid email address", Snackbar.LENGTH_SHORT)
                             .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                            .setTextColor(getResources().getColor(R.color.white))
                             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                             .setAction("Action", null).show();
                 } else {
@@ -460,11 +470,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             if (task.isSuccessful()) {
                                 Snackbar.make(v, "Reset email has been sent", Snackbar.LENGTH_SHORT)
                                         .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                                        .setTextColor(getResources().getColor(R.color.white))
                                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                                         .setAction("Action", null).show();
                             } else {
                                 Snackbar.make(v, "Reset email has not been sent", Snackbar.LENGTH_SHORT)
                                         .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                                        .setTextColor(getResources().getColor(R.color.white))
                                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                                         .setAction("Action", null).show();
                             }
@@ -483,7 +495,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void toSignUp(View v) {
 
         Intent toSignUp = new Intent(this, SignUpActivity.class);
+        toSignUp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(toSignUp, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        finish();
 
     }
 
@@ -526,7 +540,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStop() {
         super.onStop();
 
-        if ( mAuthStateListener != null ) {
+        if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
