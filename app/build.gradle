@@ -29,6 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -110,7 +111,7 @@ dependencies {
     implementation 'com.chaos.view:pinview:1.4.3'
 
 //    For the ads
-      implementation 'com.google.android.gms:play-services-ads:19.6.0'
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
 
 //    Allow sign in with google
     implementation 'com.google.android.gms:play-services-auth:19.0.0'

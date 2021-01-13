@@ -25,7 +25,7 @@
     <string name="product_name_placeholder">Apple iPhone 11 Pro Max 256GB Physical Dual Sim Midnight Green</string>
     <string name="product_price_placeholder">KSh 1800</string>
     <string name="product_rating_placeholder">Rating: 4.6 out of 5</string>
-    <string name="retrieve_error">Error getting data. Please check your internet connection</string>
+    <string name="retrieve_error">Error getting data. \n\n Please check your internet connection</string>
     <string name="no_rating">No rating available</string>
     <string name="im_looking_for">I\'m looking for…</string>
     <string name="update_username">Update Username</string>
@@ -45,7 +45,6 @@
     <string name="proceed_to_order">PROCEED TO ORDER</string>
     <string name="back_to_login">Already Have An Account? Log In…</string>
     <string name="profile">Profile</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pp1_body"> Shopping Assistant is a free online app. The services that are provided by Shopping Assistant are at no cost, and is intended for use as it is. Promotional services, however, may be charged. </string>
     <string name="pp2_body"> This page is used to inform users of our policies with the collection, use and disclosure of personal data if anyone did decide to use our service. </string>
     <string name="pp3_body"> If you choose to use this service, then you agree to the collection and use of information in relation to this policy. The information that is collected is used only to improve our service. Your information will not be shared with anyone else except as described here. </string>

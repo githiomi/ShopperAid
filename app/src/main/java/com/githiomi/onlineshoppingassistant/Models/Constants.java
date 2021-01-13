@@ -9,7 +9,8 @@ public class Constants {
     public static final String JUMIA_PAGE_NO = "&page=";
 
     // Jiji
-    public static final String JIJI_BASE_URL = "https://www.kilimall.co.ke/new/commoditysearch?q=";
+    public static final String KILIMALL_BASE_URL = "https://www.kilimall.co.ke/new/commoditysearch?q=";
+    public static final String KILIMALL_PAGE_NO = "&page=";
 
     // Ebay
     public static final String PRE_EBAY_BASE_URL = "https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=";
@@ -24,7 +25,6 @@ public class Constants {
     //    Repetitive constants
     // For the profile
     public static final String TO_EDIT = "Edit Page Determinant";
-    public static final String TO_EDIT_USERNAME = "Edit Username";
     public static final String TO_EDIT_EMAIL = "Edit Email";
     // Camera intent
     public static final int REQUEST_IMAGE_CAPTURE = 111;

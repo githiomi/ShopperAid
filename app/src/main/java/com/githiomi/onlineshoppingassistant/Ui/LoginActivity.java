@@ -252,7 +252,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             hideKeyboard(v);
             Intent toSearchActivity = new Intent(this, SearchActivity.class);
             toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(toSearchActivity);
             finish();
 
         }

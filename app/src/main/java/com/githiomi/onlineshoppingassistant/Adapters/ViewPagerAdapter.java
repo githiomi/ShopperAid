@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.EbayFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.AmazonFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.KilimallFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -31,18 +32,22 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         String siteOption = siteOptions[position];
 
         if (siteOption.equals("Jumia")) {
-            fragment = JumiaFragment.newInstance();
+            return JumiaFragment.newInstance();
+        }
+
+        if (siteOption.equals("Kilimall")){
+            return KilimallFragment.newInstance();
         }
 
         if (siteOption.equals("Amazon")) {
-            fragment = AmazonFragment.newInstance();
+            return AmazonFragment.newInstance();
         }
 
         if (siteOption.equals("Ebay")) {
-            fragment = EbayFragment.newInstance();
+            return EbayFragment.newInstance();
         }
 
-        return fragment;
+        return null;
     }
 
     @Override
