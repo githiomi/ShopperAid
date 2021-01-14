@@ -71,6 +71,7 @@
                     android:layout_width="125dp"
                     android:layout_height="125dp"
                     android:layout_gravity="center_horizontal"
+                    android:background="@color/transparent"
                     android:layout_margin="5dp"
                     android:indeterminateTint="@color/colorPrimary"
                     android:padding="3dp"
@@ -91,8 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:elevation="30dp"
-                    app:cardBackgroundColor="@color/transparent"
+                    android:elevation="50dp"
+                    app:cardBackgroundColor="?attr/textInputFieldBackground"
                     app:cardCornerRadius="15dp">
 
                     <LinearLayout
@@ -117,7 +118,6 @@
                             android:id="@+id/tvProfileUsername"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/transparent"
                             android:padding="15dp"
                             android:text="@string/username_placeholder"
                             android:textColor="?attr/profileAttributeBodyText"
@@ -133,8 +133,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:elevation="30dp"
-                    app:cardBackgroundColor="@color/transparent"
+                    android:elevation="50dp"
+                    app:cardBackgroundColor="?attr/textInputFieldBackground"
                     app:cardCornerRadius="15dp">
 
                     <LinearLayout
@@ -176,8 +176,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:elevation="30dp"
-                    app:cardBackgroundColor="@color/transparent"
+                    android:elevation="50dp"
+                    app:cardBackgroundColor="?attr/textInputFieldBackground"
                     app:cardCornerRadius="15dp">
 
                     <LinearLayout

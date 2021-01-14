@@ -12,7 +12,7 @@
     <color name="black">#000000</color>
     <color name="cardBackground">#424242</color>
     <color name="transparent">@android:color/transparent</color>
-    <color name="colorPrimary">#9E0126</color>
+    <color name="colorPrimary">#AF022B</color>
     <color name="colorPrimaryDark">#630118</color>
     <color name="colorAccent">#D8211B</color>
     <color name="yellow">#BB8C00</color>

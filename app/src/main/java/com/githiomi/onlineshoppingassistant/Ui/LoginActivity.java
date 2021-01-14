@@ -123,15 +123,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Requesting email & profile
         wFacebookLoginButton.setReadPermissions("email", "public_profile");
 
-        // Configure Google sign in options
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Adding the google options to google client
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
-
         // Sign in with facebook
         // Init callback manager
         mCallbackManager = CallbackManager.Factory.create();
@@ -267,6 +258,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             // Update UI
             wCvSignInWithGoogle.setVisibility(View.GONE);
             wGoogleProgressBar.setVisibility(View.VISIBLE);
+
+            // Configure Google sign in options
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+
+            // Adding the google options to google client
+            googleSignInClient = GoogleSignIn.getClient(this, gso);
+
             signInWithGoogle();
         }
 
