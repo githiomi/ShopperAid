@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -121,6 +122,7 @@ public class KilimallFragment extends Fragment {
             OkHttpClient client = new OkHttpClient();
             String thisUrl = Constants.KILIMALL_BASE_URL + productSearched + Constants.KILIMALL_PAGE_NO;
             Request request = new Request.Builder().url(thisUrl).build();
+            Log.d(TAG, "doInBackground: This url: " + thisUrl );
             try {
                 Response response = client.newCall(request).execute();
 
@@ -145,64 +147,73 @@ public class KilimallFragment extends Fragment {
                     String url = Constants.KILIMALL_BASE_URL + productSearched + Constants.KILIMALL_PAGE_NO + pageNumber;
                     final Document extractedContent = Jsoup.connect(url).get();
 
-                    // Confirming url
-                    Log.d(TAG, "doInBackground: extracted content url " + url);
+                    Handler kilimallHandler = new Handler();
+                    kilimallHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 
-                    Elements dataObtained = extractedContent.select("div.grid-content.bg-purple.clearfix");
+                            // Confirming url
+                            Log.d(TAG, "doInBackground: extracted content url " + url);
 
-                    Log.d(TAG, "doInBackground: Data Obtained: -----------" + dataObtained);
+                            Elements dataObtained = extractedContent.select("div.grid-content.bg-purple.clearfix");
 
-                    if (dataObtained.size() > 0) {
+                            Log.d(TAG, "doInBackground: Data Obtained: -----------" + dataObtained);
 
-                        int dataSize = dataObtained.size();
+                            if (dataObtained.size() > 0) {
 
-                        for (int j = 0; j < dataSize; j += 1) {
+                                int dataSize = dataObtained.size();
 
-                            String linkToPage = dataObtained.select("a.showHand")
-                                    .eq(j)
-                                    .attr("href");
+                                for (int j = 0; j < dataSize; j += 1) {
 
-                            String nameFromUrl = dataObtained.select("div.wordwrap")
-                                    .select("div")
-                                    .eq(j)
-                                    .text();
+                                    String linkToPage = dataObtained.select("a.showHand")
+                                            .eq(j)
+                                            .attr("href");
 
-                            String imageFromUrl = dataObtained.select("div.imgClass")
-                                    .select("img.imgClass")
-                                    .eq(j)
-                                    .attr("src");
+                                    String nameFromUrl = dataObtained.select("div.wordwrap")
+                                            .select("div")
+                                            .eq(j)
+                                            .text();
 
-                            String priceFromUrl = dataObtained.select("div.wordwrap-price")
-                                    .select("span.")
-                                    .eq(j)
-                                    .text();
+                                    String imageFromUrl = dataObtained.select("div.imgClass")
+                                            .select("img.imgClass")
+                                            .eq(j)
+                                            .attr("src");
 
-                            kilimallProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, "Rating here", imageFromUrl));
-                        }
-                    } else {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!(wKilimallRecyclerView.isFocusable())) {
-                                    noResult();
+                                    String priceFromUrl = dataObtained.select("div.wordwrap-price")
+                                            .select("span.")
+                                            .eq(j)
+                                            .text();
+
+                                    kilimallProducts.add(new Product(linkToPage, nameFromUrl, priceFromUrl, "Rating here", imageFromUrl));
                                 }
+
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        // Passing the products to the adapter
+                                        passToAdapter(kilimallProducts);
+
+                                        // Method to hide progress bar
+                                        showResults();
+                                    }
+                                });
+
+                            } else {
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (!(wKilimallRecyclerView.isFocusable())) {
+                                            noResult();
+                                        }
+                                    }
+                                });
                             }
-                        });
-                    }
+                        }
+
+                    }, 5000);
+
                 }
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        // Passing the products to the adapter
-                        passToAdapter(kilimallProducts);
-
-                        // Method to hide progress bar
-                        showResults();
-                    }
-                });
-
             } catch (Exception e) {
 
                 System.out.println(e.getMessage());
@@ -212,20 +223,12 @@ public class KilimallFragment extends Fragment {
                     public void run() {
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                         showUnsuccessful();
-                        try {
-                            KilimallFragment.this.finalize();
-                            KilimallScraper.this.finalize();
-                        } catch (Throwable throwable) {
-                            throwable.printStackTrace();
-                        }
                     }
                 });
-
             }
 
             return null;
         }
-
     }
 
     private void showUnsuccessful() {
@@ -240,7 +243,6 @@ public class KilimallFragment extends Fragment {
                 .setTextColor(getResources().getColor(R.color.white))
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                 .setAction("Action", null).show();
-
 
     }
 
@@ -266,7 +268,7 @@ public class KilimallFragment extends Fragment {
 
         //    Local variables
         // Results adapter
-        ResultItemAdapter resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Jumia", getContext());
+        ResultItemAdapter resultItemAdapter = new ResultItemAdapter(retrievedProducts, "Kilimall", getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
 
         wKilimallRecyclerView.setAdapter(resultItemAdapter);

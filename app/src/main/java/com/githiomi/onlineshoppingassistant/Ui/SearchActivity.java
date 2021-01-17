@@ -122,14 +122,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         // Setting initial selected item
         wSideNavigation.setCheckedItem(R.id.toSearchNav);
 
-        // Animate the navigation
-        animateNavigation();
-
-        // Click listeners
-        wSearchButton.setOnClickListener(this);
-        wNavigationImage.setOnClickListener(this);
-        wNavigationUsername.setOnClickListener(this);
-
         // Initializing the firebase variables
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -148,6 +140,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     if (userUri != null) {
                         Picasso.get()
                                 .load(userUri)
+                                .placeholder(R.drawable.user_profile_picture)
+                                .error(R.drawable.user_profile_picture)
                                 .into(wNavigationImage);
                     } else {
                         Picasso.get()
@@ -157,6 +151,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         };
+
+        // Animate the navigation
+        animateNavigation();
+
+        // Click listeners
+        wSearchButton.setOnClickListener(this);
+        wNavigationImage.setOnClickListener(this);
+        wNavigationUsername.setOnClickListener(this);
 
         // Init ads
         MobileAds.initialize(this);

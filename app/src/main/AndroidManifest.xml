@@ -13,21 +13,22 @@
         android:theme="@style/Theme.OnlineShoppingAssistant">
 
         <!-- Apache -->
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <uses-library android:name="org.apache.http.legacy" android:required="true"/>
 
         <!-- For my ad mob account -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8763169533349627~3461959056" />
+            android:value="@string/android_ads_id" />
+
+        <!-- For the fonts -->
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <!-- For the facebook login -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
 
         <!--  Facebook login activity -->
         <activity android:name="com.facebook.FacebookActivity"
@@ -88,7 +89,6 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 

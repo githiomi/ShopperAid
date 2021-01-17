@@ -81,6 +81,9 @@
     <string name="user_info">User Info</string>
     <string name="logout">Logout</string>
 
+    <!-- Android Ads Id -->
+    <string name="android_ads_id">ca-app-pub-8763169533349627~3461959056</string>
+
     <!--  Facebook data  -->
     <string name="facebook_app_id">211763487210697</string>
     <string name="fb_login_protocol_scheme">fb211763487210697</string>
