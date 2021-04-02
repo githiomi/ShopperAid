@@ -7,6 +7,8 @@
         <attr name="universalBackground" format="color" />
         <attr name="profileIcons" format="color" />
         <attr name="navigationBackground" format="color" />
+        <attr name="navigationHeaderBackground" format="color"/>
+
 
         <!-- Main Activity -->
         <attr name="mainActivityBackground" format="color" />
