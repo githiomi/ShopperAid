@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -61,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.profileContent) RelativeLayout wProfileContent;
     @BindView(R.id.userNavigation) NavigationView wNavigationView;
     @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
+    @BindView(R.id.logoutButton) CardView wLogoutButton;
 
     // Navigation view
     View navigationView;
@@ -135,6 +137,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         wEmail.setOnClickListener(this);
         wNavImage.setOnClickListener(this);
         wNavUsername.setOnClickListener(this);
+        wLogoutButton.setOnClickListener(this);
 
     }
 
@@ -233,6 +236,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
 
         if (selectedId == R.id.toLogoutNav) {
+            logout();
+        }
+
+        if (selectedId == R.id.logoutButton) {
             logout();
         }
 

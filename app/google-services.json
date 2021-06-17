@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "907110000203-4qrnt1vagvghpfdb7nhm62819p2q9osg.apps.googleusercontent.com",
+          "client_id": "907110000203-v75cl176vf0satlab9utuf62su8nn04b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.githiomi.onlineshoppingassistant",
-            "certificate_hash": "9cde38298d133b21e722264febb87d5b3a19157d"
+            "certificate_hash": "e6db563af613523448994f2ed044019ac34795d8"
           }
         },
         {
@@ -41,7 +41,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-8763169533349627~3461959056"
     }
   ],
   "configuration_version": "1"
