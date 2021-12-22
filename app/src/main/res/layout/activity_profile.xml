@@ -217,6 +217,13 @@
 
         </androidx.cardview.widget.CardView>
 
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/profileLogoutButton"-->
+<!--            android:width="wrap_content"-->
+<!--            android:width="wrap_content" >-->
+<!--            -->
+<!--        </androidx.cardview.widget.CardView>-->
+
     </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

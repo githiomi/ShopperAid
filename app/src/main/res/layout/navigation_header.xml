@@ -3,15 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:layout_margin="5dp"
     app:cardBackgroundColor="@color/transparent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="50dp"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="25dp">
+        app:cardBackgroundColor="?attr/navigationHeaderBackground">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,7 +21,7 @@
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
                 android:layout_margin="5dp"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:src="@drawable/user_profile_picture" />
 
             <TextView
