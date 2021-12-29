@@ -217,34 +217,23 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+        <Button
             android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cvContent"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="?attr/textInputFieldBackground"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="100dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:backgroundTint="@color/transparent"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="@string/logout"
-                android:textAllCaps="true"
-                android:textColor="?attr/profileAttributeHeaderText"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_logout"
-                app:drawableTint="?attr/profileAttributeHeaderText" />
-
-
-        </androidx.cardview.widget.CardView>
+            android:backgroundTint="?attr/navigationBackground"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_logout"
+            android:elevation="50dp"
+            android:padding="10dp"
+            android:text="@string/logout"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="?attr/profileAttributeHeaderText"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.EbayFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.JumiaFragment;
 import com.githiomi.onlineshoppingassistant.Fragments.Ui.AmazonFragment;
-import com.githiomi.onlineshoppingassistant.Fragments.Ui.KilimallFragment;
+import com.githiomi.onlineshoppingassistant.Fragments.Ui.AlibabaFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -35,18 +35,17 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             return JumiaFragment.newInstance();
         }
 
-        if (siteOption.equals("Kilimall")){
-            return KilimallFragment.newInstance();
+        if (siteOption.equals("Ebay")){
+            return EbayFragment.newInstance();
+        }
+
+        if (siteOption.equals("Alibaba")) {
+            return AlibabaFragment.newInstance();
         }
 
         if (siteOption.equals("Amazon")) {
             return AmazonFragment.newInstance();
         }
-
-        if (siteOption.equals("Ebay")) {
-            return EbayFragment.newInstance();
-        }
-
         return null;
     }
 

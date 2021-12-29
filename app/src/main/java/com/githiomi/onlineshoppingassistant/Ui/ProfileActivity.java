@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -62,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.profileContent) RelativeLayout wProfileContent;
     @BindView(R.id.userNavigation) NavigationView wNavigationView;
     @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
-    @BindView(R.id.logoutButton) CardView wLogoutButton;
+    @BindView(R.id.logoutButton) Button wLogoutButton;
 
     // Navigation view
     View navigationView;
@@ -239,10 +240,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             logout();
         }
 
-        if (selectedId == R.id.logoutButton) {
-            logout();
-        }
-
         if (selectedId == R.id.toSettingsNav) {
             Intent toSettingsIntent = new Intent(this, AppActivity.class);
             toSettingsIntent.putExtra(Constants.APP_FRAGMENT_NAME, "Settings");
@@ -267,7 +264,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     //    Custom method for the user to logout
     private void logout() {
 
-        mFirebaseAuth.signOut();
+        if (mFirebaseAuth.getCurrentUser() != null) {
+            mFirebaseAuth.signOut();
+        }
         Intent backToLogin = new Intent(ProfileActivity.this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -324,6 +323,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         if (view == wNavUsername) {
             wProfileDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        if (view == wLogoutButton) {
+            logout();
         }
 
     }
