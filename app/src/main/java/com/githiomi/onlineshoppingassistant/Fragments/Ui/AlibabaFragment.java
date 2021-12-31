@@ -42,10 +42,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class KilimallFragment extends Fragment {
+public class AlibabaFragment extends Fragment {
 
     //    TAG
-    private static final String TAG = KilimallFragment.class.getSimpleName();
+    private static final String TAG = AlibabaFragment.class.getSimpleName();
 
     // Context
     private Context context;
@@ -62,12 +62,12 @@ public class KilimallFragment extends Fragment {
     @BindView(R.id.errorMessage) TextView wErrorMessage;
     @BindView(R.id.noResult) TextView wNoResult;
 
-    public KilimallFragment() {
+    public AlibabaFragment() {
         // Required empty public constructor
     }
 
-    public static KilimallFragment newInstance() {
-        return new KilimallFragment();
+    public static AlibabaFragment newInstance() {
+        return new AlibabaFragment();
     }
 
     @Override

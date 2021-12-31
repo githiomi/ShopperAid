@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -61,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.profileContent) RelativeLayout wProfileContent;
     @BindView(R.id.userNavigation) NavigationView wNavigationView;
     @BindView(R.id.profileProgressBar) ProgressBar wProfileProgressBar;
+    @BindView(R.id.logoutButton) Button wLogoutButton;
 
     // Navigation view
     View navigationView;
@@ -135,6 +138,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         wEmail.setOnClickListener(this);
         wNavImage.setOnClickListener(this);
         wNavUsername.setOnClickListener(this);
+        wLogoutButton.setOnClickListener(this);
 
     }
 
@@ -260,7 +264,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     //    Custom method for the user to logout
     private void logout() {
 
-        mFirebaseAuth.signOut();
+        if (mFirebaseAuth.getCurrentUser() != null) {
+            mFirebaseAuth.signOut();
+        }
         Intent backToLogin = new Intent(ProfileActivity.this, LoginActivity.class);
         backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -317,6 +323,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         if (view == wNavUsername) {
             wProfileDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        if (view == wLogoutButton) {
+            logout();
         }
 
     }

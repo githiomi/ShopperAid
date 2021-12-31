@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.githiomi.onlineshoppingassistant.Models.Constants;
 import com.githiomi.onlineshoppingassistant.R;
+import com.githiomi.onlineshoppingassistant.Ui.AppInfo;
 import com.githiomi.onlineshoppingassistant.Ui.MainActivity;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -112,12 +113,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         if (v == wAppInfoCv) {
-            String appInfo = " No application information yet! :( ";
-            Snackbar.make(Objects.requireNonNull(getView()), appInfo, Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
-                    .setTextColor(getResources().getColor(R.color.white))
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                    .setAction("Action", null).show();
+            Intent toAppInfo = new Intent(getContext(), AppInfo.class);
+            startActivity(toAppInfo, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         }
 
         if (v == wAppTheme) {

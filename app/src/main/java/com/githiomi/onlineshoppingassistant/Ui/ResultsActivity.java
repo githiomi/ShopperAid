@@ -61,7 +61,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     //    Local variables
     // The shopping options
-    private final String[] shoppingSiteOptions = {"Jumia", "Kilimall", "Amazon", "Ebay"};
+    private final String[] shoppingSiteOptions = {"Jumia", "Ebay", "Alibaba", "Amazon",};
 
     //    Firebase
     private FirebaseAuth mFirebaseAuth;
