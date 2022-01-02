@@ -118,4 +118,5 @@ dependencies {
 
 //    Allow sign in with facebook
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
 }
