@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "907110000203-v75cl176vf0satlab9utuf62su8nn04b.apps.googleusercontent.com",
+          "client_id": "907110000203-db8detdnhc9f44cg48e5a76l7fhba825.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.githiomi.onlineshoppingassistant",
-            "certificate_hash": "e6db563af613523448994f2ed044019ac34795d8"
+            "certificate_hash": "4aaf05dce1120f4c46208f33196b1ebf5538ae72"
           }
         },
         {

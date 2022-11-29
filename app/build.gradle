@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
+
+    // Google Services Gradle plugin
     id 'com.google.gms.google-services'
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.githiomi.onlineshoppingassistant"
         minSdkVersion 26
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -52,8 +54,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
 //    Butter knife
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
 //    Card view dependency
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -62,53 +64,53 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
 //    Parcel Library
-    implementation 'org.parceler:parceler-api:1.1.12'
-    annotationProcessor 'org.parceler:parceler:1.1.12'
+    implementation 'org.parceler:parceler-api:1.1.13'
+    annotationProcessor 'org.parceler:parceler:1.1.13'
 
 //    Picasso dependency
     implementation 'com.squareup.picasso:picasso:2.71828'
 
 //    Circle image view
     implementation 'com.google.android.material:material:1.7.0'
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 //    Spots dialog loading
-    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+//    implementation 'com.github.d-max:spots-dialog:1.1@aar'
 
 //    JSOUP dependency
-    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'org.jsoup:jsoup:1.15.3'
 
 //    Firebase Implementation Dependencies
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
     //    for analytics
-    implementation 'com.google.firebase:firebase-analytics:21.2.0'
+    implementation 'com.google.firebase:firebase-analytics'
     //    firebase database
     implementation 'com.google.firebase:firebase-database:20.1.0'
     //    recycler adapter
-    implementation 'com.firebaseui:firebase-ui-database:3.3.1'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.2'
     //    for authentication
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     //    for storage
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
 
 //    Styling dependencies
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.2.0"
 
 //    Shimmer dependencies
-    implementation 'com.facebook.shimmer:shimmer:0.4.0'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
 //    OkHttp3
-    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.10'
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
 
 //    Gson
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.10'
 
 //    Pin view
-    implementation 'com.chaos.view:pinview:1.4.3'
+//    implementation 'com.chaos.view:pinview:1.4.3'
 
 //    For the ads
     implementation 'com.google.android.gms:play-services-ads:21.3.0'
@@ -117,6 +119,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
 
 //    Allow sign in with facebook
-    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+    implementation 'com.facebook.android:facebook-android-sdk:15.1.0'
 
 }
