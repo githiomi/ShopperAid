@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/cvButtonToSite"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/productFaceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:elevation="30dp"
+                android:padding="5dp"
+                app:cardBackgroundColor="?attr/textInputFieldBackground"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/productItemImage"
+                        android:layout_width="150dp"
+                        android:layout_height="200dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="10dp"
+                        android:contentDescription="@string/app_moto" />
+
+                    <TextView
+                        android:id="@+id/productItemName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_toEndOf="@id/productItemImage"
+                        android:background="@color/transparent"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="?attr/productDetailNameText"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/productItemPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/productItemName"
+                        android:layout_margin="10dp"
+                        android:layout_toEndOf="@id/productItemImage"
+                        android:background="@color/colorPrimary"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/productItemRating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/productItemPrice"
+                        android:layout_margin="5dp"
+                        android:layout_toEndOf="@id/productItemImage"
+                        android:paddingBottom="10dp"
+                        android:textAlignment="center"
+                        android:textColor="?attr/productDetailRatingText" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <ProgressBar
+                android:id="@+id/specsProgressBar"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/productFaceInfo"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="200dp"
+                android:indeterminate="false"
+                android:indeterminateTint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/noResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/specsProgressBar"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="200dp"
+                android:text="@string/retrieve_error"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="?attr/textInputFieldText"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvProductDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/productFaceInfo"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:elevation="30dp"
+                android:padding="5dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:padding="3dp"
+                    android:text="Product Details:"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvProductSpecs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cvProductDetailsTitle"
+                android:layout_margin="7dp"
+                android:elevation="30dp"
+                android:padding="5dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="?attr/textInputFieldBackground"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvWarrantyTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:drawablePadding="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="5dp"
+                        android:text="@string/product_delivery"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        app:drawableLeftCompat="@drawable/ic_delivery" />
+
+                    <TextView
+                        android:id="@+id/productWarranty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvWarrantyTitle"
+                        android:layout_margin="5dp"
+                        android:padding="10dp"
+                        android:textColor="?attr/productDetailsText" />
+
+                    <TextView
+                        android:id="@+id/tvSpecsTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/productWarranty"
+                        android:layout_margin="5dp"
+                        android:drawablePadding="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="5dp"
+                        android:text="@string/specs"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        app:drawableLeftCompat="@drawable/ic_info" />
+
+                    <TextView
+                        android:id="@+id/productSpecs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvSpecsTitle"
+                        android:layout_margin="5dp"
+                        android:padding="10dp"
+                        android:textColor="?attr/productDetailsText" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvButtonToSite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="3dp"
+        android:elevation="100dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="?attr/loginButtonBackground"
+        app:cardCornerRadius="10dp">
+
+        <Button
+            android:id="@+id/btnGoToSite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="3dp"
+            android:background="@color/transparent"
+            android:padding="3dp"
+            android:text="@string/proceed_to_order"
+            android:textColor="?attr/loginButtonText"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

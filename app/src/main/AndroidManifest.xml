@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.githiomi.onlineshoppingassistant">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OnlineShoppingAssistant">
+        <activity android:name=".Ui.AppInfo"></activity>
+        <!-- Apache -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="true" /> <!-- For my ad mob account -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/android_ads_id" /> <!-- For the fonts -->
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" /> <!-- For the facebook login -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" /> <!-- Facebook login activity -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Ui.AppActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.RecentSearchesActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.DetailActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.EditActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.ProfileActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.ResultsActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.SearchActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.SignUpActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.LoginActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Ui.MainActivity"
+            android:theme="@style/Welcome_NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

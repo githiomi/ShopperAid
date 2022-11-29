@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/mainActivityBackground"
+    tools:context=".Ui.MainActivity">
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/app_logo"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/app_logo" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:text="@string/app_name"
+        android:layout_below="@id/appLogo"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/app_moto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appName"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:text="@string/app_moto"
+        android:textAlignment="center"
+        android:textColor="?attr/mainActivityText"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/initialPageProgressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_moto"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="false"
+        android:indeterminateTint="?attr/mainActivityProgressBar"
+        android:progressDrawable="@color/white" />
+
+</RelativeLayout>

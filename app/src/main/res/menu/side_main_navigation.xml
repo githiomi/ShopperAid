@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/search">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/toSearchNav"
+                    android:icon="@drawable/ic_search"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="@string/search" />
+
+            </group>
+        </menu>
+
+    </item>
+
+
+    <item android:title="@string/user_info">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/toProfileNav"
+                    android:icon="@drawable/ic_profile"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="@string/profile" />
+
+                <item
+                    android:id="@+id/toLogoutNav"
+                    android:icon="@drawable/ic_logout"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="@string/logout" />
+
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="Application">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/toSettingsNav"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_settings"
+                    android:title="Settings" />
+
+                <item
+                    android:id="@+id/toPrivacyPolicyNav"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_info"
+                    android:title="Privacy Policy" />
+
+                <item
+                    android:id="@+id/toRateThisApp"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_star"
+                    android:title="Rate This App" />
+
+            </group>
+        </menu>
+
+    </item>
+
+</menu>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/universalBackground"
+    tools:context=".Ui.AppInfo">
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/appToolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="top"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="1dp">-->
+
+<!--        <include-->
+<!--            android:id="@+id/customToolbar"-->
+<!--            layout="@layout/app_info_toolbar" />-->
+
+<!--    </LinearLayout>-->
+
+</RelativeLayout>

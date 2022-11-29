@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="blue">#0000FF</color>
+    <color name="lime_green">#00FF00</color>
+
+    <!--    Alternative colors-->
+    <color name="white">#FFFFFFFF</color>
+    <color name="darkGrey">#6c6c6c</color>
+    <color name="black">#000000</color>
+    <color name="cardBackground">#424242</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="colorPrimary">#AF022B</color>
+    <color name="colorPrimaryDark">#630118</color>
+    <color name="colorAccent">#D8211B</color>
+    <color name="yellow">#BB8C00</color>
+    <color name="whiteBread">#ffdb69</color>
+    <color name="colorIcons">#7C7F81</color>
+    <color name="colorPrimaryText">#1e1e1e</color>
+    <color name="brown">#8B4513</color>
+    <color name="colorWhiteDark">#DBDBDB</color>
+    <color name="colorPrimaryLight">#CA7474</color>
+    <color name="colorBackground">#FFF6F8</color>
+
+    <!-- For the themes -->
+    <color name="textInputFieldBackground">#1e1e1e</color>
+
+</resources>

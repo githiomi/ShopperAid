@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/textInputFieldBackground"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/recentSearchItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@color/transparent"
+            android:paddingStart="15dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="3dp"
+            android:text="@string/app_name"
+            android:drawablePadding="10dp"
+            android:clickable="true"
+            android:textColor="?attr/recentSearchItemText"
+            android:textSize="15sp"
+            android:focusable="true"
+            app:drawableStartCompat="@drawable/ic_recent" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
