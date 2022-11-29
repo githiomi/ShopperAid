@@ -56,19 +56,31 @@ public class JumiaDetailFragment extends Fragment {
     private Activity activity;
 
     //    Widgets
-    @BindView(R.id.productItemImage) ImageView wProductImage;
-    @BindView(R.id.productItemName) TextView wProductName;
-    @BindView(R.id.productItemPrice) TextView wProductPrice;
-    @BindView(R.id.productItemRating) TextView wProductRating;
-    @BindView(R.id.productWarranty) TextView wProductWarranty;
-    @BindView(R.id.productSpecs) TextView wProductSpecs;
-    @BindView(R.id.btnGoToSite) Button wToSite;
-    @BindView(R.id.specsProgressBar) ProgressBar wSpecsProgressBar;
-    @BindView(R.id.noResult) TextView wErrorMessage;
-    @BindView(R.id.cvButtonToSite) CardView wButtonCardView;
+    @BindView(R.id.productItemImage)
+    ImageView wProductImage;
+    @BindView(R.id.productItemName)
+    TextView wProductName;
+    @BindView(R.id.productItemPrice)
+    TextView wProductPrice;
+    @BindView(R.id.productItemRating)
+    TextView wProductRating;
+    @BindView(R.id.productWarranty)
+    TextView wProductWarranty;
+    @BindView(R.id.productSpecs)
+    TextView wProductSpecs;
+    @BindView(R.id.btnGoToSite)
+    Button wToSite;
+    @BindView(R.id.specsProgressBar)
+    ProgressBar wSpecsProgressBar;
+    @BindView(R.id.noResult)
+    TextView wErrorMessage;
+    @BindView(R.id.cvButtonToSite)
+    CardView wButtonCardView;
     // Card views
-    @BindView(R.id.cvProductDetailsTitle) CardView wProductSpecsTitle;
-    @BindView(R.id.cvProductSpecs) CardView wProductSpecifications;
+    @BindView(R.id.cvProductDetailsTitle)
+    CardView wProductSpecsTitle;
+    @BindView(R.id.cvProductSpecs)
+    CardView wProductSpecifications;
 
 
     public JumiaDetailFragment() {
@@ -113,7 +125,7 @@ public class JumiaDetailFragment extends Fragment {
         int MAX_WIDTH = 230;
         int MAX_HEIGHT = 250;
 
-        if (productToShowDetails.getImageUrl().isEmpty()){
+        if (productToShowDetails.getImageUrl().isEmpty()) {
             Picasso.get().load(R.drawable.no_image)
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerInside()
@@ -245,7 +257,7 @@ public class JumiaDetailFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Snackbar.make(Objects.requireNonNull(getView()), "Swipe Down To Refresh!", Snackbar.LENGTH_SHORT)
+        Snackbar.make(requireView(), "Swipe Down To Refresh!", Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
                 .setTextColor(getResources().getColor(R.color.white))
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)

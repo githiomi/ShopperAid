@@ -57,10 +57,14 @@ public class JumiaFragment extends Fragment {
     private Activity activity;
 
     //      Widgets
-    @BindView(R.id.resultsRecyclerView) RecyclerView wJumiaRecyclerView;
-    @BindView(R.id.progressBar) ProgressBar wProgressBar;
-    @BindView(R.id.errorMessage) TextView wErrorMessage;
-    @BindView(R.id.noResult) TextView wNoResult;
+    @BindView(R.id.resultsRecyclerView)
+    RecyclerView wJumiaRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar wProgressBar;
+    @BindView(R.id.errorMessage)
+    TextView wErrorMessage;
+    @BindView(R.id.noResult)
+    TextView wNoResult;
 
     public JumiaFragment() {
         // Required empty public constructor
@@ -187,11 +191,11 @@ public class JumiaFragment extends Fragment {
                                 }
                             }
                         }
-                    } else{
+                    } else {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if ( !(wJumiaRecyclerView.isFocusable()) ) {
+                                if (!(wJumiaRecyclerView.isFocusable())) {
                                     noResult();
                                 }
                             }
@@ -211,23 +215,21 @@ public class JumiaFragment extends Fragment {
                     }
                 });
 
-        } catch(
-        Exception e)
-
-        {
-            System.out.println(e.getMessage());
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showUnsuccessful();
-                }
-            });
-        }
+            } catch (
+                    Exception e) {
+                System.out.println(e.getMessage());
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showUnsuccessful();
+                    }
+                });
+            }
 
             return null;
-    }
+        }
 
-}
+    }
 
     private void showUnsuccessful() {
 
@@ -236,7 +238,7 @@ public class JumiaFragment extends Fragment {
         wErrorMessage.setVisibility(View.VISIBLE);
         wErrorMessage.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
 
-        Snackbar.make(Objects.requireNonNull(getView()), "Swipe Down To Refresh!", Snackbar.LENGTH_SHORT)
+        Snackbar.make(requireView(), "Swipe Down To Refresh!", Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
                 .setTextColor(getResources().getColor(R.color.white))
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
