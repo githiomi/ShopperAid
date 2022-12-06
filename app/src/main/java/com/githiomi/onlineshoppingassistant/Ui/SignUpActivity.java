@@ -44,24 +44,34 @@ import com.google.firebase.database.FirebaseDatabase;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-//    TAG
+    //    TAG
     private static final String TAG = SignUpActivity.class.getSimpleName();
 
-//    Binding widgets using Butter knife
-    @BindView(R.id.ivBackToLogin) ImageView wBackToLogin;
-    @BindView(R.id.edUsername) TextInputEditText wUsername;
-    @BindView(R.id.edEmail) TextInputEditText wEmail;
-    @BindView(R.id.edPhoneNumber) TextInputEditText wPhoneNumber;
-    @BindView(R.id.edPassword) TextInputEditText wPassword;
-    @BindView(R.id.edConfirmPassword) TextInputEditText wConfirmPassword;
-    @BindView(R.id.btnSignUp) Button wBtnSignUp;
-    @BindView(R.id.signUpProgressBar) ProgressBar wSignUpProgressBar;
-    @BindView(R.id.tvBackToLogin) TextView wTvBackToLogin;
-    @BindView(R.id.adContainer) FrameLayout wAdContainer;
+    //    Binding widgets using Butter knife
+    @BindView(R.id.ivBackToLogin)
+    ImageView wBackToLogin;
+    @BindView(R.id.edUsername)
+    TextInputEditText wUsername;
+    @BindView(R.id.edEmail)
+    TextInputEditText wEmail;
+    @BindView(R.id.edPhoneNumber)
+    TextInputEditText wPhoneNumber;
+    @BindView(R.id.edPassword)
+    TextInputEditText wPassword;
+    @BindView(R.id.edConfirmPassword)
+    TextInputEditText wConfirmPassword;
+    @BindView(R.id.btnSignUp)
+    Button wBtnSignUp;
+    @BindView(R.id.signUpProgressBar)
+    ProgressBar wSignUpProgressBar;
+    @BindView(R.id.tvBackToLogin)
+    TextView wTvBackToLogin;
+    @BindView(R.id.adContainer)
+    FrameLayout wAdContainer;
 
-//    Local variables
+    //    Local variables
     // User
     private String username;
     // Firebase
@@ -77,9 +87,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPreferences.getString(Constants.APP_THEME, "Light Mode");
 
-        if (theme.equals("Dark Mode")){
+        if (theme.equals("Dark Mode")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
@@ -116,8 +126,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     //    For the adaptive banner
     private void loadBanner() {
         AdRequest adRequest =
-                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                        .build();
+                new AdRequest.Builder().build();
 
         AdSize adSize = getAdSize();
         adView.setAdSize(adSize);
@@ -138,34 +147,34 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
-//    The on click listener implementation
+    //    The on click listener implementation
     @Override
     public void onClick(View v) {
 
-        if ( v == wBackToLogin ){
+        if (v == wBackToLogin) {
             hideKeyboard(v);
             Intent backToLogin = new Intent(this, LoginActivity.class);
-            backToLogin.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+            backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         }
 
-        if ( v == wTvBackToLogin ){
+        if (v == wTvBackToLogin) {
             hideKeyboard(v);
             Intent backToLogin = new Intent(this, LoginActivity.class);
-            backToLogin.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+            backToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(backToLogin, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             finish();
         }
 
-        if( v == wBtnSignUp ){
+        if (v == wBtnSignUp) {
             hideKeyboard(v);
             signUpNewUser(v);
         }
     }
 
-//    Method that will collect data and create the new user profile
-    private void signUpNewUser( View v ){
+    //    Method that will collect data and create the new user profile
+    private void signUpNewUser(View v) {
 
         username = wUsername.getText().toString().trim();
         String email = wEmail.getText().toString().trim();
@@ -179,7 +188,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         boolean isNumberValid = isNumberValid(phoneNumber);
         boolean isPasswordsValid = isPasswordsValid(password, confirmPassword);
 
-        if ( !(isNameValid) || !(isEmailValid) || !(isNumberValid) || !(isPasswordsValid) ) return;
+        if (!(isNameValid) || !(isEmailValid) || !(isNumberValid) || !(isPasswordsValid)) return;
 
         // Exchange button with progress bar
         wBtnSignUp.setVisibility(View.GONE);
@@ -192,7 +201,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if ( task.isSuccessful() ){
+                if (task.isSuccessful()) {
 
                     // Add the username to the account created
                     FirebaseUser firebaseUser = task.getResult().getUser();
@@ -202,8 +211,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     // Save the phone number to firebase
                     // Creating reference
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-                                                                          .getReference("Users' Phone Numbers")
-                                                                          .child(username);
+                            .getReference("Users' Phone Numbers")
+                            .child(username);
 
                     String completeNumber = "+254" + phoneNumber;
                     PhoneNumber phoneNumberClass = new PhoneNumber(username, completeNumber);
@@ -215,39 +224,39 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     wBtnSignUp.setVisibility(View.VISIBLE);
 
                     // Go to the search activity
-                    Intent toSearchActivity = new Intent( v.getContext(), SearchActivity.class );
-                    toSearchActivity.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+                    Intent toSearchActivity = new Intent(v.getContext(), SearchActivity.class);
+                    toSearchActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(toSearchActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
                     finish();
 
-                }else {
+                } else {
 
                     // Exchange button with progress bar
                     wSignUpProgressBar.setVisibility(View.GONE);
                     wBtnSignUp.setVisibility(View.VISIBLE);
 
-                    Snackbar.make( v, "Couldn't create your account. Try again.", Snackbar.LENGTH_SHORT )
-                            .setAction( "Action", null ).show();
+                    Snackbar.make(v, "Couldn't create your account. Try again.", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
 
                 }
             }
         });
     }
 
-// To add the username to the account
-    private void addUsernameToAccount( FirebaseUser firebaseUser ){
+    // To add the username to the account
+    private void addUsernameToAccount(FirebaseUser firebaseUser) {
 
         UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
-                                                                                        .setDisplayName(username)
-                                                                                        .build();
+                .setDisplayName(username)
+                .build();
 
         firebaseUser.updateProfile(userProfileChangeRequest);
     }
 
-//    Validation methods
+    //    Validation methods
     // Validate Username
-    private boolean isUsernameValid( String username ){
-        if ( username.isEmpty() ){
+    private boolean isUsernameValid(String username) {
+        if (username.isEmpty()) {
             wUsername.setError("This field cannot be left empty");
             return false;
         }
@@ -255,11 +264,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     // Validate Email
-    private boolean isEmailValid( String email ){
-        boolean emailGood = ( email != null &&
-                              Patterns.EMAIL_ADDRESS.matcher(email).matches() );
+    private boolean isEmailValid(String email) {
+        boolean emailGood = (email != null &&
+                Patterns.EMAIL_ADDRESS.matcher(email).matches());
 
-        if ( !(emailGood) ){
+        if (!(emailGood)) {
             wEmail.setError("Enter a valid email address");
             return false;
         }
@@ -267,24 +276,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     // Validate Phone number
-    private boolean isNumberValid( String phoneNumber ){
+    private boolean isNumberValid(String phoneNumber) {
         int digitLimit = 9;
         int numberLength = phoneNumber.length();
 
-        if ( numberLength == digitLimit ){
+        if (numberLength == digitLimit) {
 
             char firstDigit = phoneNumber.charAt(0);
 
             return firstDigit == '7' || firstDigit == '1';
 
-        }else {
+        } else {
             wPhoneNumber.setError("Incorrect Phone number format");
             return false;
         }
     }
 
     // Validate Passwords
-    private boolean isPasswordsValid( String password, String confirmPassword ){
+    private boolean isPasswordsValid(String password, String confirmPassword) {
         if (password.isEmpty()) {
             String error = "This field cannot be left blank";
             wPassword.setError(error);
@@ -297,19 +306,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
 
-        if (password.length() < 8 ) {
+        if (password.length() < 8) {
             String error = "Password must contain at least 8 characters";
             wPassword.setError(error);
             return false;
         }
 
-        if ( confirmPassword.length() < 8 ){
+        if (confirmPassword.length() < 8) {
             String error = "Password must contain at least 8 characters";
             wConfirmPassword.setError(error);
             return false;
         }
 
-        if ( !password.equals(confirmPassword) ) {
+        if (!password.equals(confirmPassword)) {
             wPassword.setError("Passwords do not match");
             wConfirmPassword.setError("Passwords do not match");
             return false;
@@ -317,13 +326,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-//    Method to hide the keyboard
+    //    Method to hide the keyboard
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-//    Adding auth state listeners
+    //    Adding auth state listeners
     @Override
     protected void onStart() {
         super.onStart();
@@ -332,7 +341,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onStop() {
-        if ( mAuthStateListener != null ) {
+        if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
         super.onStop();

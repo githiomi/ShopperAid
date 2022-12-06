@@ -168,14 +168,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onError(FacebookException error) {
+            public void onError(@NonNull FacebookException error) {
 
                 // Return card view
                 wFacebookProgressBar.setVisibility(View.GONE);
                 wCvSignInWithFacebook.setVisibility(View.VISIBLE);
 
                 // If an error occurs
-                String errorToPrint = error.getMessage().toString();
+                String errorToPrint = error.getMessage();
                 Log.d(TAG, "onError: " + errorToPrint);
 
             }
@@ -212,8 +212,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // For the adaptive banner
     private void loadBanner() {
         AdRequest adRequest =
-                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                        .build();
+                new AdRequest.Builder().build();
 
         AdSize adSize = getAdSize();
         adView.setAdSize(adSize);

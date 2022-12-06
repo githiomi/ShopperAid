@@ -35,7 +35,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             return JumiaFragment.newInstance();
         }
 
-        if (siteOption.equals("Ebay")){
+        if (siteOption.equals("Ebay")) {
             return EbayFragment.newInstance();
         }
 

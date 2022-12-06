@@ -80,6 +80,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Ui.MainActivity"
+            android:exported="true"
             android:theme="@style/Welcome_NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
